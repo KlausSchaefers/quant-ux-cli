@@ -1,4 +1,4 @@
-import * as Util from 'export/ExportUtil'
+import * as Util from '../ExportUtil'
 
 export default class VueSinglePageWriter {
 
@@ -22,7 +22,6 @@ export default class VueSinglePageWriter {
 
             let bindings = elements.filter(e => e.props && e.props.databinding)
                 .map(e => `            ${e.props.databinding.default}: ${this.getDefaultDataBindung(e)}`)
-            console.debug(bindings)
             let data = bindings.join('\n')
 
             result.push({

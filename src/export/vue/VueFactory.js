@@ -1,5 +1,5 @@
 
-import HTMLFactory from 'export/html/HTMLFactory'
+import HTMLFactory from '../html/HTMLFactory'
 
 export default class VueFactory extends HTMLFactory{
 

@@ -1,15 +1,13 @@
-import Core from 'core/Core'
-import * as Util from 'export/ExportUtil'
+import * as Util from './ExportUtil'
 
 /**
  * This class transforms an absolute quant-ux model into an
  * kind of HTML model, where the elements have a real parent 
  * child relation child
  */
-export default class ModelTransformer extends Core{
+export default class ModelTransformer {
 
     constructor (app) {
-        super()
         this.model = app
         this.rowContainerID = 0
         this.columnContainerID = 0
@@ -203,7 +201,7 @@ export default class ModelTransformer extends Core{
             let children =  columns[column]
             let hasParent = children.reduce((a,b) => b.parent != null & a, true)
             if (hasParent) {
-                let boundingBox = this.getBoundingBoxByBoxes(children)
+                let boundingBox = Util.getBoundingBoxByBoxes(children)
                 let container = {
                     id: 'c' + this.columnContainerID++,
                     name: `Column ${this.columnContainerID}`,
@@ -310,7 +308,7 @@ export default class ModelTransformer extends Core{
             let children = rows[row]
             let hasNoParent = children.reduce((a,b) => b.parent === null & a, true)
             if (hasNoParent) {
-                let boundingBox = this.getBoundingBoxByBoxes(children)
+                let boundingBox = Util.getBoundingBoxByBoxes(children)
                 let container = {
                     id: 'r' + this.rowContainerID++,
                     name: `Row ${this.rowContainerID}`,
@@ -407,7 +405,7 @@ export default class ModelTransformer extends Core{
          * Get widget in render order. This is important to derive the
          * parent child relations.
          */
-        let widgets = this.getOrderedWidgets(this.getWidgets(screen));
+        let widgets = Util.getOrderedWidgets(this.getWidgets(screen));
 
         /**
          *  now build child parent relations
@@ -449,7 +447,7 @@ export default class ModelTransformer extends Core{
     getParentWidget (potentialParents, element){
         for (let p=0;p< potentialParents.length; p++){
             let parent = potentialParents[p];
-            if (this._isContainedInBox(element, parent)){
+            if (Util.isContainedInBox(element, parent)){
                 return parent
             }
         }

@@ -1,5 +1,5 @@
 
-import * as Util from 'export/ExportUtil'
+import * as Util from './ExportUtil'
 
 export default class {
   

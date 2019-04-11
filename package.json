@@ -4,12 +4,14 @@
   "private": false,
   "main": "index.js",
   "scripts": {
-    "build": "babel --presets es2015 -d lib/ src",
-    "start": "babel-node src/index.js"
+    "build": "babel -d lib/ src",
+    "start": "babel-node src/cli.js"
   },
   "dependencies": {
     "commander": "^2.20.0",
-    "inquirer": "^6.2.2"
+    "inquirer": "^6.2.2",
+    "pretty": "^2.0.0",
+    "request": "^2.88.0"
   },
   "bin": {
     "quant-ux": "bin/main.js"

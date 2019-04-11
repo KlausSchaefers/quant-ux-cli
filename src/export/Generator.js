@@ -1,4 +1,4 @@
-import ModelTranformer from 'export/ModelTransformer'
+import ModelTranformer from './ModelTransformer'
 import pretty from 'pretty'
 
 /**
@@ -69,7 +69,4 @@ export default class Generator {
       return this.elementFactory.element(element, styles[element.id])
     }
   }
-
- 
-
 }

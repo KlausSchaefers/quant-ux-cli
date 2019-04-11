@@ -1,0 +1,14 @@
+{
+    "token": "a2aa10azyyjaG658KWPs7GXyZinYy72N3VfwFobBG1cdgmbYpJK7zTfNKTVe",
+    "targets": {
+        "vue": "test/src/components",
+        "css": "test/src/css",
+        "html": "test/src/html"
+    },
+    "type": "html",
+    "server": "https://quant-ux.com",
+    "overwrite": true,
+    "css": {
+        "responsive": true
+    }
+}
