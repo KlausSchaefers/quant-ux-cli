@@ -1,13 +1,22 @@
 {
   "name": "quant-ux-cli",
-  "version": "1.0.2",
+  "version": "1.0.11",
   "private": false,
-  "main": "index.js",
+  "author": "Klaus Schaefers",
+  "homepage": "http://quant-ux.com",
+  "main": "lib/index.js",
   "scripts": {
     "build": "babel -d lib/ src",
-    "start": "babel-node src/cli.js"
+    "start": "babel-node src/cli.js",
+    "test": "babel-node src/index.js"
   },
   "dependencies": {
+    "commander": "^2.20.0",
+    "inquirer": "^6.2.2",
+    "pretty": "^2.0.0",
+    "request": "^2.88.0"
+  },
+  "peerDependencies": {
     "commander": "^2.20.0",
     "inquirer": "^6.2.2",
     "pretty": "^2.0.0",

@@ -1,4 +1,4 @@
-import * as Util from './ExportUtil'
+import * as Util from '../ExportUtil'
 
 export default class SinglePageWriter {
 
@@ -17,13 +17,13 @@ export default class SinglePageWriter {
                 let styles = code.styles[element.id]
                 css += styles.map(s => s.code).join('\n')
             })
-           
+
 
             result.push({
                 name: `${screen.name}.html`,
                 type: 'html',
                 id: screen.id,
-                content: 
+                content:
 `<html>
     <head>
     <title>${screen.name}</title>
