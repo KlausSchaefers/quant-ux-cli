@@ -145,9 +145,10 @@ export default class {
 			}
 		}
 
+		let name = this.getName(node);
 		result[node.id].push({
 			type: 'widget',
-			css: node.name.replace(/\s+/g, '_'),
+			css: name,
 			global:false,
 			code: this.getCSS(node, screen),
 			inherited: node.inherited,
@@ -215,7 +216,11 @@ export default class {
 
 
 	getName(box){
-		return box.name.replace(/\s+/g, '_')
+		let name = box.name.replace(/\s+/g, '_')
+		if (box.inherited) {
+			name += 'Master'
+		}
+		return name
 	}
 
 	getPosition (widget) {
