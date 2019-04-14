@@ -23,13 +23,33 @@ export default class ModelTransformer {
         let result = {
             name: this.model.name,
             templates: Object.values(this.model.templates),
+            warnings: [],
             screens: []
         }
 
         /**
-         * before we start, we create an inherited model!
+         * Before we start, we create an inherited model!
          */
         this.model = Util.createInheritedModel(this.model)
+
+        /**
+         * FIXME: We should fix doubles names. With mastre screens
+         * we could have overwites! We could rename them, but this
+         * would have to be consistant in all screens!
+         */
+        for (let screenID in this.model.screens){
+            let screen = this.model.screens[screenID]
+            let children = screen.children
+            let names = children.map(c => this.model.widgets[c].name)
+            let count = {}
+            names.forEach(n => {
+                if (count[n]) {
+                    result.warnings.push(`Dubplicate name of element '${n}' in screen '${screen.name}'`)
+                }
+                count[n] = true
+            })
+        }
+
 
         for (let screenID in this.model.screens){
             let screen = this.model.screens[screenID]
@@ -78,6 +98,13 @@ export default class ModelTransformer {
         if (this.removeSingleLabels) {
             this.attachSingleLabels(result)
         }
+
+        /**
+         * If we have warnings, lets print them
+         */
+        result.warnings.forEach(w => {
+            console.warn(w)
+        })
 
         return result
     }

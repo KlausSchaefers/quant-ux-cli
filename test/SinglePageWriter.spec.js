@@ -27,5 +27,5 @@ test('Test Template', () => {
   expect(file.content.indexOf('<div class="BoxMaster">Master</div>')).toBeGreaterThan(0)
 
 
-  console.debug(file.content)
+  // console.debug(file.content)
 });
