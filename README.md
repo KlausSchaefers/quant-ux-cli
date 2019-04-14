@@ -23,6 +23,8 @@ You need a .quant-ux.json file in your root directory.
 }
 ```
 
+The token identifies your prototype. You can optain it the editor on quant-ux.com.
+
 Then simply run
 ```
 quant-ux

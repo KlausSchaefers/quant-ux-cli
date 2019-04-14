@@ -2,7 +2,7 @@ import * as Util from './ExportUtil'
 
 /**
  * This class transforms an absolute quant-ux model into an
- * kind of HTML model, where the elements have a real parent 
+ * kind of HTML model, where the elements have a real parent
  * child relation child
  */
 export default class ModelTransformer {
@@ -14,7 +14,7 @@ export default class ModelTransformer {
         this.removeSingleLabels = true
 
         this.textProperties = [
-			'color', 'textDecoration', 'textAlign', 'fontFamily', 
+			'color', 'textDecoration', 'textAlign', 'fontFamily',
 			'fontSize', 'fontStyle', 'fontWeight', 'letterSpacing', 'lineHeight'
 		]
     }
@@ -22,8 +22,15 @@ export default class ModelTransformer {
     transform (relative = true) {
         let result = {
             name: this.model.name,
+            templates: Object.values(this.model.templates),
             screens: []
         }
+
+        /**
+         * before we start, we create an inherited model!
+         */
+        this.model = Util.createInheritedModel(this.model)
+
         for (let screenID in this.model.screens){
             let screen = this.model.screens[screenID]
             /**
@@ -32,7 +39,7 @@ export default class ModelTransformer {
             screen = this.transformScreenToTree(screen)
 
             /**
-             * now check for every node in the tree if 
+             * now check for every node in the tree if
              * we have a single row and add cobtainers
              */
             screen = this.addRows(screen)
@@ -60,7 +67,7 @@ export default class ModelTransformer {
              * set screen pos to 0,0
              */
             screen.children.forEach(c => {
-                c.parent = screen 
+                c.parent = screen
             })
             screen.x = 0
             screen.y = 0
@@ -110,7 +117,7 @@ export default class ModelTransformer {
                 this.setOrderAndRelativePositons(n, relative)
             }
         })
- 
+
         return parent
     }
 
@@ -154,7 +161,7 @@ export default class ModelTransformer {
 
     cleanUpContainer (parent) {
         let nodes = parent.children
-        
+
         nodes.forEach(node => {
             if (node.children.length === 1) {
                 let child = node.children[0]
@@ -253,7 +260,7 @@ export default class ModelTransformer {
                         if (!a.column) {
                             a.column = columnIDs++
                         }
-                        /** 
+                        /**
                          * If b has no row, we put it in the same row as
                          * a
                          */
@@ -359,7 +366,7 @@ export default class ModelTransformer {
                         if (!a.row) {
                             a.row = rowIDs++
                         }
-                        /** 
+                        /**
                          * If b has no row, we put it in the same row as
                          * a
                          */
@@ -393,14 +400,14 @@ export default class ModelTransformer {
 
     /**
      * Transforms and screen into a hiearchical presentation. return the root node.
-     * @param {MATCScreen} screen 
+     * @param {MATCScreen} screen
      */
     transformScreenToTree(screen) {
         let result = this.clone(screen)
         delete result.children;
         delete result.has;
         result.children = []
-      
+
         /**
          * Get widget in render order. This is important to derive the
          * parent child relations.
@@ -419,7 +426,7 @@ export default class ModelTransformer {
 
             /**
              * Check if the widget has a parent (= is contained) widget.
-             * If so, calculate the relative position to the parent, 
+             * If so, calculate the relative position to the parent,
              * otherwise but the element under the screen.
              */
             let parentWidget = this.getParentWidget(parentWidgets, element)
@@ -435,7 +442,7 @@ export default class ModelTransformer {
                 result.children.push(element)
             }
             /**
-             * Save the widget, so we can check in the next 
+             * Save the widget, so we can check in the next
              * iteation if this is a parent or not!
              */
             parentWidgets.unshift(widget)
@@ -499,7 +506,7 @@ export default class ModelTransformer {
 	isRight(from, to) {
 		return (from.x + from.w) < (to.x);
     }
-    
+
     isEqualBox (parent, child) {
         return child.x === 0 && child.y === 0 && parent.w === child.w && parent.h === child.h
     }

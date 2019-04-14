@@ -1,3 +1,25 @@
+export function getScreenCSS (screen, code) {
+    let css = ''
+    let normalize = code.styles['$NORMALIZE']
+    if (normalize) {
+        css += normalize.map(s => s.code).join('\n')
+    }
+    css += screen.styles.map(s => s.code).join('\n')
+    let elements = getAllChildrenForScreen(screen)
+    let written = []
+    elements.forEach(element => {
+        let styles = code.styles[element.id]
+        styles.forEach(s => {
+            if (!written[s.css]) {
+                css += s.code + '\n'
+                written[s.css] = true
+            }
+        })
+        // css += styles.map(s => s.code).join('\n')
+    })
+    return css
+}
+
 export function getAllChildrenForScreen(screen) {
     const result = []
     if (screen.model.children) {
@@ -35,11 +57,6 @@ export function getOrderedWidgets (widgets) {
         if (widget) {
             fixMissingZValue(widget);
             result.push(widget);
-        } else {
-            var e = new Error("getOrderedWidgets() > no widget with id " + id);
-            if (this.logger) {
-                this.logger.sendError(e);
-            }
         }
     }
     this.sortWidgetList(result);
@@ -177,4 +194,286 @@ export function getBoundingBoxByBoxes (boxes) {
     result.w -= result.x;
 
     return result;
+}
+
+
+
+function getZoomed(v, zoom) {
+    return Math.round(v * zoom);
+}
+
+function getUnZoomed(v, zoom) {
+    return Math.round(v / zoom);
+}
+
+function getZoomedBox(box, zoomX, zoomY) {
+    if (box.x) {
+        box.x = this.getZoomed(box.x, zoomX);
+    }
+
+    if (box.y) {
+        box.y = this.getZoomed(box.y, zoomY);
+    }
+
+    if (box.w) {
+        box.w = this.getZoomed(box.w, zoomX);
+    }
+
+    if (box.h) {
+        box.h = this.getZoomed(box.h, zoomY);
+    }
+
+    if (box.min) {
+        box.min.h = this.getZoomed(box.min.h, zoomY);
+        box.min.w = this.getZoomed(box.min.w, zoomX);
+    }
+
+    box.isZoomed = true;
+
+    return box;
+}
+
+
+  export function createInheritedModel(model) {
+    /**
+     * Build lookup map for overwrites
+     */
+    var overwritenWidgets = {};
+    for (let screenID in model.screens) {
+        let screen = model.screens[screenID];
+        overwritenWidgets[screenID] = {};
+        for (let i = 0; i < screen.children.length; i++) {
+            let widgetID = screen.children[i];
+            let widget = model.widgets[widgetID];
+            if (widget && widget.parentWidget) {
+                overwritenWidgets[screenID][widget.parentWidget] = widgetID;
+            }
+        }
+    }
+
+
+    var inModel = clone(model);
+    inModel.inherited = true;
+
+    /**
+     * add container widgets
+     */
+    createContaineredModel(inModel)
+
+    /**
+     * add widgets from parent (master) screens
+     */
+    for (let screenID in inModel.screens) {
+        /**
+         * *ATTENTION* We read from the org model, otherwise we have
+         * issues in the loop as we change the screen.
+         */
+        let screen = model.screens[screenID];
+        if (screen.parents && screen.parents.length > 0) {
+            /**
+             * add widgets from parent screens
+             */
+            for (let i = 0; i < screen.parents.length; i++) {
+                let parentID = screen.parents[i];
+                if (parentID != screenID) {
+                    if (model.screens[parentID]) {
+                        /**
+                         * *ATTENTION* We read from the org model, otherwise we have
+                         * issues in the loop as we change the screen!
+                         */
+                        let parentScreen = model.screens[parentID];
+
+                        let difX = parentScreen.x - screen.x;
+                        let difY = parentScreen.y - screen.y;
+
+                        let parentChildren = parentScreen.children;
+                        for (var j = 0; j < parentChildren.length; j++) {
+                            let parentWidgetID = parentChildren[j];
+
+                            /**
+                             * *ATTENTION* We read from the org model, otherwise we have
+                             * issues in the loop as we change the screen!
+                             */
+                            let parentWidget = model.widgets[parentWidgetID];
+                            if (parentWidget) {
+                                let overwritenWidgetID = overwritenWidgets[screenID][parentWidgetID];
+                                if (!overwritenWidgetID) {
+                                    let copy = clone(parentWidget);
+
+                                    /**
+                                     * Super important the ID mapping!!
+                                     */
+                                    copy.id = parentWidget.id + "@" + screenID;
+                                    copy.inherited = parentWidget.id;
+                                    copy.inheritedScreen = screenID;
+                                    copy.inheritedOrder = i + 1;
+
+                                    /**
+                                     * Now lets also put it at the right position!
+                                     */
+                                    copy.x -= difX;
+                                    copy.y -= difY;
+
+                                    /**
+                                     * We write the new widget to the inherited model!
+                                     *
+                                     */
+                                    inModel.widgets[copy.id] = copy;
+                                    inModel.screens[screenID].children.push(copy.id);
+
+                                    /**
+                                     * Also add a to the inherited copies
+                                     * so we can to live updates in canvas
+                                     */
+                                    let parentCopy = inModel.widgets[parentWidget.id];
+                                    if (!parentCopy.copies) {
+                                        parentCopy.copies = [];
+                                    }
+                                    parentCopy.copies.push(copy.id);
+                                } else {
+                                    let overwritenWidget = inModel.widgets[overwritenWidgetID];
+
+                                    if (overwritenWidget) {
+                                        overwritenWidget.props = mixin(clone(parentWidget.props),overwritenWidget.props,true);
+                                        overwritenWidget.style = mixin(clone(parentWidget.style),overwritenWidget.style,true);
+                                        if (overwritenWidget.hover) {
+                                            overwritenWidget.hover = mixin(clone(parentWidget.hover),overwritenWidget.hover,true);
+                                        }
+                                        if (overwritenWidget.error) {
+                                            overwritenWidget.error = mixin(clone(parentWidget.error), overwritenWidget.error, true);
+                                        }
+
+                                        /**
+                                         * Also add a reference to the *INHERITED* copies
+                                         * so we can to live updates in canvas
+                                         */
+                                        let parentCopy = inModel.widgets[parentWidget.id];
+                                        if (!parentCopy.inheritedCopies) {
+                                            parentCopy.inheritedCopies = [];
+                                        }
+                                        parentCopy.inheritedCopies.push(overwritenWidget.id);
+
+                                        /**
+                                         * Also inherited positions
+                                         */
+                                        if (overwritenWidget.parentWidgetPos) {
+                                            overwritenWidget.x = parentWidget.x - difX;
+                                            overwritenWidget.y = parentWidget.y - difY;
+                                            overwritenWidget.w = parentWidget.w;
+                                            overwritenWidget.h = parentWidget.h;
+                                        }
+                                        overwritenWidget._inheried = true;
+                                    } else {
+                                        console.error("createInheritedModel() > No overwriten widget in model");
+                                    }
+                                }
+                            } else {
+                                console.warn("createInheritedModel() > no parent screen child with id > " + parentID + ">" + parentWidget);
+                            }
+                        }
+                    } else {
+                        console.warn("createInheritedModel() > Deteced Self inheritance...", screen);
+                    }
+                } else {
+                    console.warn("createInheritedModel() > no parent screen with id > " + parentID);
+                }
+            }
+        }
+    }
+    return inModel;
+}
+
+export function createContaineredModel(inModel) {
+    for (let screenID in inModel.screens) {
+        let screen = inModel.screens[screenID];
+        for (let i = 0; i < screen.children.length; i++) {
+            let widgetID = screen.children[i];
+            let widget = inModel.widgets[widgetID];
+            if (widget) {
+                if (widget.isContainer){
+                    let children = getContainedChildWidgets(widget, inModel)
+                    widget.children = children.map(w => w.id)
+                }
+            } else {
+                /**
+                 * FIXME: This can happen for screen copies...
+                 */
+                // console.warn('Core.createContaineredModel() > cannot find widgte', widgetID)
+            }
+        }
+    }
+}
+
+function getContainedChildWidgets (container, model) {
+    let result = []
+    /*
+     * Loop over sorted list
+     */
+    let sortedWidgets = getOrderedWidgets(model.widgets)
+    let found = false
+    for (let i = 0; i < sortedWidgets.length; i++){
+        let widget = sortedWidgets[i]
+         if (container.id != widget.id) {
+            if (found && isContainedInBox(widget, container)){
+                widget.container = container.id
+                result.push(widget)
+            }
+        } else {
+            found = true
+        }
+    }
+    return result;
+}
+
+export function addContainerChildrenToModel (model) {
+    /**
+     * Add here some function to add the virtual children, so that stuff
+     * works also in the analytic canvas. This would mean we would have to
+     * copy all the code from the Repeater to here...
+     */
+    return model
+}
+
+
+export function mixin(a, b, keepTrack) {
+    if (a && b) {
+        b = lang.clone(b);
+        if (keepTrack) {
+            b._mixed = {};
+        }
+
+        for (var k in a) {
+            if (b[k] === undefined || b[k] === null) {
+                b[k] = a[k];
+                if (keepTrack) {
+                    b._mixed[k] = true;
+                }
+            }
+        }
+    }
+    return b;
+}
+
+export function mixinNotOverwriten(a, b) {
+    if (a && b) {
+        var mixed = {};
+        if (b._mixed) {
+            mixed = b._mixed;
+        }
+        //console.debug("mixinNotOverwriten", overwriten)
+        for (var k in a) {
+            if (b[k] === undefined || b[k] === null || mixed[k]) {
+                b[k] = a[k];
+            }
+        }
+    }
+    return b;
+}
+
+export function  clone (obj) {
+    if (!obj) {
+        return null
+    }
+    let _s = JSON.stringify(obj)
+    return JSON.parse(_s)
 }

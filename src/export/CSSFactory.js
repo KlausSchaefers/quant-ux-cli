@@ -2,7 +2,7 @@
 import * as Util from './ExportUtil'
 
 export default class {
-  
+
 	constructor (isResponsive = false, prefix = 'MACT') {
 		this.isResponsive = isResponsive
 		this.prefix = prefix
@@ -10,8 +10,8 @@ export default class {
 
 		this.mapping = {
 			"background" : "background-color",
-		
-			"color" : "color",			
+
+			"color" : "color",
 			"textAlign" : "text-align",
 			"fontFamily" : "font-family",
 			"fontSize" : "font-size",
@@ -19,17 +19,17 @@ export default class {
 			"fontWeight" : "font-weight",
 			"letterSpacing" : "letter-spacing",
 			"lineHeight" : "line-height",
-			
+
 			"borderBottomColor" : "border-bottom-color",
 			"borderTopColor" : "border-top-color",
 			"borderLeftColor" : "border-left-color",
 			"borderRightColor" : "border-right-color",
-			
+
 			"borderBottomLeftRadius" : "border-bottom-left-radius",
 			"borderTopLeftRadius" : "border-top-left-radius",
 			"borderBottomRightRadius" : "border-bottom-right-radius",
 			"borderTopRightRadius" : "border-top-right-radius",
-			
+
 			"borderBottomWidth" : "border-bottom-width",
 			"borderTopWidth" : "border-top-width",
 			"borderLeftWidth" : "border-left-width",
@@ -39,17 +39,17 @@ export default class {
 			"borderBottomStyle" : "border-bottom-style",
 			"borderRightStyle" : "border-left-style",
 			"borderLeftStyle" : "border-right-style",
-			
+
 			"paddingBottom" : "padding-bottom",
 			"paddingLeft" : "padding-left",
 			"paddingRight" : "padding-right",
-			"paddingTop" : "padding-top",	
+			"paddingTop" : "padding-top",
 
 			"marginBottom" : "margin-bottom",
 			"marginLeft" : "margin-left",
 			"marginRight" : "margin-right",
-			"marginTop": "margin-top",	
-			
+			"marginTop": "margin-top",
+
 			"textDecoration" : "text-decoration",
 			"boxShadow" : "box-shadow",
 			"textShadow" : "text-shadow"
@@ -58,36 +58,47 @@ export default class {
 		this.borderWidthProperties = ['borderBottomWidth', 'borderTopWidth', 'borderLeftWidth', 'borderRightWidth']
 		this.borderStyleProperties = ['borderTopStyle', 'borderBottomStyle', 'borderRightStyle', 'borderLeftStyle']
 		this.textProperties = [
-			'color', 'textDecoration', 'textAlign', 'fontFamily', 
+			'color', 'textDecoration', 'textAlign', 'fontFamily',
 			'fontSize', 'fontStyle', 'fontWeight', 'letterSpacing', 'lineHeight'
 		]
 
 		this.isString = {
-			"fontFamily": true			
+			"fontFamily": true
 		},
-		
+
 		this.isPixel = {
 			"borderBottomLeftRadius": true,
 			"borderBottomRightRadius": true,
 			"borderTopRightRadius": true,
 			"borderTopLeftRadius": true,
-			
+
 			"borderBottomWidth": true,
 			"borderLeftWidth": true,
 			"borderTopWidth": true,
 			"borderRightWidth": true,
-			
+
 			"paddingBottom": true,
 			"paddingLeft": true,
 			"paddingRight": true,
 			"paddingTop": true,
-			
+
 			"fontSize": true
 		}
 	}
 
 	generate(model) {
 		let result = {}
+
+		model.templates.forEach(t => {
+			let style = {
+				type: 'template',
+				css: t.name.replace(/\s+/g, '_'),
+				global:true,
+				code: this.getCSS(t, screen, false)
+			}
+			result[t.id] = [style]
+		})
+
 		model.screens.forEach(screen => {
 			result[screen.id] = []
 			result[screen.id].push({
@@ -112,7 +123,7 @@ export default class {
 		return result
 	}
 
-	
+
 
 	getGlobalStyles () {
 		let result = ''
@@ -122,12 +133,25 @@ export default class {
 	}
 
 	generateElement (node, result, screen) {
+
 		result[node.id] = []
+
+		if (node.template) {
+			let template = result[node.template]
+			if (template) {
+				template.forEach(t => {
+					result[node.id].push(t)
+				})
+			}
+		}
+
 		result[node.id].push({
 			type: 'widget',
 			css: node.name.replace(/\s+/g, '_'),
 			global:false,
-			code: this.getCSS(node, screen)
+			code: this.getCSS(node, screen),
+			inherited: node.inherited,
+			inheritedScreen: node.inheritedScreen
 		})
 
 		if (node.children) {
@@ -139,7 +163,7 @@ export default class {
 
 
 	getRaw (model, selectedWidgets) {
-		var result = "";			
+		var result = "";
 		for (var i=0; i< selectedWidgets.length; i++) {
 			var id = selectedWidgets[i];
 			var widget = model.widgets[id];
@@ -153,12 +177,15 @@ export default class {
 	}
 
 	getCSS (widget, screen, position = true) {
-		var result = "";	
-		let name = this.getName(widget);
-		result += '.' + name + ' {\n'
+		var result = "";
+
 		var style = widget.style;
 		style = Util.fixAutos(style, widget)
+
+		let name = this.getName(widget);
+		result += '.' + name + ' {\n'
 		result += this.getRawStyle(style);
+
 		if (position) {
 			result += this.getPosition(widget, screen);
 		}
@@ -166,13 +193,13 @@ export default class {
 			result += this['getCSS_' + widget.type](widget.style, widget)
 		}
 		result += '}\n\n'
-		
+
 		if (widget.hover) {
 			result += '.' +name + ':hover {\n'
 			result += this.getRawStyle(widget.hover);
 			if (this['getCSS_' + widget.type]) {
 				result += this['getCSS_' + widget.type](widget.hover, widget)
-			}	
+			}
 			result += '}\n\n'
 		}
 		return result
@@ -190,10 +217,10 @@ export default class {
 	getName(box){
 		return box.name.replace(/\s+/g, '_')
 	}
-	
+
 	getPosition (widget) {
 		let result = ''
-		
+
 		/**
 		 * If the widget is on the root level, we use teh screen!
 		 */
@@ -221,7 +248,7 @@ export default class {
 				w -= widget.style.paddingRight
 			}
 
-			
+
 			if (widget.style.borderTopWidth) {
 				h -= widget.style.borderTopWidth
 			}
@@ -276,35 +303,35 @@ export default class {
 			if (style[key] !== undefined && style[key] !== null) {
 				var value = style[key];
 				result += '  ' + this.getKey(key) + ': ' + this.getValue(key, value) + ';\n'
-			}					
+			}
 		}
 		return result;
 	}
-	
+
 	getKey (key) {
 		return this.mapping[key];
 	}
-	
+
 	getValue (key, value) {
-		var result = ''				
+		var result = ''
 		if (this.isString[key]) {
 			result += '"' + value + '"';
 		} else if (this.isPixel[key]) {
 			result += value + 'px';
-		} else if (key === "boxShadow") {			
+		} else if (key === "boxShadow") {
 			result = value.h+"px "+ value.v+"px "+ value.b+"px "+ value.s + "px " + value.c;
 			if (value.i) {
 				result += 'inset'
-			}	
-		} else if (key === 'textShadow') {			
-			result = value.h+"px "+ value.v+"px "+ value.b+"px "+ value.c;				
+			}
+		} else if (key === 'textShadow') {
+			result = value.h+"px "+ value.v+"px "+ value.b+"px "+ value.c;
 		}
 		else {
 			result += value
 		}
 		return result;
 	}
-   
+
 	clone (obj) {
         if (!obj) {
             return null

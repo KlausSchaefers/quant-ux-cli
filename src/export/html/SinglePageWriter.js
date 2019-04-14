@@ -6,18 +6,8 @@ export default class SinglePageWriter {
         let result = []
         code.screens.forEach(screen => {
             let body = screen.template
-            let css = ''
-            let normalize = code.styles['$NORMALIZE']
-            if (normalize) {
-                css += normalize.map(s => s.code).join('\n')
-            }
-            css += screen.styles.map(s => s.code).join('\n')
-            let elements = Util.getAllChildrenForScreen(screen)
-            elements.forEach(element => {
-                let styles = code.styles[element.id]
-                css += styles.map(s => s.code).join('\n')
-            })
 
+            let css = Util.getScreenCSS(screen, code)
 
             result.push({
                 name: `${screen.name}.html`,

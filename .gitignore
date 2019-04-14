@@ -1,6 +1,5 @@
 .DS_Store
 node_modules
-test
 generated
 /dist
 server/dist
