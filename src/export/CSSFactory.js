@@ -3,7 +3,7 @@ import * as Util from './ExportUtil'
 
 export default class {
 
-	constructor (isResponsive = false, prefix = 'MACT') {
+	constructor (isResponsive = false, prefix = '') {
 		this.isResponsive = isResponsive
 		this.prefix = prefix
 		this.marginWhiteSpaceCorrect = 0;
@@ -89,6 +89,9 @@ export default class {
 	generate(model) {
 		let result = {}
 
+		/**
+		 * Generate the template styles
+		 */
 		model.templates.forEach(t => {
 			let style = {
 				type: 'template',
@@ -99,6 +102,10 @@ export default class {
 			result[t.id] = [style]
 		})
 
+		/**
+		 * Generate styles for each screen. The templates styles
+		 * might here be reused!
+		 */
 		model.screens.forEach(screen => {
 			result[screen.id] = []
 			result[screen.id].push({
@@ -112,6 +119,9 @@ export default class {
 			})
 		})
 
+		/**
+		 * Add some normalizer styles
+		 */
 		result['$NORMALIZE'] = []
 		result['$NORMALIZE'].push({
 			type: 'screen',
@@ -136,6 +146,10 @@ export default class {
 
 		result[node.id] = []
 
+		/**
+		 * If we have a templated node,
+		 * add also the template class here
+		 */
 		if (node.template) {
 			let template = result[node.template]
 			if (template) {
@@ -218,7 +232,10 @@ export default class {
 	getName(box){
 		let name = box.name.replace(/\s+/g, '_')
 		if (box.inherited) {
-			name += 'Master'
+			name += '_Master'
+		}
+		if (this.prefix) {
+			name = `${this.prefix}_${name}`
 		}
 		return name
 	}

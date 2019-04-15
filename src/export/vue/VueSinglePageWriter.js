@@ -2,7 +2,7 @@ import * as Util from '../ExportUtil'
 
 export default class VueSinglePageWriter {
 
-    
+
 
     getFiles(code) {
         let result = []
@@ -25,13 +25,6 @@ export default class VueSinglePageWriter {
             let data = bindings.join('\n')
 
             result.push({
-                name: `${screen.name}.css`,
-                type: 'css',
-                id: screen.id,
-                content: css
-            })
-       
-            result.push({
                 name: `${screen.name}.vue`,
                 type: 'vue',
                 id: screen.id,
@@ -39,14 +32,14 @@ export default class VueSinglePageWriter {
 <template>
 ${body}
 </template>
-<style lang="css">
-    @import url("style/${screen.name}.css");
+<style lang="css" scoped>
+${css}
 </style>
 <script>
 export default {
     name: "${screen.name}",
     mixins: [],
-    props: [], 
+    props: [],
     data: function() {
         return {
 ${data}
@@ -54,7 +47,7 @@ ${data}
     },
     components: {},
     methods: {
-        
+
         }
     },
     mounted() {}

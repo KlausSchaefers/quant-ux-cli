@@ -21,10 +21,10 @@ test('Test Template', () => {
 
   expect(file.content.indexOf('.Templated')).toBeGreaterThan(0)
   expect(file.content.indexOf('.RedBox')).toBeGreaterThan(0)
-  expect(file.content.indexOf('.BoxMaster')).toBeGreaterThan(0)
+  expect(file.content.indexOf('.Box_Master')).toBeGreaterThan(0)
   expect(file.content.match(/\.RedBox/g).length).toBe(1)
   expect(file.content.indexOf('<div class="RedBox Templated"></div>')).toBeGreaterThan(0)
-  expect(file.content.indexOf('<div class="BoxMaster">Master</div>')).toBeGreaterThan(0)
+  expect(file.content.indexOf('<div class="Box_Master">Master</div>')).toBeGreaterThan(0)
 
 
   // console.debug(file.content)

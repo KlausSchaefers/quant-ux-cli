@@ -1,4 +1,12 @@
-export function getScreenCSS (screen, code) {
+/**
+ * Generates the css for a given screen. Includes the styles for the screen and all
+ * its children. Certain elements, like common, might be excluded.
+ *
+ * @param {*} screen The screen to genearte for
+ * @param {*} code The code object with the styles
+ * @param {*} exclude An array of types to be exluded, e.g ['template']
+ */
+export function getScreenCSS (screen, code, exclude) {
     let css = ''
     let normalize = code.styles['$NORMALIZE']
     if (normalize) {
@@ -9,6 +17,9 @@ export function getScreenCSS (screen, code) {
     let written = []
     elements.forEach(element => {
         let styles = code.styles[element.id]
+        if (exclude) {
+            styles = styles.filter(s => exclude.indexOf(s.type) < 0)
+        }
         styles.forEach(s => {
             if (!written[s.css]) {
                 css += s.code + '\n'
