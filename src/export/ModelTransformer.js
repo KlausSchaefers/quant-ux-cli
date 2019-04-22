@@ -23,7 +23,7 @@ export default class ModelTransformer {
         let result = {
             id: this.model.id,
             name: this.model.name,
-            templates: Object.values(this.model.templates),
+            templates: this.model.templates ? Object.values(this.model.templates): [],
             warnings: [],
             screens: []
         }
