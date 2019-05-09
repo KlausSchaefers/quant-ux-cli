@@ -59,6 +59,8 @@ export default class Generator {
     return result
   }
 
+
+
   generateElement (element, styles) {
     if (element.children && element.children.length > 0) {
       let templates = []

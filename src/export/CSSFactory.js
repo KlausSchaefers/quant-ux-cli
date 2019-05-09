@@ -97,7 +97,7 @@ export default class {
 				type: 'template',
 				css: t.name.replace(/\s+/g, '_'),
 				global:true,
-				code: this.getCSS(t, screen, false)
+				code: this.getCSS(t, null, false)
 			}
 			result[t.id] = [style]
 		})

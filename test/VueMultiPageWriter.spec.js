@@ -4,9 +4,20 @@ import CSSFactory from '../src/export/CSSFactory'
 import GeneratorFactory from '../src/export/GeneratorFactory'
 import app9 from './data/app9.json'
 
+test('Test CSSPath', () => {
+  let path = new VueMultiPageWriter().getCSSPath({type: 'vue', css: {responsive:false}, targets: {css:'src/css', vue: 'src/vue'}})
+  expect(path).toBe('../css/')
+
+  path = new VueMultiPageWriter().getCSSPath({type: 'vue', css: {responsive:false}, targets: {css:'abc/css', vue: 'xzy/vue'}})
+  expect(path).toBe('abc/css/')
+
+  path = new VueMultiPageWriter().getCSSPath()
+  expect(path).toBe('')
+})
+
 test('Test Template', () => {
 
-  let files = GeneratorFactory.create(app9, {type: 'vue', css: {responsive:false}})
+  let files = GeneratorFactory.create(app9, {type: 'vue', css: {responsive:false}, targets: {css:'src/css', vue: 'src/vue'}})
 
   expect(files).not.toBe(null)
   expect(files.length).toBe(6)
@@ -25,14 +36,15 @@ test('Test Template', () => {
   expect(screen1CSS).not.toBe(null)
   expect(screen1CSS).not.toBe(undefined)
   expect(screen1CSS.content.indexOf('.RedBox')).toBe(-1)
-  expect(screen1CSS.content.indexOf('.Box_Master')).toBe(-1) // FIXME: Should these go to a seperate CSS?
+  // expect(screen1CSS.content.indexOf('.Box_Master')).toBe(-1) // FIXME: Should these go to a seperate CSS?
 
   let screen1Vue = files.find(f => f.name === 'Screen.vue')
   expect(screen1Vue).not.toBe(null)
   expect(screen1Vue).not.toBe(undefined)
   expect(screen1Vue.content.indexOf('.RedBox')).toBe(-1)
-  expect(screen1Vue.content.indexOf('@import url("normalize.css")')).toBeGreaterThanOrEqual(0)
-  expect(screen1Vue.content.indexOf('@import url("symbols.css")')).toBeGreaterThanOrEqual(0)
+  console.debug(screen1Vue.content)
+  expect(screen1Vue.content.indexOf('@import url("../css/normalize.css")')).toBeGreaterThanOrEqual(0)
+  expect(screen1Vue.content.indexOf('@import url("../css/symbols.css")')).toBeGreaterThanOrEqual(0)
 
   // console.debug(screen1Vue.content)
 
