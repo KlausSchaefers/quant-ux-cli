@@ -10,12 +10,14 @@ import GeneratorFactory from './export/GeneratorFactory'
 function generate (app, conf) {
     console.debug(`Quant-UX: Generate <${conf.type}> for prototype <${app.name}>`)
 
-    let files = GeneratorFactory.create(app, conf)
-    
+    let generator = GeneratorFactory.create(conf)
+    let files = generator.run(app, conf)
+
     let folders = {
         'vue': conf.targets.vue,
         'html': conf.targets.html,
         'css': conf.targets.css,
+        'images': conf.targets.images,
     }
     Object.values(folders).forEach(f => {
         if (!fs.existsSync(f)) {
@@ -73,7 +75,7 @@ function load(confFile = '.quant-ux.json') {
                 {
                     type : 'input',
                     name : 'token',
-                    message : 'Code generation token. (You can optain it from the "Share" dialog in the web ui)' 
+                    message : 'Code generation token. (You can optain it from the "Share" dialog in the web ui)'
                 },
                 {
                     type : 'input',
@@ -118,7 +120,7 @@ function load(confFile = '.quant-ux.json') {
                         "conflict": "overwrite",
                         "css": {
                             "responsive": true
-                        }                
+                        }
                 }
                 if (answers.save) {
                     fs.writeFileSync(confFile, JSON.stringify(conf, null, 2))
@@ -138,7 +140,7 @@ function main () {
     load().then(conf => {
         if (conf) {
             getApp(conf)
-        }    
+        }
     })
 }
 

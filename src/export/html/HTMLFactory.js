@@ -1,4 +1,4 @@
-
+import pretty from 'pretty'
 export default class HTMLFactory {
 
   constructor () {
@@ -7,13 +7,21 @@ export default class HTMLFactory {
   screen (screen, styles, childTemplates) {
     let css = this.css(styles)
     let inner = childTemplates.join('')
-    return `<div class="${css} MatcSreen">${inner}</div>`
+    let result = `<div class="${css} MatcSreen">${inner}</div>`
+    return pretty(result)
   }
 
   container (container, styles, childTemplates) {
     let css = this.css(styles)
     let inner = childTemplates.join('')
     return `<div class="${css.trim()}"> ${inner}</div>`
+  }
+
+
+  element_Label(element, styles) {
+    let css = this.css(styles)
+    let label = element.props.label
+    return `<label css="${css}" class="${css}" >${label}</label>`
   }
 
 
@@ -31,7 +39,7 @@ export default class HTMLFactory {
 
   element_CheckBox (element, styles) {
     let css = this.css(styles)
-    return `<input type="checkbox" css="${css}" class="${css}" checked="${this.stripHTML(element.props.selected)}">`
+    return `<input type="checkbox" css="${css}" class="${css}" checked="${this.stripHTML(element.props.selected)} /">`
   }
 
   element_TextBox (element, styles) {
@@ -42,7 +50,7 @@ export default class HTMLFactory {
       placeholder = value
       value = ''
     }
-    return `<input type="text" placeholder="${placeholder}" class="${css}" value="${value}">`
+    return `<input type="text" placeholder="${placeholder}" class="${css}" value="${value}" />`
   }
 
   css (styles) {

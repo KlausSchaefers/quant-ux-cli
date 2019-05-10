@@ -1,5 +1,4 @@
 import ModelTranformer from './ModelTransformer'
-import pretty from 'pretty'
 
 /**
  * Main class the orchestrates the code generation. Can be configurred
@@ -55,7 +54,7 @@ export default class Generator {
     screen.children.forEach(child => {
       body.push(this.generateElement(child, styles))
     })
-    result.template = pretty(this.elementFactory.screen(screen, styles[screen.id], body).trim())
+    result.template = this.elementFactory.screen(screen, styles[screen.id], body).trim()
     return result
   }
 

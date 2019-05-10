@@ -3,7 +3,8 @@
     "targets": {
         "vue": "generated/src/components",
         "css": "generated/src/css",
-        "html": "generated/src/html"
+        "html": "generated/src/html",
+        "images": "generated/src/images"
     },
     "type": "vue",
     "server": "https://quant-ux.com",

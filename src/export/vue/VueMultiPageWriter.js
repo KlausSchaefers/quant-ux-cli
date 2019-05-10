@@ -121,7 +121,7 @@ export default class VueMutliPageWriter {
                 return path.join('/') +'/'
             }
         }
-        return ''        
+        return ''
     }
 
     getFileName(name) {
@@ -164,7 +164,10 @@ ${data}
         if (e.type === 'CheckBox') {
             return e.props.checked
         }
-        return ''
+        if (e.props.label && !e.props.placeholder) {
+            return `"${e.props.label}"`
+        }
+        return '""'
     }
 
 }
