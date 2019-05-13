@@ -17,7 +17,7 @@ export default class VueFactory extends HTMLFactory {
         let css = this.css(styles)
         let placeholder = ''
         if (element.props.placeholder) {
-            placeholder = element.props.placeholder
+            placeholder = element.props.label
         }
         let databinding = this.getDataBinding(element)
         return `<input type="text" placeholder="${placeholder}" class="${css}" ${databinding}/>`

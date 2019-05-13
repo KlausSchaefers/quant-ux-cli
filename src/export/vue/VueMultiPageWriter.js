@@ -96,6 +96,7 @@ export default class VueMutliPageWriter {
         let cssImports = imports.map(i => `    @import url("${cssPath}${i}");`).join('\n')
           result.push({
             name: `${this.getFileName(screen.name)}.vue`,
+            screenName: this.getFileName(screen.name),
             type: 'vue',
             id: screen.id,
             content: this.getTemplate(screen, body, data, cssImports)
@@ -132,7 +133,7 @@ export default class VueMutliPageWriter {
         let elements = Util.getAllChildrenForScreen(screen)
         let bindings = elements.filter(e => e.props && e.props.databinding)
         .map(e => `            ${e.props.databinding.default}: ${this.getDefaultDataBindung(e)}`)
-        return bindings.join('\n')
+        return bindings.join(',\n')
     }
 
     getTemplate (screen, body, data, cssImports) {

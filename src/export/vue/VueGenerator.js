@@ -2,6 +2,7 @@ import CSSFactory from '../CSSFactory'
 import Generator from '../Generator'
 import VueFactory from './VueFactory'
 import VueMultiPageWriter from './VueMultiPageWriter'
+import RouterFactory from './RouterFactory'
 
 export default class VueGenerator {
 
@@ -10,6 +11,10 @@ export default class VueGenerator {
     let result = generator.run(app)
     let writer = new VueMultiPageWriter()
     let files = writer.getFiles(result, conf)
+
+    if (conf.vue && conf.vue.generateRouter === true) {
+      files = new RouterFactory().run(files, conf, app)
+    }
     return files
   }
 }

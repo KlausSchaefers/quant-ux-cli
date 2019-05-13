@@ -1,3 +1,20 @@
+
+export function removeCommonPath (a, b) {
+    let path = []
+    let aParts = a.split('/')
+    let bParts = b.split('/')
+    let different = false
+    aParts.forEach((p, i) => {
+        if (p !== bParts[i] || different) {
+            path.push(p)
+            different = true
+        }
+    })
+    return path.join('/')
+}
+
+
+
 /**
  * Generates the css for a given screen. Includes the styles for the screen and all
  * its children. Certain elements, like common, might be excluded.

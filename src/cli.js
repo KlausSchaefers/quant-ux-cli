@@ -18,6 +18,7 @@ function generate (app, conf) {
         'html': conf.targets.html,
         'css': conf.targets.css,
         'images': conf.targets.images,
+        'router': conf.targets.vueRouter
     }
     Object.values(folders).forEach(f => {
         if (!fs.existsSync(f)) {
@@ -96,6 +97,12 @@ function load(confFile = '.quant-ux.json') {
                     message : 'HTML putput folder'
                 },
                 {
+                    type : 'input',
+                    name : 'imageFolder',
+                    default: "src/images",
+                    message : 'Image folder'
+                },
+                {
                     type : 'list',
                     name : 'type',
                     choices: ["Vue", "HTML"],
@@ -113,13 +120,19 @@ function load(confFile = '.quant-ux.json') {
                         "targets": {
                             "vue": answers.vueFolder,
                             "css": answers.cssFolder,
-                            "html": answers.htmlFolder
+                            "html": answers.htmlFolder,
+                            "images": answers.imageFolder,
+                            "vueRouter": "src"
                         },
                         "type": answers.type,
                         "server": "https://quant-ux.com",
                         "conflict": "overwrite",
                         "css": {
-                            "responsive": true
+                            "responsive": false
+                        },
+                        "vue": {
+                            "generateRouter": true,
+                            "routerName": "router.js"
                         }
                 }
                 if (answers.save) {

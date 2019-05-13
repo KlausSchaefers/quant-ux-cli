@@ -11,5 +11,10 @@
     "conflict": "overwrite",
     "css": {
         "responsive": true
+    },
+    "vue": {
+        "generateRouter": true,
+        "routerName": "router.js",
+        "routerTarget": "generated/src"
     }
 }
