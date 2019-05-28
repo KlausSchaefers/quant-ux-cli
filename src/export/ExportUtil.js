@@ -87,7 +87,7 @@ export function getOrderedWidgets (widgets) {
             result.push(widget);
         }
     }
-    this.sortWidgetList(result);
+    sortWidgetList(result);
     return result;
 }
 
@@ -107,7 +107,7 @@ export function sortChildren (children) {
         }
     }
 
-    this.sortWidgetList(result);
+    sortWidgetList(result);
 
     //console.debug("sortChildren > ", result);
     return result;
