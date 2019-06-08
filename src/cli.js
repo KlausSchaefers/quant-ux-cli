@@ -32,20 +32,30 @@ function generate (app, conf) {
             let destination = path.join(folders[f.type], f.name)
             if (fs.existsSync(destination)) {
                 if (conf.conflict === 'overwrite') {
-                    fs.writeFileSync(destination, f.content)
+                    writeFile(destination, f, conf)
                     console.debug(chalk.yellow('- Overwrite file ', destination))
                 } else {
                     console.debug(chalk.green('- > No change to exiting file ', destination))
                 }
             } else {
-                fs.writeFileSync(destination, f.content)
+                writeFile(destination, f, conf)
                 console.debug(chalk.green('- Create file ', destination))
             }
         } else {
             console.error(chalk.red('No target folder defined for file type', f.type))
         }
     })
+}
 
+function writeFile (destination, f, conf) {
+    if (f.type === 'images') {
+        let url = `${conf.server}/rest/images/${conf.token}/${f.src}`
+        request(url).pipe(fs.createWriteStream(destination)).on('close', res => {
+            console.debug(chalk.green(' - Download Image', f.name))
+        });
+    } else {
+        fs.writeFileSync(destination, f.content)
+    }
 }
 
 function getApp(conf) {
@@ -146,7 +156,7 @@ function load(confFile = '.quant-ux.json') {
 }
 
 function main () {
-    console.debug('Quant-UX: Start generating code! V 1.1.6')
+    console.debug('Quant-UX: Start generating code! V 1.2.0')
     /**
      * Here is the main entry point
      */

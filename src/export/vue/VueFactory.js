@@ -1,10 +1,14 @@
 
 import HTMLFactory from '../html/HTMLFactory'
+import ImportUtil from '../ImportUtil'
 
 export default class VueFactory extends HTMLFactory {
 
-    constructor() {
-        super()
+    constructor(conf) {
+        super(conf)
+        if (conf && conf.targets && conf.targets.images && conf.targets.vue) {
+            this.imagePrefix = ImportUtil.get(conf.targets.vue, conf.targets.images)
+        }
     }
 
     element_CheckBox(element, styles) {

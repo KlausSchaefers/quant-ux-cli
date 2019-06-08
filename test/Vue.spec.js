@@ -2,6 +2,7 @@ import VueMultiPageWriter from '../src/export/vue/VueMultiPageWriter'
 import GeneratorFactory from '../src/export/GeneratorFactory'
 import app9 from './data/app9.json'
 import app10 from './data/app10.json'
+import app11 from './data/app11.json'
 
 test('Test CSSPath', () => {
   let path = new VueMultiPageWriter().getCSSPath({type: 'vue', css: {responsive:false}, targets: {css:'src/css', vue: 'src/vue'}})
@@ -46,12 +47,6 @@ test('Test Template', () => {
   expect(screen1Vue.content.indexOf('@import url("../css/normalize.css")')).toBeGreaterThanOrEqual(0)
   expect(screen1Vue.content.indexOf('@import url("../css/symbols.css")')).toBeGreaterThanOrEqual(0)
 
-
-
-  // console.debug(screen1Vue.content)
-
-
-  // console.debug(file.content)
 });
 
 
@@ -71,6 +66,21 @@ test('Test Data Binding', () => {
   expect(screen1Vue.content.indexOf('v-model="password"')).toBeGreaterThanOrEqual(0)
   expect(screen1Vue.content.indexOf('email: "Enter a value"')).toBeGreaterThanOrEqual(0)
 
+  // console.debug(file.content)
+});
+
+
+test('Test Image', () => {
+
+  let generator =  GeneratorFactory.create({type: 'vue', css: {responsive:false}, targets: {css:'src/css', vue: 'src/vue', images: 'src/imgs'}})
+  let files = generator.run(app11, {type: 'vue', css: {responsive:false}, targets: {css:'src/css', vue: 'src/vue', images: 'src/imgs'}})
+
+  expect(files).not.toBe(null)
+
+  let screen1Vue = files.find(f => f.name === 'Screen.vue')
+  expect(screen1Vue).not.toBe(null)
+  expect(screen1Vue).not.toBe(undefined)
+  expect(screen1Vue.content.indexOf('<img src="../imgs/')).toBeGreaterThanOrEqual(0)
   console.debug(screen1Vue.content)
   // console.debug(file.content)
 });

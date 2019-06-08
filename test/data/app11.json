@@ -1,0 +1,525 @@
+{
+    "_id" : "5cfbfcaae2fb53355b5e8e24",
+    "name" : "Code Gen Test",
+    "description" : "",
+    "screenSize" : {
+      "w" : 375,
+      "h" : 667
+    },
+    "type" : "smartphone",
+    "screens" : {
+      "s10000" : {
+        "x" : 2490,
+        "y" : 2198,
+        "h" : 888,
+        "w" : 375,
+        "name" : "Screen",
+        "type" : "Screen",
+        "style" : {
+          "background" : "#e8e8e8"
+        },
+        "min" : {
+          "w" : 375,
+          "h" : 667
+        },
+        "has" : {
+          "image" : true
+        },
+        "props" : {
+          "start" : true
+        },
+        "children" : [ "w10001", "w10002", "w10003", "w10004", "w10005", "w10006", "w10008", "w10009", "w10010", "w10011", "w10012" ],
+        "id" : "s10000"
+      }
+    },
+    "widgets" : {
+      "w10001" : {
+        "type" : "Button",
+        "name" : "Header",
+        "x" : 2490,
+        "y" : 2198,
+        "w" : 376,
+        "h" : 50,
+        "z" : 0,
+        "props" : {
+          "label" : "Sport Wiki"
+        },
+        "has" : {
+          "backgroundColor" : true,
+          "border" : true,
+          "label" : true,
+          "padding" : true,
+          "onclick" : true
+        },
+        "actions" : { },
+        "style" : {
+          "fontSize" : 28,
+          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+          "textAlign" : "center",
+          "letterSpacing" : 0,
+          "lineHeight" : 1.4,
+          "color" : "#ffffff",
+          "borderTopRightRadius" : 0,
+          "borderTopLeftRadius" : 0,
+          "borderBottomRightRadius" : 0,
+          "borderBottomLeftRadius" : 0,
+          "borderTopWidth" : 0,
+          "borderBottomWidth" : 0,
+          "borderRightWidth" : 0,
+          "borderLeftWidth" : 0,
+          "borderTopColor" : "#333333",
+          "borderBottomColor" : "#333333",
+          "borderRightColor" : "#333333",
+          "borderLeftColor" : "#333333",
+          "background" : "#333c41",
+          "paddingTop" : 8,
+          "paddingBottom" : 8,
+          "paddingLeft" : 8,
+          "paddingRight" : 8
+        },
+        "id" : "w10001"
+      },
+      "w10002" : {
+        "type" : "Button",
+        "name" : "Box 1",
+        "x" : 2520,
+        "y" : 2272,
+        "w" : 316,
+        "h" : 374,
+        "z" : 1,
+        "props" : {
+          "label" : ""
+        },
+        "has" : {
+          "backgroundColor" : true,
+          "border" : true,
+          "label" : true,
+          "padding" : true,
+          "onclick" : true
+        },
+        "actions" : { },
+        "style" : {
+          "fontSize" : 14,
+          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+          "textAlign" : "left",
+          "letterSpacing" : 0,
+          "lineHeight" : 1.4,
+          "color" : "#ffffff",
+          "borderTopRightRadius" : 10,
+          "borderTopLeftRadius" : 10,
+          "borderBottomRightRadius" : 10,
+          "borderBottomLeftRadius" : 10,
+          "borderTopWidth" : 0,
+          "borderBottomWidth" : 0,
+          "borderRightWidth" : 0,
+          "borderLeftWidth" : 0,
+          "borderTopColor" : "#333333",
+          "borderBottomColor" : "#333333",
+          "borderRightColor" : "#333333",
+          "borderLeftColor" : "#333333",
+          "background" : "#ffffff",
+          "paddingTop" : 0,
+          "paddingBottom" : 0,
+          "paddingLeft" : 0,
+          "paddingRight" : 0,
+          "boxShadow" : {
+            "v" : 0,
+            "h" : 0,
+            "b" : 10,
+            "s" : 2,
+            "c" : "rgba(0,0,0,0.25)"
+          }
+        },
+        "id" : "w10002"
+      },
+      "w10003" : {
+        "type" : "Image",
+        "name" : "Image1",
+        "x" : 2732,
+        "y" : 2296,
+        "w" : 80,
+        "h" : 80,
+        "z" : 2,
+        "props" : {
+          "resize" : {
+            "right" : true,
+            "up" : true,
+            "left" : false,
+            "down" : false,
+            "fixedHorizontal" : true,
+            "fixedVertical" : true
+          }
+        },
+        "has" : {
+          "image" : true,
+          "onclick" : true,
+          "backgroundImage" : true,
+          "border" : true
+        },
+        "actions" : { },
+        "style" : {
+          "borderTopRightRadius" : 100,
+          "borderTopLeftRadius" : 100,
+          "borderBottomRightRadius" : 100,
+          "borderBottomLeftRadius" : 100,
+          "borderTopWidth" : 0,
+          "borderBottomWidth" : 0,
+          "borderRightWidth" : 0,
+          "borderLeftWidth" : 0,
+          "borderTopColor" : "#333333",
+          "borderBottomColor" : "#333333",
+          "borderRightColor" : "#333333",
+          "borderLeftColor" : "#333333",
+          "backgroundImage" : {
+            "url" : "5cfbfcaae2fb53355b5e8e24/a2aa10aC3SBc00sYp3ezMi0HVLmaufhH35GLo72bwED2FL2eVy21k02tgeVW.jpg",
+            "w" : 319,
+            "h" : 325
+          }
+        },
+        "id" : "w10003"
+      },
+      "w10004" : {
+        "id" : "w10004",
+        "type" : "Label",
+        "name" : "Paragraph",
+        "x" : 2546,
+        "y" : 2402,
+        "w" : 266,
+        "h" : 192,
+        "z" : 3,
+        "props" : {
+          "label" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+          "resize" : {
+            "right" : true,
+            "up" : true,
+            "left" : true,
+            "down" : false,
+            "fixedHorizontal" : false,
+            "fixedVertical" : false
+          }
+        },
+        "has" : {
+          "label" : true,
+          "padding" : true,
+          "advancedText" : true
+        },
+        "style" : {
+          "fontSize" : 14,
+          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+          "textAlign" : "justify",
+          "letterSpacing" : 0,
+          "lineHeight" : 1.4,
+          "color" : "#333333"
+        }
+      },
+      "w10005" : {
+        "id" : "w10005",
+        "type" : "Label",
+        "name" : "Headline 1",
+        "x" : 2544,
+        "y" : 2296,
+        "w" : 153,
+        "h" : 25,
+        "z" : 4,
+        "props" : {
+          "label" : "Capoeira",
+          "resize" : {
+            "right" : false,
+            "up" : true,
+            "left" : true,
+            "down" : false,
+            "fixedHorizontal" : false,
+            "fixedVertical" : false
+          }
+        },
+        "has" : {
+          "label" : true,
+          "padding" : true,
+          "advancedText" : true
+        },
+        "style" : {
+          "fontSize" : 24,
+          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+          "textAlign" : "left",
+          "letterSpacing" : 0,
+          "lineHeight" : 1,
+          "color" : "#333333",
+          "fontWeight" : "bold"
+        }
+      },
+      "w10006" : {
+        "type" : "Label",
+        "name" : "Label",
+        "x" : 2546,
+        "y" : 2331,
+        "w" : 162,
+        "h" : 40,
+        "z" : 5,
+        "props" : {
+          "label" : "This is an article about sport.",
+          "resize" : {
+            "right" : true,
+            "up" : true,
+            "left" : true,
+            "down" : false,
+            "fixedHorizontal" : false,
+            "fixedVertical" : false
+          }
+        },
+        "has" : {
+          "label" : true,
+          "padding" : true,
+          "advancedText" : true
+        },
+        "style" : {
+          "fontSize" : 18,
+          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+          "textAlign" : "left",
+          "letterSpacing" : 0,
+          "lineHeight" : 1,
+          "color" : "#333333"
+        },
+        "id" : "w10006"
+      },
+      "w10008" : {
+        "type" : "Button",
+        "name" : "Box 2",
+        "x" : 2520,
+        "y" : 2670,
+        "w" : 316,
+        "h" : 374,
+        "z" : 6,
+        "props" : {
+          "label" : ""
+        },
+        "has" : {
+          "backgroundColor" : true,
+          "border" : true,
+          "label" : true,
+          "padding" : true,
+          "onclick" : true
+        },
+        "actions" : { },
+        "style" : {
+          "fontSize" : 14,
+          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+          "textAlign" : "left",
+          "letterSpacing" : 0,
+          "lineHeight" : 1.4,
+          "color" : "#ffffff",
+          "borderTopRightRadius" : 10,
+          "borderTopLeftRadius" : 10,
+          "borderBottomRightRadius" : 10,
+          "borderBottomLeftRadius" : 10,
+          "borderTopWidth" : 0,
+          "borderBottomWidth" : 0,
+          "borderRightWidth" : 0,
+          "borderLeftWidth" : 0,
+          "borderTopColor" : "#333333",
+          "borderBottomColor" : "#333333",
+          "borderRightColor" : "#333333",
+          "borderLeftColor" : "#333333",
+          "background" : "#ffffff",
+          "paddingTop" : 0,
+          "paddingBottom" : 0,
+          "paddingLeft" : 0,
+          "paddingRight" : 0,
+          "boxShadow" : {
+            "v" : 0,
+            "h" : 0,
+            "b" : 10,
+            "s" : 2,
+            "c" : "rgba(0,0,0,0.25)"
+          }
+        },
+        "id" : "w10008",
+        "copyOf" : "w10002"
+      },
+      "w10009" : {
+        "type" : "Image",
+        "name" : "Image2",
+        "x" : 2732,
+        "y" : 2694,
+        "w" : 80,
+        "h" : 80,
+        "z" : 7,
+        "props" : {
+          "resize" : {
+            "right" : true,
+            "up" : true,
+            "left" : false,
+            "down" : false,
+            "fixedHorizontal" : true,
+            "fixedVertical" : true
+          }
+        },
+        "has" : {
+          "image" : true,
+          "onclick" : true,
+          "backgroundImage" : true,
+          "border" : true
+        },
+        "actions" : { },
+        "style" : {
+          "borderTopRightRadius" : 100,
+          "borderTopLeftRadius" : 100,
+          "borderBottomRightRadius" : 100,
+          "borderBottomLeftRadius" : 100,
+          "borderTopWidth" : 0,
+          "borderBottomWidth" : 0,
+          "borderRightWidth" : 0,
+          "borderLeftWidth" : 0,
+          "borderTopColor" : "#333333",
+          "borderBottomColor" : "#333333",
+          "borderRightColor" : "#333333",
+          "borderLeftColor" : "#333333",
+          "backgroundImage" : {
+            "url" : "5cfbfcaae2fb53355b5e8e24/a2aa10aC3SBc00sYp3ezMi0HVLmaufhH35GLo72bwED2FL2eVy21k02tgeVW.jpg",
+            "w" : 319,
+            "h" : 325
+          }
+        },
+        "id" : "w10009",
+        "copyOf" : "w10003"
+      },
+      "w10010" : {
+        "id" : "w10010",
+        "type" : "Label",
+        "name" : "Paragraph 1",
+        "x" : 2546,
+        "y" : 2800,
+        "w" : 266,
+        "h" : 192,
+        "z" : 8,
+        "props" : {
+          "label" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+          "resize" : {
+            "right" : true,
+            "up" : true,
+            "left" : true,
+            "down" : false,
+            "fixedHorizontal" : false,
+            "fixedVertical" : false
+          }
+        },
+        "has" : {
+          "label" : true,
+          "padding" : true,
+          "advancedText" : true
+        },
+        "style" : {
+          "fontSize" : 14,
+          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+          "textAlign" : "justify",
+          "letterSpacing" : 0,
+          "lineHeight" : 1.4,
+          "color" : "#333333"
+        },
+        "copyOf" : "w10004"
+      },
+      "w10011" : {
+        "id" : "w10011",
+        "type" : "Label",
+        "name" : "Headline",
+        "x" : 2544,
+        "y" : 2694,
+        "w" : 153,
+        "h" : 25,
+        "z" : 9,
+        "props" : {
+          "label" : "Capoeira",
+          "resize" : {
+            "right" : false,
+            "up" : true,
+            "left" : true,
+            "down" : false,
+            "fixedHorizontal" : false,
+            "fixedVertical" : false
+          }
+        },
+        "has" : {
+          "label" : true,
+          "padding" : true,
+          "advancedText" : true
+        },
+        "style" : {
+          "fontSize" : 24,
+          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+          "textAlign" : "left",
+          "letterSpacing" : 0,
+          "lineHeight" : 1,
+          "color" : "#333333",
+          "fontWeight" : "bold"
+        },
+        "copyOf" : "w10005"
+      },
+      "w10012" : {
+        "type" : "Label",
+        "name" : "Label 1",
+        "x" : 2546,
+        "y" : 2729,
+        "w" : 162,
+        "h" : 40,
+        "z" : 10,
+        "props" : {
+          "label" : "This is an article about sport.",
+          "resize" : {
+            "right" : true,
+            "up" : true,
+            "left" : true,
+            "down" : false,
+            "fixedHorizontal" : false,
+            "fixedVertical" : false
+          }
+        },
+        "has" : {
+          "label" : true,
+          "padding" : true,
+          "advancedText" : true
+        },
+        "style" : {
+          "fontSize" : 18,
+          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+          "textAlign" : "left",
+          "letterSpacing" : 0,
+          "lineHeight" : 1,
+          "color" : "#333333"
+        },
+        "id" : "w10012",
+        "copyOf" : "w10006"
+      }
+    },
+    "lines" : { },
+    "lastUUID" : 10014,
+    "lastUpdate" : 1560018904015,
+    "created" : 1560018090104,
+    "startScreen" : "",
+    "grid" : {
+      "w" : 8,
+      "h" : 8,
+      "style" : "line",
+      "color" : "#cecece",
+      "visible" : false,
+      "enabled" : false
+    },
+    "domain" : "Quant-UX.com",
+    "size" : 8561,
+    "isDirty" : false,
+    "sizeBackup" : 113855,
+    "lastBackup" : 1560019059653,
+    "lastCategory" : "WireFrame",
+    "groups" : {
+      "g10007" : {
+        "id" : "g10007",
+        "children" : [ "w10002", "w10003", "w10004", "w10005", "w10006" ],
+        "name" : "Group"
+      },
+      "g10013" : {
+        "id" : "g10013",
+        "children" : [ "w10008", "w10009", "w10010", "w10011", "w10012" ],
+        "copyOf" : "g10007",
+        "name" : "Group"
+      }
+    },
+    "id" : "5cfbfcaae2fb53355b5e8e24"
+  }

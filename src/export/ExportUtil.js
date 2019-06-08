@@ -1,4 +1,48 @@
 
+export function getImages (app) {
+    let images = []
+    let urls = {}
+    Object.values(app.widgets).forEach(w => {
+        if (w.style && w.style.backgroundImage) {
+            let backgroundImage = w.style.backgroundImage
+            let url = getImageLocation(w, backgroundImage.url)
+            if (!urls[url]) {
+                images.push({
+                    name: url,
+                    type: 'images',
+                    id: w.id,
+                    src: backgroundImage.url,
+                })
+                urls[url] = true
+            }
+        }
+    })
+    Object.values(app.screens).forEach(w => {
+        if (w.style && w.style.backgroundImage) {
+            let backgroundImage = w.style.backgroundImage
+            let url = getImageLocation(w, backgroundImage.url)
+            if (!urls[url]) {
+                images.push({
+                    name: url,
+                    type: 'images',
+                    id: w.id,
+                    src: backgroundImage.url,
+                })
+                urls[url] = true
+            }
+        }
+    })
+    return images
+}
+
+export function getImageLocation(w, url) {
+    let parts = url.split('/')
+    if (parts.length === 2) {
+        return parts[1]
+    }
+    return url
+}
+
 export function removeCommonPath (a, b) {
     let path = []
     let aParts = a.split('/')
