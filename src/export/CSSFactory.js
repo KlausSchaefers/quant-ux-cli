@@ -303,6 +303,13 @@ export default class {
 		if (this.getSiblings(widget).length > 1) {
 			result += '  display: inline-block;\n'
 		}
+		/**
+		 * This fixes some weird
+		 */
+		// if (!widget.parent) {
+		//	result += '  display: flex;\n'
+		//	result += '  flex-direction: column;\n'
+		//}
 
 		result += `  width: ${w}${unitX};\n`
 		result += `  height: ${h}${unitY};\n`

@@ -61,7 +61,7 @@ export default class ModelTransformer {
 
             /**
              * now check for every node in the tree if
-             * we have a single row and add cobtainers
+             * we have a single row and add containers
              */
             screen = this.addRows(screen)
             screen = this.addRowContainer(screen)
@@ -278,6 +278,7 @@ export default class ModelTransformer {
         // let rows = []
         let columnIDs = 0
         nodes.forEach(a => {
+            // console.debug(' addColumns()', a.name, ' @', parent.name)
             nodes.forEach(b => {
                 if (a.id !== b.id) {
                     if (this.isOverLappingX(a,b) && a.parent) {
@@ -341,30 +342,25 @@ export default class ModelTransformer {
          */
         for (let row in rows) {
             let children = rows[row]
-            let hasNoParent = children.reduce((a,b) => b.parent === null & a, true)
-            if (hasNoParent) {
-                let boundingBox = Util.getBoundingBoxByBoxes(children)
-                let container = {
-                    id: 'r' + this.rowContainerID++,
-                    name: `Row ${this.rowContainerID}`,
-                    children: children,
-                    x: boundingBox.x,
-                    y: boundingBox.y,
-                    h: boundingBox.h,
-                    w: boundingBox.w,
-                    type: 'row',
-                    style: {},
-                    props: {}
-                }
-                children.forEach(c => {
-                    c.x = c.x - container.x,
-                    c.y = c.y - container.y,
-                    c.parent = container
-                })
-                newChildren.push(container)
-            } else {
-                newChildren = children.concat(newChildren)
+            let boundingBox = Util.getBoundingBoxByBoxes(children)
+            let container = {
+                id: 'r' + this.rowContainerID++,
+                name: `Row ${this.rowContainerID}`,
+                children: children,
+                x: boundingBox.x,
+                y: boundingBox.y,
+                h: boundingBox.h,
+                w: boundingBox.w,
+                type: 'row',
+                style: {},
+                props: {}
             }
+            children.forEach(c => {
+                c.x = c.x - container.x,
+                c.y = c.y - container.y,
+                c.parent = container
+            })
+            newChildren.push(container)
         }
         parent.children = newChildren
 
@@ -381,19 +377,24 @@ export default class ModelTransformer {
 
     addRows (parent) {
         let nodes = parent.children
+        nodes.sort((a, b) => {
+            return a.y - b.y
+        })
         // let rows = []
-        let rowIDs = 0
+        let rowIDs = 1
         nodes.forEach(a => {
+            // console.debug(' addRows()', a.name)
             nodes.forEach(b => {
                 if (a.id !== b.id) {
                     if (this.isOverLappingY(a,b)) {
-                        // console.debug('  same row', a.name, b.name)
+                        
                         /**
                          * If we have now row, create a new id for a
                          */
                         if (!a.row) {
                             a.row = rowIDs++
                         }
+                      
                         /**
                          * If b has no row, we put it in the same row as
                          * a
@@ -412,6 +413,7 @@ export default class ModelTransformer {
                                 }
                             })
                         }
+                        //console.debug('    addRows() > Same row', a.name, ' == ',b.name, ' >> ',  a.row, b.row)
                     }
                 }
 

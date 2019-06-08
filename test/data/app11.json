@@ -81,7 +81,7 @@
       },
       "w10002" : {
         "type" : "Button",
-        "name" : "Box 1",
+        "name" : "Card 1",
         "x" : 2520,
         "y" : 2272,
         "w" : 316,
@@ -181,7 +181,7 @@
       "w10004" : {
         "id" : "w10004",
         "type" : "Label",
-        "name" : "Paragraph",
+        "name" : "Body1",
         "x" : 2546,
         "y" : 2402,
         "w" : 266,
@@ -249,7 +249,7 @@
       },
       "w10006" : {
         "type" : "Label",
-        "name" : "Label",
+        "name" : "SubHeadline 1",
         "x" : 2546,
         "y" : 2331,
         "w" : 162,
@@ -283,7 +283,7 @@
       },
       "w10008" : {
         "type" : "Button",
-        "name" : "Box 2",
+        "name" : "Card 2",
         "x" : 2520,
         "y" : 2670,
         "w" : 316,
@@ -385,7 +385,7 @@
       "w10010" : {
         "id" : "w10010",
         "type" : "Label",
-        "name" : "Paragraph 1",
+        "name" : "Body 2",
         "x" : 2546,
         "y" : 2800,
         "w" : 266,
@@ -420,7 +420,7 @@
       "w10011" : {
         "id" : "w10011",
         "type" : "Label",
-        "name" : "Headline",
+        "name" : "Headline 2",
         "x" : 2544,
         "y" : 2694,
         "w" : 153,
@@ -455,7 +455,7 @@
       },
       "w10012" : {
         "type" : "Label",
-        "name" : "Label 1",
+        "name" : "SubHeadline 2",
         "x" : 2546,
         "y" : 2729,
         "w" : 162,

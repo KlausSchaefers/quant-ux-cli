@@ -3,6 +3,7 @@ import ModelTransformer from '../src/export/ModelTransformer'
 import app9 from './data/app9.json'
 import app6 from './data/app6.json'
 
+
 test('Test Simple', () => {
   let t = new ModelTransformer(app6)
   let model = t.transform()
