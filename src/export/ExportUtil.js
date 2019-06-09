@@ -542,7 +542,7 @@ export function mixinNotOverwriten(a, b) {
     return b;
 }
 
-export function  clone (obj) {
+export function clone (obj) {
     if (!obj) {
         return null
     }

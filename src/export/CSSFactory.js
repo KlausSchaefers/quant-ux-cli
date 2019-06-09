@@ -20,6 +20,16 @@ export default class {
 			"letterSpacing" : "letter-spacing",
 			"lineHeight" : "line-height",
 
+			"border": "border",
+			"borderWidth": "border-width",
+			"borderStyle": "border-style",
+			"borderColor": "border-color",
+			"borderRadius": "border-radius",
+			"borderLeft": "border-left",
+			"borderRight": "border-right",
+			"borderTop": "border-top",
+			"borderBottom": "border-bottom",
+
 			"borderBottomColor" : "border-bottom-color",
 			"borderTopColor" : "border-top-color",
 			"borderLeftColor" : "border-left-color",
@@ -44,6 +54,7 @@ export default class {
 			"paddingLeft" : "padding-left",
 			"paddingRight" : "padding-right",
 			"paddingTop" : "padding-top",
+			"padding": "padding",
 
 			"marginBottom" : "margin-bottom",
 			"marginLeft" : "margin-left",
@@ -269,7 +280,6 @@ export default class {
 			if (widget.style.paddingRight) {
 				w -= widget.style.paddingRight
 			}
-
 
 			if (widget.style.borderTopWidth) {
 				h -= widget.style.borderTopWidth

@@ -1,4 +1,5 @@
 import ModelTranformer from './ModelTransformer'
+import CSSOptimizer from './CSSOptimizer'
 
 /**
  * Main class the orchestrates the code generation. Can be configurred
@@ -19,7 +20,12 @@ export default class Generator {
       screens: [],
     }
 
-     /**
+    /**
+     * Compress the CSS, e.g. merge borders if possible.
+     */
+    model = new CSSOptimizer().run(model);
+
+    /**
      * First, we create a grid model
      */
     let transformer = new ModelTranformer(model)
