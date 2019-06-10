@@ -1,7 +1,6 @@
 class ImportUtil {
 
     get(current, from) {
-        console.debug('ImportUtil', current, from)
         let back = []
         let forward = []
         let currentParts = current.split('/')

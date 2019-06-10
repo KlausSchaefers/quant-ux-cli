@@ -77,17 +77,19 @@ export default class VueMutliPageWriter {
         return css.length > 0
     }
 
-    addFilesForScreen(screen, code, result, imports, conf) {
+    addFilesForScreen(screen, code, result, globalImports, conf) {
+
+        let imports = globalImports.map(i => i)
 
         let css = Util.getScreenCSS(screen, code, ['common', 'template'])
 
         result.push({
-            name: `${this.getFileName(screen.name)}.css`,
+            name: `${Util.getFileName(screen.name)}.css`,
             type: 'css',
             id: screen.id,
             content: css
         })
-        imports.push(`${this.getFileName(screen.name)}.css`)
+        imports.push(`${Util.getFileName(screen.name)}.css`)
 
         let cssPath = this.getCSSPath(conf)
 
@@ -95,8 +97,8 @@ export default class VueMutliPageWriter {
         let body = screen.template
         let cssImports = imports.map(i => `    @import url("${cssPath}${i}");`).join('\n')
           result.push({
-            name: `${this.getFileName(screen.name)}.vue`,
-            screenName: this.getFileName(screen.name),
+            name: `${Util.getFileName(screen.name)}.vue`,
+            screenName: Util.getFileName(screen.name),
             type: 'vue',
             id: screen.id,
             content: this.getTemplate(screen, body, data, cssImports)
@@ -125,9 +127,7 @@ export default class VueMutliPageWriter {
         return ''
     }
 
-    getFileName(name) {
-        return name.replace(/\s/g, '_');
-    }
+  
 
     getData (screen) {
         let elements = Util.getAllChildrenForScreen(screen)
@@ -141,7 +141,7 @@ return `
 <template>
 ${body}
 </template>
-<style lang="css">
+<style lang="css" scoped>
 ${cssImports}
 </style>
 <script>
@@ -155,7 +155,11 @@ ${data}
         };
     },
     components: {},
-    methods: {},
+    methods: {
+        navigateTo (screen) {
+            this.$router.push(screen + '.html')
+        }
+    },
     mounted() {}
 };
 </script>`

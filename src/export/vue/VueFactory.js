@@ -1,6 +1,7 @@
 
 import HTMLFactory from '../html/HTMLFactory'
 import ImportUtil from '../ImportUtil'
+import * as Util from '../ExportUtil'
 
 export default class VueFactory extends HTMLFactory {
 
@@ -27,6 +28,19 @@ export default class VueFactory extends HTMLFactory {
         return `<input type="text" placeholder="${placeholder}" class="${css}" ${databinding}/>`
     }
 
+    getAction (element, gridModel) {
+        if (element.lines) {
+            let click = element.lines.find(l => l.event === 'click')
+            if (click && click.screen) {
+                let screen = gridModel.screens.find(s => s.id === click.screen.id)
+                if (screen) {
+                    return `@click="navigateTo('${Util.getFileName(screen.name)}')"`
+                }
+            }
+        }
+        return ''
+    }
+
     getDataBinding (element) {
         if (element.props && element.props.databinding) {
             let databinding = element.props.databinding.default
@@ -34,5 +48,7 @@ export default class VueFactory extends HTMLFactory {
         }
         return ''
     }
+
+   
 
 }

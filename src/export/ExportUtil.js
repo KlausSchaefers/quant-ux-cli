@@ -1,4 +1,8 @@
 
+export function getFileName(name) {
+    return name.replace(/\s/g, '_');
+}
+
 export function getImages (app) {
     let images = []
     let urls = {}
@@ -226,9 +230,7 @@ export function sortWidgetList (result) {
     });
 }
 
-
-
-function getAllChildren(node, result){
+export function getAllChildren(node, result){
     if (node.children) {
        node.children.forEach(child => {
             result.push(child)
@@ -548,4 +550,53 @@ export function clone (obj) {
     }
     let _s = JSON.stringify(obj)
     return JSON.parse(_s)
+}
+
+
+export function getLines (widget, model, deep) {
+    var result = [];
+
+    if(widget.inherited && model.widgets[widget.inherited]){
+        widget = model.widgets[widget.inherited];
+    }
+    
+    var widgetID = widget.id;
+    var lines = getFromLines(widget, model);
+    if(lines && lines.length > 0){
+        return lines;
+    }
+    
+    var group = getParentGroup(widgetID, model);
+    if(group){
+        var groupLine = getFromLines(group, model);
+        if(groupLine && groupLine.length > 0){
+            return groupLine;
+        }
+    }
+
+    return result;
+}
+
+function getFromLines (box, model) {
+    var result = [];
+    for (var id in model.lines) {
+        var line = model.lines[id];
+        if (line.from == box.id) {
+            result.push(line);
+        }
+    }
+    return result;
+}
+
+function  getParentGroup (widgetID, model) {
+    if (model.groups) {
+        for (var id in model.groups) {
+            var group = model.groups[id];
+            var i = group.children.indexOf(widgetID);
+            if (i > -1) {
+                return group;
+            }
+        }
+    }
+    return null;
 }

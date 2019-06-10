@@ -34,6 +34,11 @@ export default class ModelTransformer {
         this.model = Util.createInheritedModel(this.model)
 
         /**
+         * Embedd links
+         */
+        this.model = this.addActions(this.model)
+
+        /**
          * FIXME: We should fix doubles names. With mastre screens
          * we could have overwites! We could rename them, but this
          * would have to be consistant in all screens!
@@ -147,6 +152,23 @@ export default class ModelTransformer {
         })
 
         return parent
+    }
+
+    addActions (model) {
+        Object.values(model.widgets).forEach(w => {
+            let lines = Util.getLines(w, model, true)
+            if (lines.length > 0) {
+                console.debug('ModelTRansformer.addActions() > ', lines)
+                w.lines = lines
+                lines.forEach(l => {
+                    let screen = model.screens[l.to]
+                    if (screen) {
+                        l.screen = screen
+                    }
+                })
+            }
+        })
+        return model
     }
 
 

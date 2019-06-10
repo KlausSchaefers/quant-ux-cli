@@ -21,33 +21,34 @@ export default class Generator {
     }
 
     /**
-     * Compress the CSS, e.g. merge borders if possible.
-     */
-    model = new CSSOptimizer().run(model);
-
-    /**
      * First, we create a grid model
      */
     let transformer = new ModelTranformer(model)
     let gridModel = transformer.transform()
 
     /**
-     * Second, we create styles and attach them also to the model
+     * Second the CSS, e.g. merge borders if possible.
+     */
+    gridModel = new CSSOptimizer().runTree(gridModel);
+
+
+    /**
+     * Third, we create styles and attach them also to the model
      * if needed. We need to do this before, so we can
      * compute shared styles
      */
     result.styles = this.styleFactory.generate(gridModel)
 
     /**
-    * Third, Generate code
+    * Last, Generate code
     */
     gridModel.screens.forEach(screen => {
-      result.screens.push(this.generateScreen(screen, result.styles))
+      result.screens.push(this.generateScreen(screen, result.styles, gridModel))
     })
     return result
   }
 
-  generateScreen(screen, styles) {
+  generateScreen(screen, styles, gridModel) {
     let result = {
       id: screen.id,
       name: screen.name,
@@ -58,7 +59,7 @@ export default class Generator {
 
     let body = []
     screen.children.forEach(child => {
-      body.push(this.generateElement(child, styles))
+      body.push(this.generateElement(child, styles, gridModel))
     })
     result.template = this.elementFactory.screen(screen, styles[screen.id], body).trim()
     return result
@@ -66,15 +67,15 @@ export default class Generator {
 
 
 
-  generateElement (element, styles) {
+  generateElement (element, styles, gridModel) {
     if (element.children && element.children.length > 0) {
       let templates = []
       element.children.forEach(child => {
-        templates.push(this.generateElement(child, styles))
+        templates.push(this.generateElement(child, styles, gridModel))
       })
       return this.elementFactory.container(element, styles[element.id], templates)
     } else {
-      return this.elementFactory.element(element, styles[element.id])
+      return this.elementFactory.element(element, styles[element.id], gridModel)
     }
   }
 }

@@ -1,5 +1,18 @@
 
 import CSSOptimizer from '../src/export/CSSOptimizer'
+import app11 from './data/app11.json'
+import ModelTransformer from '../src/export/ModelTransformer'
+
+test('Test run()', () => {
+
+    let t = new ModelTransformer(app11)
+    let model = t.transform()
+
+    let o = new CSSOptimizer()
+    let result = o.runTree(model)
+    expect(result).not.toBe(undefined)
+});
+
 
 test('Test compress() > All equal', () => {
 

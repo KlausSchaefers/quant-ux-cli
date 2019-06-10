@@ -1,12 +1,5 @@
 
 import CSSOptimizer from '../src/export/CSSOptimizer'
-import app11 from './data/app11.json'
-
-test('Test run()', () => {
-    let o = new CSSOptimizer()
-    let result = o.run(app11)
-    expect(result).not.toBe(undefined)
-});
 
 
 test('Test compress() > All different', () => {

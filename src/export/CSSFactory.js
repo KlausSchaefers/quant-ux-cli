@@ -170,6 +170,10 @@ export default class {
 			}
 		}
 
+		/**
+		 * TDOD: If we have shared code...
+		 */
+
 		let name = this.getName(node);
 		result[node.id].push({
 			type: 'widget',
@@ -179,6 +183,7 @@ export default class {
 			inherited: node.inherited,
 			inheritedScreen: node.inheritedScreen
 		})
+
 
 		if (node.children) {
 			node.children.forEach(child =>{

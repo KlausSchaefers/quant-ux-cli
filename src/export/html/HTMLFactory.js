@@ -32,9 +32,9 @@ export default class HTMLFactory {
   }
 
 
-  element(element, styles) {
+  element(element, styles, gridModel) {
     if (this['element_' + element.type]) {
-      return this['element_' + element.type](element, styles)
+      return this['element_' + element.type](element, styles, gridModel)
     }
     let css = this.css(styles)
     let label = ''
@@ -60,31 +60,34 @@ export default class HTMLFactory {
     return `<input type="text" placeholder="${placeholder}" class="${css}" value="${value}" />`
   }
 
-  element_Box(element, styles) {
+  element_Box(element, styles, gridModel) {
     let css = this.css(styles) 
     let label = ''
+    let action = this.getAction(element, gridModel)
     if (element.props.label) {
       label = element.props.label
     }
-    return `<div class="${css}">${label}</div>`
+    return `<div class="${css}" ${action}>${label}</div>`
   }
 
-  element_Button(element, styles) {
+  element_Button(element, styles, gridModel) {
     let css = this.css(styles) 
     let label = ''
+    let action = this.getAction(element, gridModel)
     if (element.props.label) {
       label = element.props.label
     }
-    return `<div class="${css}">${label}</div>`
+    return `<div class="${css}" ${action}>${label}</div>`
   }
 
-  element_Label(element, styles) {
+  element_Label(element, styles, gridModel) {
     let css = this.css(styles) 
     let label = ''
+    let action = this.getAction(element, gridModel)
     if (element.props.label) {
       label = element.props.label
     }
-    return `<div  class="${css}">${label}</div>`
+    return `<div  class="${css}" ${action}>${label}</div>`
   }
 
   element_ToggleButton(element, styles) {
@@ -152,12 +155,13 @@ export default class HTMLFactory {
     return `<div  class="${css}" />`
   }
 
-  element_Image(element, styles) {
-    let css = this.css(styles) 
+  element_Image(element, styles, gridModel) {
+    let css = this.css(styles)
+    let action = this.getAction(element, gridModel)
     let backgroundImage =  element.style.backgroundImage
     if (backgroundImage) {
       let src = this.imagePrefix + '/' + ExportUtil.getImageLocation(element,backgroundImage.url)
-      return `<img src="${src}" class="${css}" />`
+      return `<img src="${src}" class="${css}" ${action}/>`
     }
     return ''
   }
@@ -260,6 +264,10 @@ export default class HTMLFactory {
   element_RingChart(element, styles) {
     let css = this.css(styles) 
     return `<div  class="${css}" />`
+  }
+
+  getAction (element, gridModel) {
+    return ''
   }
 
   css(styles) {

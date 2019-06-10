@@ -15,7 +15,7 @@ export default class RouterFactory {
                 routes.push(
 `   {
         path: '/',
-        name: '${f.screenName}_Start',
+        name: '${f.screenName}',
         component: () => import(/* webpackChunkName: "${f.name}" */ './${folder}/${f.name}')
     }`)   
             }

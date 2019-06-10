@@ -1,4 +1,5 @@
 import CSSFactory from './export/CSSFactory'
+import CSSOptimizer from './export/CSSOptimizer'
 import ModelTransformer from './export/ModelTransformer'
 import * as ExportUtil from './export/ExportUtil'
 import Generator from './export/Generator'
@@ -18,4 +19,5 @@ exports.VueFactory = VueFactory
 exports.VueSinglePageWriter = VueSinglePageWriter
 exports.HTMLFactory = HTMLFactory
 exports.SinglePageWriter = SinglePageWriter
+exports.CSSOptimizer = CSSOptimizer
 
