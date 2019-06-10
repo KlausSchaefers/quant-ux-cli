@@ -6,7 +6,7 @@ export function print(screen) {
 
 function printElement(res, e, space='') {
     let actions = e.lines ? ' -> ' + e.lines.map(l => l.event + ':' + l.screen.name) : '' 
-    res.push(`${space}${e.name} - (${e.type}) ${actions}`)
+    res.push(`${space}${e.name} - (${e.type})   ${e.row} ||  ${actions} `)
     if (e.children) {
         e.children.forEach(c => {
             printElement(res, c, space + '  ')

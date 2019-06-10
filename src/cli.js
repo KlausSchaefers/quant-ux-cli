@@ -138,7 +138,8 @@ function load(confFile = '.quant-ux.json') {
                         "server": "https://quant-ux.com",
                         "conflict": "overwrite",
                         "css": {
-                            "responsive": false
+                            "responsive": false,
+                            "prefix": ""
                         },
                         "vue": {
                             "generateRouter": true,

@@ -3,9 +3,10 @@ import * as Util from './ExportUtil'
 
 export default class {
 
-	constructor (isResponsive = false, prefix = '') {
+	constructor (isResponsive = false, prefix = '', useScreenNameInSelector = false) {
 		this.isResponsive = isResponsive
-		this.prefix = prefix
+		this.prefix = prefix ? prefix : ''
+		this.useScreenNameInSelector = useScreenNameInSelector
 		this.marginWhiteSpaceCorrect = 0;
 
 		this.mapping = {
@@ -207,15 +208,38 @@ export default class {
 		return result;
 	}
 
+	getSelector(widget, screen) {
+		let selector = '.' + this.getName(widget);
+		if (this.useScreenNameInSelector && screen) {
+			selector = '.' + this.getName(screen) + ' ' + selector
+		}
+		return selector
+	}
+
+	getName(box){
+		let name = box.name.replace(/\s+/g, '_')
+		if (box.inherited) {
+			name += '_Master'
+		}
+		if (this.prefix) {
+			name = `${this.prefix}_${name}`
+		}
+		return name
+	}
+
 	getCSS (widget, screen, position = true) {
 		var result = "";
 
 		var style = widget.style;
 		style = Util.fixAutos(style, widget)
 
-		let name = this.getName(widget);
-		result += '.' + name + ' {\n'
+		let selector = this.getSelector(widget, screen);
+		result += selector + ' {\n'
 		result += this.getRawStyle(style);
+
+		if (widget.lines && widget.lines.length > 0) {
+			result += '  cursor: pointer;\n'
+		}
 
 		if (position) {
 			result += this.getPosition(widget, screen);
@@ -226,7 +250,7 @@ export default class {
 		result += '}\n\n'
 
 		if (widget.hover) {
-			result += '.' +name + ':hover {\n'
+			result += selector + ':hover {\n'
 			result += this.getRawStyle(widget.hover);
 			if (this['getCSS_' + widget.type]) {
 				result += this['getCSS_' + widget.type](widget.hover, widget)
@@ -245,16 +269,7 @@ export default class {
 	}
 
 
-	getName(box){
-		let name = box.name.replace(/\s+/g, '_')
-		if (box.inherited) {
-			name += '_Master'
-		}
-		if (this.prefix) {
-			name = `${this.prefix}_${name}`
-		}
-		return name
-	}
+
 
 	getPosition (widget) {
 		let result = ''

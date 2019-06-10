@@ -18,7 +18,7 @@ test('Test Template', () => {
   let file = files.find(f => f.id === 's10000')
   expect(file).not.toBe(null)
 
-
+  // console.debug(file.content)
   expect(file.content.indexOf('.Templated')).toBeGreaterThan(0)
   expect(file.content.indexOf('.RedBox')).toBeGreaterThan(0)
   expect(file.content.indexOf('.Box_Master')).toBeGreaterThan(0)
@@ -26,6 +26,4 @@ test('Test Template', () => {
   expect(file.content.indexOf('<div class="RedBox Templated"></div>')).toBeGreaterThan(0)
   expect(file.content.indexOf('<div class="Box_Master">Master</div>')).toBeGreaterThan(0)
 
-
-  // console.debug(file.content)
 });

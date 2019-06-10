@@ -2,7 +2,7 @@ import GeneratorFactory from '../src/export/GeneratorFactory'
 import app12 from './data/app12.json'
 
 
-test('Test Image', () => {
+test('Test Click', () => {
 
   let generator =  GeneratorFactory.create({type: 'vue', css: {responsive:false}, targets: {css:'src/css', vue: 'src/vue', images: 'src/imgs'}})
   let files = generator.run(app12, {type: 'vue', css: {responsive:false}, targets: {css:'src/css', vue: 'src/vue', images: 'src/imgs'}})
@@ -14,5 +14,6 @@ test('Test Image', () => {
   expect(screen1Vue.content.indexOf(`click="navigateTo('Karate')"`)).toBeGreaterThanOrEqual(0)
   expect(screen1Vue.content.indexOf(`click="navigateTo('Capoeira')"`)).toBeGreaterThanOrEqual(0)
  
-  // console.debug(file.content)
+  // console.debug(screen1Vue.content)
 });
+

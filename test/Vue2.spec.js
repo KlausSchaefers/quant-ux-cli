@@ -18,9 +18,9 @@ test('Test Image', () => {
   expect(screen1Vue.content.indexOf('<img src="../imgs/')).toBeGreaterThanOrEqual(0)
   expect(screen1Vue.content.indexOf('<div class="Header">Sport Wiki</div>')).toBeGreaterThanOrEqual(0)
   
-  let images = files.filter(f => f.type === 'image')
+  let images = files.filter(f => f.type === 'images')
   expect(images.length).toBe(1)
-  console.debug(images)
+  // console.debug(images)
   // console.debug(screen1Vue.content)
   // console.debug(file.content)
 });

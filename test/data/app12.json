@@ -1,1317 +1,1305 @@
 {
-    "_id" : "5cfbfcaae2fb53355b5e8e24",
-    "name" : "Code Gen Test",
-    "description" : "",
-    "screenSize" : {
-      "w" : 375,
-      "h" : 667
+  "_id" : "5cfbfcaae2fb53355b5e8e24",
+  "name" : "Code Gen Test",
+  "description" : "",
+  "screenSize" : {
+    "w" : 375,
+    "h" : 667
+  },
+  "type" : "smartphone",
+  "screens" : {
+    "s10000" : {
+      "x" : 2490,
+      "y" : 2198,
+      "h" : 972,
+      "w" : 376,
+      "name" : "Screen",
+      "type" : "Screen",
+      "style" : {
+        "background" : "#e8e8e8"
+      },
+      "min" : {
+        "w" : 375,
+        "h" : 667
+      },
+      "has" : {
+        "image" : true
+      },
+      "props" : {
+        "start" : true
+      },
+      "children" : [ "w10001", "w10002", "w10003", "w10005", "w10006", "w10008", "w10009", "w10010", "w10012", "w10011", "w10004" ],
+      "id" : "s10000"
     },
-    "type" : "smartphone",
-    "screens" : {
-      "s10000" : {
-        "x" : 2490,
-        "y" : 2198,
-        "h" : 972,
-        "w" : 376,
-        "name" : "Screen",
-        "type" : "Screen",
-        "style" : {
-          "background" : "#e8e8e8"
-        },
-        "min" : {
-          "w" : 375,
-          "h" : 667
-        },
-        "has" : {
-          "image" : true
-        },
-        "props" : {
-          "start" : true
-        },
-        "children" : [ "w10001", "w10002", "w10003", "w10004", "w10005", "w10006", "w10008", "w10009", "w10010", "w10012", "w10011" ],
-        "id" : "s10000"
+    "s10014" : {
+      "x" : 2972,
+      "y" : 2198,
+      "h" : 888,
+      "w" : 376,
+      "name" : "CapoeiraScreen",
+      "type" : "Screen",
+      "style" : {
+        "background" : "#e8e8e8"
       },
-      "s10014" : {
-        "x" : 2972,
-        "y" : 2198,
-        "h" : 888,
-        "w" : 376,
-        "name" : "Capoeira",
-        "type" : "Screen",
-        "style" : {
-          "background" : "#e8e8e8"
-        },
-        "min" : {
-          "w" : 375,
-          "h" : 667
-        },
-        "has" : {
-          "image" : true
-        },
-        "props" : { },
-        "children" : [ "w10015", "w10016", "w10017", "w10019", "w10020", "w10018", "w10028" ],
-        "id" : "s10014"
+      "min" : {
+        "w" : 375,
+        "h" : 667
       },
-      "s10030" : {
-        "x" : 3462,
-        "y" : 2198,
-        "h" : 888,
-        "w" : 376,
-        "name" : "Karate",
-        "type" : "Screen",
-        "style" : {
-          "background" : "#e8e8e8"
-        },
-        "min" : {
-          "w" : 375,
-          "h" : 667
-        },
-        "has" : {
-          "image" : true
-        },
-        "props" : { },
-        "children" : [ "w10031", "w10032", "w10036", "w10037", "w10035", "w10033", "w10034" ],
-        "id" : "s10030"
+      "has" : {
+        "image" : true
       },
-      "s10047" : {
-        "x" : 3944,
-        "y" : 2198,
-        "h" : 668,
-        "w" : 376,
-        "name" : "Templates",
-        "type" : "Screen",
-        "style" : {
-          "background" : "#ffffff"
-        },
-        "min" : {
-          "w" : 375,
-          "h" : 667
-        },
-        "has" : {
-          "image" : true
-        },
-        "props" : {
-          "start" : false
-        },
-        "children" : [ "w10048", "w10050" ],
-        "id" : "s10047"
-      }
+      "props" : { },
+      "children" : [ "w10015", "w10016", "w10017", "w10028", "w10020", "w10019", "w10018" ],
+      "id" : "s10014"
     },
-    "widgets" : {
-      "w10001" : {
-        "type" : "Button",
-        "name" : "Box",
-        "x" : 2490,
-        "y" : 2198,
-        "w" : 376,
-        "h" : 50,
-        "z" : 0,
-        "props" : {
-          "label" : "Sport Wiki"
-        },
-        "has" : {
-          "backgroundColor" : true,
-          "border" : true,
-          "label" : true,
-          "padding" : true,
-          "onclick" : true
-        },
-        "actions" : { },
-        "style" : {
-          "fontSize" : 28,
-          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
-          "textAlign" : "center",
-          "letterSpacing" : 0,
-          "lineHeight" : 1.4,
-          "color" : "#ffffff",
-          "borderTopRightRadius" : 0,
-          "borderTopLeftRadius" : 0,
-          "borderBottomRightRadius" : 0,
-          "borderBottomLeftRadius" : 0,
-          "borderTopWidth" : 0,
-          "borderBottomWidth" : 0,
-          "borderRightWidth" : 0,
-          "borderLeftWidth" : 0,
-          "borderTopColor" : "#333333",
-          "borderBottomColor" : "#333333",
-          "borderRightColor" : "#333333",
-          "borderLeftColor" : "#333333",
-          "background" : "#333c41",
-          "paddingTop" : 8,
-          "paddingBottom" : 8,
-          "paddingLeft" : 8,
-          "paddingRight" : 8
-        },
-        "id" : "w10001"
+    "s10030" : {
+      "x" : 3462,
+      "y" : 2198,
+      "h" : 888,
+      "w" : 376,
+      "name" : "KarateScreen",
+      "type" : "Screen",
+      "style" : {
+        "background" : "#e8e8e8"
       },
-      "w10002" : {
-        "type" : "Button",
-        "name" : "Card1",
-        "x" : 2520,
-        "y" : 2272,
-        "w" : 316,
-        "h" : 374,
-        "z" : 1,
-        "props" : {
-          "label" : ""
-        },
-        "has" : {
-          "backgroundColor" : true,
-          "border" : true,
-          "label" : true,
-          "padding" : true,
-          "onclick" : true
-        },
-        "actions" : { },
-        "style" : {
-          "fontSize" : 14,
-          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
-          "textAlign" : "left",
-          "letterSpacing" : 0,
-          "lineHeight" : 1.4,
-          "color" : "#ffffff",
-          "borderTopRightRadius" : 10,
-          "borderTopLeftRadius" : 10,
-          "borderBottomRightRadius" : 10,
-          "borderBottomLeftRadius" : 10,
-          "borderTopWidth" : 0,
-          "borderBottomWidth" : 0,
-          "borderRightWidth" : 0,
-          "borderLeftWidth" : 0,
-          "borderTopColor" : "#333333",
-          "borderBottomColor" : "#333333",
-          "borderRightColor" : "#333333",
-          "borderLeftColor" : "#333333",
-          "background" : "#ffffff",
-          "paddingTop" : 0,
-          "paddingBottom" : 0,
-          "paddingLeft" : 0,
-          "paddingRight" : 0,
-          "boxShadow" : {
-            "v" : 0,
-            "h" : 0,
-            "b" : 10,
-            "s" : 2,
-            "c" : "rgba(0,0,0,0.25)"
-          }
-        },
-        "id" : "w10002"
+      "min" : {
+        "w" : 375,
+        "h" : 667
       },
-      "w10003" : {
-        "type" : "Image",
-        "name" : "Capoeira",
-        "x" : 2732,
-        "y" : 2296,
-        "w" : 80,
-        "h" : 80,
-        "z" : 2,
-        "props" : {
-          "resize" : {
-            "right" : true,
-            "up" : true,
-            "left" : false,
-            "down" : false,
-            "fixedHorizontal" : true,
-            "fixedVertical" : true
-          }
-        },
-        "has" : {
-          "image" : true,
-          "onclick" : true,
-          "backgroundImage" : true,
-          "border" : true
-        },
-        "actions" : { },
-        "style" : {
-          "borderTopRightRadius" : 100,
-          "borderTopLeftRadius" : 100,
-          "borderBottomRightRadius" : 100,
-          "borderBottomLeftRadius" : 100,
-          "borderTopWidth" : 0,
-          "borderBottomWidth" : 0,
-          "borderRightWidth" : 0,
-          "borderLeftWidth" : 0,
-          "borderTopColor" : "#333333",
-          "borderBottomColor" : "#333333",
-          "borderRightColor" : "#333333",
-          "borderLeftColor" : "#333333",
-          "backgroundImage" : {
-            "url" : "5cfbfcaae2fb53355b5e8e24/a2aa10aC3SBc00sYp3ezMi0HVLmaufhH35GLo72bwED2FL2eVy21k02tgeVW.jpg",
-            "w" : 319,
-            "h" : 325
-          }
-        },
-        "id" : "w10003"
+      "has" : {
+        "image" : true
       },
-      "w10004" : {
-        "id" : "w10004",
-        "type" : "Label",
-        "name" : "Paragraph1",
-        "x" : 2546,
-        "y" : 2402,
-        "w" : 266,
-        "h" : 192,
-        "z" : 3,
-        "props" : {
-          "label" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
-          "resize" : {
-            "right" : true,
-            "up" : true,
-            "left" : true,
-            "down" : false,
-            "fixedHorizontal" : false,
-            "fixedVertical" : false
-          }
-        },
-        "has" : {
-          "label" : true,
-          "padding" : true,
-          "advancedText" : true
-        },
-        "style" : {
-          "fontSize" : 14,
-          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
-          "textAlign" : "justify",
-          "letterSpacing" : 0,
-          "lineHeight" : 1.4,
-          "color" : "#333333"
+      "props" : { },
+      "children" : [ "w10031", "w10032", "w10037", "w10033", "w10034", "w10035", "w10036" ],
+      "id" : "s10030"
+    },
+    "s10047" : {
+      "x" : 3944,
+      "y" : 2198,
+      "h" : 668,
+      "w" : 376,
+      "name" : "Templates",
+      "type" : "Screen",
+      "style" : {
+        "background" : "#ffffff"
+      },
+      "min" : {
+        "w" : 375,
+        "h" : 667
+      },
+      "has" : {
+        "image" : true
+      },
+      "props" : {
+        "start" : false
+      },
+      "children" : [ "w10048", "w10050" ],
+      "id" : "s10047"
+    }
+  },
+  "widgets" : {
+    "w10001" : {
+      "type" : "Button",
+      "name" : "Box",
+      "x" : 2490,
+      "y" : 2198,
+      "w" : 376,
+      "h" : 50,
+      "z" : 0,
+      "props" : {
+        "label" : "Sport Wiki"
+      },
+      "has" : {
+        "backgroundColor" : true,
+        "border" : true,
+        "label" : true,
+        "padding" : true,
+        "onclick" : true
+      },
+      "actions" : { },
+      "style" : {
+        "fontSize" : 28,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "center",
+        "letterSpacing" : 0,
+        "lineHeight" : 1.4,
+        "color" : "#ffffff",
+        "borderTopRightRadius" : 0,
+        "borderTopLeftRadius" : 0,
+        "borderBottomRightRadius" : 0,
+        "borderBottomLeftRadius" : 0,
+        "borderTopWidth" : 0,
+        "borderBottomWidth" : 0,
+        "borderRightWidth" : 0,
+        "borderLeftWidth" : 0,
+        "borderTopColor" : "#333333",
+        "borderBottomColor" : "#333333",
+        "borderRightColor" : "#333333",
+        "borderLeftColor" : "#333333",
+        "background" : "#333c41",
+        "paddingTop" : 8,
+        "paddingBottom" : 8,
+        "paddingLeft" : 8,
+        "paddingRight" : 8
+      },
+      "id" : "w10001"
+    },
+    "w10002" : {
+      "type" : "Button",
+      "name" : "Card1",
+      "x" : 2520,
+      "y" : 2272,
+      "w" : 316,
+      "h" : 374,
+      "z" : 1,
+      "props" : {
+        "label" : ""
+      },
+      "has" : {
+        "backgroundColor" : true,
+        "border" : true,
+        "label" : true,
+        "padding" : true,
+        "onclick" : true
+      },
+      "actions" : { },
+      "style" : {
+        "fontSize" : 14,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1.4,
+        "color" : "#ffffff",
+        "borderTopRightRadius" : 10,
+        "borderTopLeftRadius" : 10,
+        "borderBottomRightRadius" : 10,
+        "borderBottomLeftRadius" : 10,
+        "borderTopWidth" : 0,
+        "borderBottomWidth" : 0,
+        "borderRightWidth" : 0,
+        "borderLeftWidth" : 0,
+        "borderTopColor" : "#333333",
+        "borderBottomColor" : "#333333",
+        "borderRightColor" : "#333333",
+        "borderLeftColor" : "#333333",
+        "background" : "#ffffff",
+        "paddingTop" : 0,
+        "paddingBottom" : 0,
+        "paddingLeft" : 0,
+        "paddingRight" : 0,
+        "boxShadow" : {
+          "v" : 0,
+          "h" : 0,
+          "b" : 10,
+          "s" : 2,
+          "c" : "rgba(0,0,0,0.25)"
         }
       },
-      "w10005" : {
-        "id" : "w10005",
-        "type" : "Label",
-        "name" : "Headline 1",
-        "x" : 2544,
-        "y" : 2296,
-        "w" : 153,
-        "h" : 25,
-        "z" : 4,
-        "props" : {
-          "label" : "Capoeira",
-          "resize" : {
-            "right" : false,
-            "up" : true,
-            "left" : true,
-            "down" : false,
-            "fixedHorizontal" : false,
-            "fixedVertical" : false
-          }
-        },
-        "has" : {
-          "label" : true,
-          "padding" : true,
-          "advancedText" : true
-        },
-        "style" : {
-          "fontSize" : 24,
-          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
-          "textAlign" : "left",
-          "letterSpacing" : 0,
-          "lineHeight" : 1,
-          "color" : "#333333",
-          "fontWeight" : "bold"
+      "id" : "w10002"
+    },
+    "w10003" : {
+      "type" : "Image",
+      "name" : "CapoeiraImg",
+      "x" : 2732,
+      "y" : 2296,
+      "w" : 80,
+      "h" : 80,
+      "z" : 2,
+      "props" : {
+        "resize" : {
+          "right" : true,
+          "up" : true,
+          "left" : false,
+          "down" : false,
+          "fixedHorizontal" : true,
+          "fixedVertical" : true
         }
       },
-      "w10006" : {
-        "type" : "Label",
-        "name" : "SubHeadline",
-        "x" : 2546,
-        "y" : 2331,
-        "w" : 162,
-        "h" : 40,
-        "z" : 5,
-        "props" : {
-          "label" : "This is an article about sport.",
-          "resize" : {
-            "right" : true,
-            "up" : true,
-            "left" : true,
-            "down" : false,
-            "fixedHorizontal" : false,
-            "fixedVertical" : false
-          }
-        },
-        "has" : {
-          "label" : true,
-          "padding" : true,
-          "advancedText" : true
-        },
-        "style" : {
-          "fontSize" : 18,
-          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
-          "textAlign" : "left",
-          "letterSpacing" : 0,
-          "lineHeight" : 1,
-          "color" : "#333333"
-        },
-        "id" : "w10006"
+      "has" : {
+        "image" : true,
+        "onclick" : true,
+        "backgroundImage" : true,
+        "border" : true
       },
-      "w10008" : {
-        "type" : "Button",
-        "name" : "Card2",
-        "x" : 2520,
-        "y" : 2670,
-        "w" : 316,
-        "h" : 374,
-        "z" : 6,
-        "props" : {
-          "label" : ""
-        },
-        "has" : {
-          "backgroundColor" : true,
-          "border" : true,
-          "label" : true,
-          "padding" : true,
-          "onclick" : true
-        },
-        "actions" : { },
-        "style" : {
-          "fontSize" : 14,
-          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
-          "textAlign" : "left",
-          "letterSpacing" : 0,
-          "lineHeight" : 1.4,
-          "color" : "#ffffff",
-          "borderTopRightRadius" : 10,
-          "borderTopLeftRadius" : 10,
-          "borderBottomRightRadius" : 10,
-          "borderBottomLeftRadius" : 10,
-          "borderTopWidth" : 0,
-          "borderBottomWidth" : 0,
-          "borderRightWidth" : 0,
-          "borderLeftWidth" : 0,
-          "borderTopColor" : "#333333",
-          "borderBottomColor" : "#333333",
-          "borderRightColor" : "#333333",
-          "borderLeftColor" : "#333333",
-          "background" : "#ffffff",
-          "paddingTop" : 0,
-          "paddingBottom" : 0,
-          "paddingLeft" : 0,
-          "paddingRight" : 0,
-          "boxShadow" : {
-            "v" : 0,
-            "h" : 0,
-            "b" : 10,
-            "s" : 2,
-            "c" : "rgba(0,0,0,0.25)"
-          }
-        },
-        "id" : "w10008",
-        "copyOf" : "w10002"
+      "actions" : { },
+      "style" : {
+        "borderTopRightRadius" : 100,
+        "borderTopLeftRadius" : 100,
+        "borderBottomRightRadius" : 100,
+        "borderBottomLeftRadius" : 100,
+        "borderTopWidth" : 0,
+        "borderBottomWidth" : 0,
+        "borderRightWidth" : 0,
+        "borderLeftWidth" : 0,
+        "borderTopColor" : "#333333",
+        "borderBottomColor" : "#333333",
+        "borderRightColor" : "#333333",
+        "borderLeftColor" : "#333333",
+        "backgroundImage" : {
+          "url" : "5cfbfcaae2fb53355b5e8e24/a2aa10aC3SBc00sYp3ezMi0HVLmaufhH35GLo72bwED2FL2eVy21k02tgeVW.jpg",
+          "w" : 319,
+          "h" : 325
+        }
       },
-      "w10009" : {
-        "type" : "Image",
-        "name" : "Karate",
-        "x" : 2732,
-        "y" : 2694,
-        "w" : 80,
-        "h" : 80,
-        "z" : 7,
-        "props" : {
-          "resize" : {
-            "right" : true,
-            "up" : true,
-            "left" : false,
-            "down" : false,
-            "fixedHorizontal" : true,
-            "fixedVertical" : true
-          }
-        },
-        "has" : {
-          "image" : true,
-          "onclick" : true,
-          "backgroundImage" : true,
-          "border" : true
-        },
-        "actions" : { },
-        "style" : {
-          "borderTopRightRadius" : 100,
-          "borderTopLeftRadius" : 100,
-          "borderBottomRightRadius" : 100,
-          "borderBottomLeftRadius" : 100,
-          "borderTopWidth" : 0,
-          "borderBottomWidth" : 0,
-          "borderRightWidth" : 0,
-          "borderLeftWidth" : 0,
-          "borderTopColor" : "#333333",
-          "borderBottomColor" : "#333333",
-          "borderRightColor" : "#333333",
-          "borderLeftColor" : "#333333",
-          "backgroundImage" : {
-            "url" : "5cfbfcaae2fb53355b5e8e24/a2aa10au3NzhrMzBt90WyqKSbenPuhJyEzGoj9wmcxtuve0VYyhVzs816yxi.jpg",
-            "w" : 223,
-            "h" : 167
-          },
-          "backgroundSize" : 159,
-          "backgroundPosition" : {
-            "top" : 0,
-            "left" : -0.5277777777777778
-          }
-        },
-        "id" : "w10009",
-        "copyOf" : "w10003"
+      "id" : "w10003"
+    },
+    "w10004" : {
+      "id" : "w10004",
+      "type" : "Label",
+      "name" : "Paragraph1",
+      "x" : 2546,
+      "y" : 2402,
+      "w" : 266,
+      "h" : 192,
+      "z" : 3,
+      "props" : {
+        "label" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+        "resize" : {
+          "right" : true,
+          "up" : true,
+          "left" : true,
+          "down" : false,
+          "fixedHorizontal" : false,
+          "fixedVertical" : false
+        }
       },
-      "w10010" : {
-        "id" : "w10010",
-        "type" : "Label",
-        "name" : "Paragraph2",
-        "x" : 2546,
-        "y" : 2800,
-        "w" : 266,
-        "h" : 192,
-        "z" : 8,
-        "props" : {
-          "label" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
-          "resize" : {
-            "right" : true,
-            "up" : true,
-            "left" : true,
-            "down" : false,
-            "fixedHorizontal" : false,
-            "fixedVertical" : false
-          }
-        },
-        "has" : {
-          "label" : true,
-          "padding" : true,
-          "advancedText" : true
-        },
-        "style" : {
-          "fontSize" : 14,
-          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
-          "textAlign" : "justify",
-          "letterSpacing" : 0,
-          "lineHeight" : 1.4,
-          "color" : "#333333"
-        },
-        "copyOf" : "w10004"
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
       },
-      "w10011" : {
-        "id" : "w10011",
-        "type" : "Label",
-        "name" : "Headline2",
-        "x" : 2544,
-        "y" : 2694,
-        "w" : 154,
-        "h" : 26,
-        "z" : 9,
-        "props" : {
-          "label" : "Karate",
-          "resize" : {
-            "right" : false,
-            "up" : true,
-            "left" : true,
-            "down" : false,
-            "fixedHorizontal" : false,
-            "fixedVertical" : false
-          }
-        },
-        "has" : {
-          "label" : true,
-          "padding" : true,
-          "advancedText" : true
-        },
-        "style" : {
-          "fontSize" : 24,
-          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
-          "textAlign" : "left",
-          "letterSpacing" : 0,
-          "lineHeight" : 1,
-          "color" : "#333333",
-          "fontWeight" : "bold"
-        },
-        "copyOf" : "w10005"
-      },
-      "w10012" : {
-        "type" : "Label",
-        "name" : "SubHeadline2",
-        "x" : 2546,
-        "y" : 2729,
-        "w" : 162,
-        "h" : 40,
-        "z" : 10,
-        "props" : {
-          "label" : "This is an article about sport.",
-          "resize" : {
-            "right" : true,
-            "up" : true,
-            "left" : true,
-            "down" : false,
-            "fixedHorizontal" : false,
-            "fixedVertical" : false
-          }
-        },
-        "has" : {
-          "label" : true,
-          "padding" : true,
-          "advancedText" : true
-        },
-        "style" : {
-          "fontSize" : 18,
-          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
-          "textAlign" : "left",
-          "letterSpacing" : 0,
-          "lineHeight" : 1,
-          "color" : "#333333"
-        },
-        "id" : "w10012",
-        "copyOf" : "w10006"
-      },
-      "w10015" : {
-        "type" : "Button",
-        "name" : "Box",
-        "x" : 2972,
-        "y" : 2198,
-        "w" : 376,
-        "h" : 50,
-        "z" : 0,
-        "props" : {
-          "label" : "Sport Wiki"
-        },
-        "has" : {
-          "backgroundColor" : true,
-          "border" : true,
-          "label" : true,
-          "padding" : true,
-          "onclick" : true
-        },
-        "actions" : { },
-        "style" : {
-          "fontSize" : 28,
-          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
-          "textAlign" : "center",
-          "letterSpacing" : 0,
-          "lineHeight" : 1.4,
-          "color" : "#ffffff",
-          "borderTopRightRadius" : 0,
-          "borderTopLeftRadius" : 0,
-          "borderBottomRightRadius" : 0,
-          "borderBottomLeftRadius" : 0,
-          "borderTopWidth" : 0,
-          "borderBottomWidth" : 0,
-          "borderRightWidth" : 0,
-          "borderLeftWidth" : 0,
-          "borderTopColor" : "#333333",
-          "borderBottomColor" : "#333333",
-          "borderRightColor" : "#333333",
-          "borderLeftColor" : "#333333",
-          "background" : "#333c41",
-          "paddingTop" : 8,
-          "paddingBottom" : 8,
-          "paddingLeft" : 8,
-          "paddingRight" : 8
-        },
-        "id" : "w10015",
-        "copyOf" : "w10001"
-      },
-      "w10016" : {
-        "type" : "Button",
-        "name" : "Card1",
-        "x" : 3002,
-        "y" : 2272,
-        "w" : 316,
-        "h" : 754,
-        "z" : 1,
-        "props" : {
-          "label" : ""
-        },
-        "has" : {
-          "backgroundColor" : true,
-          "border" : true,
-          "label" : true,
-          "padding" : true,
-          "onclick" : true
-        },
-        "actions" : { },
-        "style" : {
-          "fontSize" : 14,
-          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
-          "textAlign" : "left",
-          "letterSpacing" : 0,
-          "lineHeight" : 1.4,
-          "color" : "#ffffff",
-          "borderTopRightRadius" : 10,
-          "borderTopLeftRadius" : 10,
-          "borderBottomRightRadius" : 10,
-          "borderBottomLeftRadius" : 10,
-          "borderTopWidth" : 0,
-          "borderBottomWidth" : 0,
-          "borderRightWidth" : 0,
-          "borderLeftWidth" : 0,
-          "borderTopColor" : "#333333",
-          "borderBottomColor" : "#333333",
-          "borderRightColor" : "#333333",
-          "borderLeftColor" : "#333333",
-          "background" : "#ffffff",
-          "paddingTop" : 0,
-          "paddingBottom" : 0,
-          "paddingLeft" : 0,
-          "paddingRight" : 0,
-          "boxShadow" : {
-            "v" : 0,
-            "h" : 0,
-            "b" : 10,
-            "s" : 2,
-            "c" : "rgba(0,0,0,0.25)"
-          }
-        },
-        "id" : "w10016",
-        "copyOf" : "w10002"
-      },
-      "w10017" : {
-        "type" : "Image",
-        "name" : "Capoeira",
-        "x" : 3214,
-        "y" : 2296,
-        "w" : 80,
-        "h" : 80,
-        "z" : 2,
-        "props" : {
-          "resize" : {
-            "right" : true,
-            "up" : true,
-            "left" : false,
-            "down" : false,
-            "fixedHorizontal" : true,
-            "fixedVertical" : true
-          }
-        },
-        "has" : {
-          "image" : true,
-          "onclick" : true,
-          "backgroundImage" : true,
-          "border" : true
-        },
-        "actions" : { },
-        "style" : {
-          "borderTopRightRadius" : 100,
-          "borderTopLeftRadius" : 100,
-          "borderBottomRightRadius" : 100,
-          "borderBottomLeftRadius" : 100,
-          "borderTopWidth" : 0,
-          "borderBottomWidth" : 0,
-          "borderRightWidth" : 0,
-          "borderLeftWidth" : 0,
-          "borderTopColor" : "#333333",
-          "borderBottomColor" : "#333333",
-          "borderRightColor" : "#333333",
-          "borderLeftColor" : "#333333",
-          "backgroundImage" : {
-            "url" : "5cfbfcaae2fb53355b5e8e24/a2aa10aC3SBc00sYp3ezMi0HVLmaufhH35GLo72bwED2FL2eVy21k02tgeVW.jpg",
-            "w" : 319,
-            "h" : 325
-          }
-        },
-        "id" : "w10017",
-        "copyOf" : "w10003"
-      },
-      "w10018" : {
-        "id" : "w10018",
-        "type" : "Label",
-        "name" : "Paragraph1",
-        "x" : 3028,
-        "y" : 2402,
-        "w" : 266,
-        "h" : 232,
-        "z" : 3,
-        "props" : {
-          "label" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
-          "resize" : {
-            "right" : true,
-            "up" : true,
-            "left" : true,
-            "down" : false,
-            "fixedHorizontal" : false,
-            "fixedVertical" : false
-          }
-        },
-        "has" : {
-          "label" : true,
-          "padding" : true,
-          "advancedText" : true
-        },
-        "style" : {
-          "fontSize" : 14,
-          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
-          "textAlign" : "justify",
-          "letterSpacing" : 0,
-          "lineHeight" : 1.4,
-          "color" : "#333333"
-        },
-        "copyOf" : "w10004"
-      },
-      "w10019" : {
-        "id" : "w10019",
-        "type" : "Label",
-        "name" : "Headline 1",
-        "x" : 3026,
-        "y" : 2296,
-        "w" : 154,
-        "h" : 52,
-        "z" : 4,
-        "props" : {
-          "label" : "Capoeira",
-          "resize" : {
-            "right" : false,
-            "up" : true,
-            "left" : true,
-            "down" : false,
-            "fixedHorizontal" : false,
-            "fixedVertical" : false
-          }
-        },
-        "has" : {
-          "label" : true,
-          "padding" : true,
-          "advancedText" : true
-        },
-        "style" : {
-          "fontSize" : 24,
-          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
-          "textAlign" : "left",
-          "letterSpacing" : 0,
-          "lineHeight" : 1,
-          "color" : "#333333",
-          "fontWeight" : "bold"
-        },
-        "copyOf" : "w10005"
-      },
-      "w10020" : {
-        "type" : "Label",
-        "name" : "SubHeadline",
-        "x" : 3028,
-        "y" : 2332,
-        "w" : 162,
-        "h" : 81,
-        "z" : 5,
-        "props" : {
-          "label" : "This is an article about sport.",
-          "resize" : {
-            "right" : true,
-            "up" : true,
-            "left" : true,
-            "down" : false,
-            "fixedHorizontal" : false,
-            "fixedVertical" : false
-          }
-        },
-        "has" : {
-          "label" : true,
-          "padding" : true,
-          "advancedText" : true
-        },
-        "style" : {
-          "fontSize" : 18,
-          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
-          "textAlign" : "left",
-          "letterSpacing" : 0,
-          "lineHeight" : 1,
-          "color" : "#333333"
-        },
-        "id" : "w10020",
-        "copyOf" : "w10006"
-      },
-      "w10028" : {
-        "id" : "w10028",
-        "type" : "Label",
-        "name" : "Paragraph1 1",
-        "x" : 3027,
-        "y" : 2638,
-        "w" : 266,
-        "h" : 210,
-        "z" : 11,
-        "props" : {
-          "label" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
-          "resize" : {
-            "right" : true,
-            "up" : true,
-            "left" : true,
-            "down" : false,
-            "fixedHorizontal" : false,
-            "fixedVertical" : false
-          }
-        },
-        "has" : {
-          "label" : true,
-          "padding" : true,
-          "advancedText" : true
-        },
-        "style" : {
-          "fontSize" : 14,
-          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
-          "textAlign" : "justify",
-          "letterSpacing" : 0,
-          "lineHeight" : 1.4,
-          "color" : "#333333"
-        },
-        "copyOf" : "w10018"
-      },
-      "w10031" : {
-        "type" : "Button",
-        "name" : "Box",
-        "x" : 3462,
-        "y" : 2198,
-        "w" : 376,
-        "h" : 50,
-        "z" : 0,
-        "props" : {
-          "label" : "Sport Wiki"
-        },
-        "has" : {
-          "backgroundColor" : true,
-          "border" : true,
-          "label" : true,
-          "padding" : true,
-          "onclick" : true
-        },
-        "actions" : { },
-        "style" : {
-          "fontSize" : 28,
-          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
-          "textAlign" : "center",
-          "letterSpacing" : 0,
-          "lineHeight" : 1.4,
-          "color" : "#ffffff",
-          "borderTopRightRadius" : 0,
-          "borderTopLeftRadius" : 0,
-          "borderBottomRightRadius" : 0,
-          "borderBottomLeftRadius" : 0,
-          "borderTopWidth" : 0,
-          "borderBottomWidth" : 0,
-          "borderRightWidth" : 0,
-          "borderLeftWidth" : 0,
-          "borderTopColor" : "#333333",
-          "borderBottomColor" : "#333333",
-          "borderRightColor" : "#333333",
-          "borderLeftColor" : "#333333",
-          "background" : "#333c41",
-          "paddingTop" : 8,
-          "paddingBottom" : 8,
-          "paddingLeft" : 8,
-          "paddingRight" : 8
-        },
-        "id" : "w10031",
-        "copyOf" : "w10015"
-      },
-      "w10037" : {
-        "id" : "w10037",
-        "type" : "Label",
-        "name" : "Paragraph1 1",
-        "x" : 3517,
-        "y" : 2638,
-        "w" : 266,
-        "h" : 210,
-        "z" : 11,
-        "props" : {
-          "label" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
-          "resize" : {
-            "right" : true,
-            "up" : true,
-            "left" : true,
-            "down" : false,
-            "fixedHorizontal" : false,
-            "fixedVertical" : false
-          }
-        },
-        "has" : {
-          "label" : true,
-          "padding" : true,
-          "advancedText" : true
-        },
-        "style" : {
-          "fontSize" : 14,
-          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
-          "textAlign" : "justify",
-          "letterSpacing" : 0,
-          "lineHeight" : 1.4,
-          "color" : "#333333"
-        },
-        "copyOf" : "w10028"
-      },
-      "w10032" : {
-        "type" : "Button",
-        "name" : "Card1",
-        "x" : 3492,
-        "y" : 2272,
-        "w" : 316,
-        "h" : 754,
-        "z" : 1,
-        "props" : {
-          "label" : ""
-        },
-        "has" : {
-          "backgroundColor" : true,
-          "border" : true,
-          "label" : true,
-          "padding" : true,
-          "onclick" : true
-        },
-        "actions" : { },
-        "style" : {
-          "fontSize" : 14,
-          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
-          "textAlign" : "left",
-          "letterSpacing" : 0,
-          "lineHeight" : 1.4,
-          "color" : "#ffffff",
-          "borderTopRightRadius" : 10,
-          "borderTopLeftRadius" : 10,
-          "borderBottomRightRadius" : 10,
-          "borderBottomLeftRadius" : 10,
-          "borderTopWidth" : 0,
-          "borderBottomWidth" : 0,
-          "borderRightWidth" : 0,
-          "borderLeftWidth" : 0,
-          "borderTopColor" : "#333333",
-          "borderBottomColor" : "#333333",
-          "borderRightColor" : "#333333",
-          "borderLeftColor" : "#333333",
-          "background" : "#ffffff",
-          "paddingTop" : 0,
-          "paddingBottom" : 0,
-          "paddingLeft" : 0,
-          "paddingRight" : 0,
-          "boxShadow" : {
-            "v" : 0,
-            "h" : 0,
-            "b" : 10,
-            "s" : 2,
-            "c" : "rgba(0,0,0,0.25)"
-          }
-        },
-        "id" : "w10032",
-        "copyOf" : "w10016"
-      },
-      "w10036" : {
-        "id" : "w10036",
-        "type" : "Label",
-        "name" : "Paragraph1",
-        "x" : 3518,
-        "y" : 2402,
-        "w" : 266,
-        "h" : 232,
-        "z" : 3,
-        "props" : {
-          "label" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
-          "resize" : {
-            "right" : true,
-            "up" : true,
-            "left" : true,
-            "down" : false,
-            "fixedHorizontal" : false,
-            "fixedVertical" : false
-          }
-        },
-        "has" : {
-          "label" : true,
-          "padding" : true,
-          "advancedText" : true
-        },
-        "style" : {
-          "fontSize" : 14,
-          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
-          "textAlign" : "justify",
-          "letterSpacing" : 0,
-          "lineHeight" : 1.4,
-          "color" : "#333333"
-        },
-        "copyOf" : "w10018"
-      },
-      "w10035" : {
-        "type" : "Label",
-        "name" : "SubHeadline",
-        "x" : 3518,
-        "y" : 2332,
-        "w" : 162,
-        "h" : 81,
-        "z" : 5,
-        "props" : {
-          "label" : "This is an article about sport.",
-          "resize" : {
-            "right" : true,
-            "up" : true,
-            "left" : true,
-            "down" : false,
-            "fixedHorizontal" : false,
-            "fixedVertical" : false
-          }
-        },
-        "has" : {
-          "label" : true,
-          "padding" : true,
-          "advancedText" : true
-        },
-        "style" : {
-          "fontSize" : 18,
-          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
-          "textAlign" : "left",
-          "letterSpacing" : 0,
-          "lineHeight" : 1,
-          "color" : "#333333"
-        },
-        "id" : "w10035",
-        "copyOf" : "w10020"
-      },
-      "w10033" : {
-        "type" : "Image",
-        "name" : "Capoeira",
-        "x" : 3704,
-        "y" : 2296,
-        "w" : 80,
-        "h" : 80,
-        "z" : 2,
-        "props" : {
-          "resize" : {
-            "right" : true,
-            "up" : true,
-            "left" : false,
-            "down" : false,
-            "fixedHorizontal" : true,
-            "fixedVertical" : true
-          }
-        },
-        "has" : {
-          "image" : true,
-          "onclick" : true,
-          "backgroundImage" : true,
-          "border" : true
-        },
-        "actions" : { },
-        "style" : {
-          "borderTopRightRadius" : 100,
-          "borderTopLeftRadius" : 100,
-          "borderBottomRightRadius" : 100,
-          "borderBottomLeftRadius" : 100,
-          "borderTopWidth" : 0,
-          "borderBottomWidth" : 0,
-          "borderRightWidth" : 0,
-          "borderLeftWidth" : 0,
-          "borderTopColor" : "#333333",
-          "borderBottomColor" : "#333333",
-          "borderRightColor" : "#333333",
-          "borderLeftColor" : "#333333",
-          "backgroundImage" : {
-            "url" : "5cfbfcaae2fb53355b5e8e24/a2aa10au3NzhrMzBt90WyqKSbenPuhJyEzGoj9wmcxtuve0VYyhVzs816yxi.jpg",
-            "w" : 223,
-            "h" : 167
-          },
-          "backgroundSize" : 185,
-          "backgroundPosition" : {
-            "top" : 0,
-            "left" : -0.7777777777777777
-          }
-        },
-        "id" : "w10033",
-        "copyOf" : "w10017"
-      },
-      "w10034" : {
-        "id" : "w10034",
-        "type" : "Label",
-        "name" : "Headline 1",
-        "x" : 3516,
-        "y" : 2296,
-        "w" : 154,
-        "h" : 26,
-        "z" : 4,
-        "props" : {
-          "label" : "Karate",
-          "resize" : {
-            "right" : false,
-            "up" : true,
-            "left" : true,
-            "down" : false,
-            "fixedHorizontal" : false,
-            "fixedVertical" : false
-          }
-        },
-        "has" : {
-          "label" : true,
-          "padding" : true,
-          "advancedText" : true
-        },
-        "style" : {
-          "fontSize" : 24,
-          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
-          "textAlign" : "left",
-          "letterSpacing" : 0,
-          "lineHeight" : 1,
-          "color" : "#333333",
-          "fontWeight" : "bold"
-        },
-        "copyOf" : "w10019"
-      },
-      "w10048" : {
-        "type" : "Button",
-        "name" : "Box",
-        "x" : 4006,
-        "y" : 2290,
-        "w" : 252,
-        "h" : 64,
-        "z" : 12,
-        "props" : {
-          "label" : "Button"
-        },
-        "has" : {
-          "backgroundColor" : true,
-          "border" : true,
-          "label" : true,
-          "padding" : true,
-          "onclick" : true
-        },
-        "actions" : { },
-        "style" : { },
-        "id" : "w10048",
-        "template" : "tw10049"
-      },
-      "w10050" : {
-        "type" : "Button",
-        "name" : "Box 1",
-        "x" : 4006,
-        "y" : 2416,
-        "w" : 252,
-        "h" : 64,
-        "z" : 13,
-        "props" : {
-          "label" : "Button 2"
-        },
-        "has" : {
-          "backgroundColor" : true,
-          "border" : true,
-          "label" : true,
-          "padding" : true,
-          "onclick" : true
-        },
-        "actions" : { },
-        "style" : { },
-        "id" : "w10050",
-        "template" : "tw10049",
-        "copyOf" : "w10048"
+      "style" : {
+        "fontSize" : 14,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "justify",
+        "letterSpacing" : 0,
+        "lineHeight" : 1.4,
+        "color" : "#333333"
       }
     },
-    "lines" : {
-      "l10029" : {
-        "id" : "l10029",
-        "from" : "w10003",
-        "to" : "s10014",
-        "points" : [ ],
-        "event" : "click"
+    "w10005" : {
+      "id" : "w10005",
+      "type" : "Label",
+      "name" : "Headline 1",
+      "x" : 2544,
+      "y" : 2296,
+      "w" : 153,
+      "h" : 25,
+      "z" : 4,
+      "props" : {
+        "label" : "Capoeira",
+        "resize" : {
+          "right" : false,
+          "up" : true,
+          "left" : true,
+          "down" : false,
+          "fixedHorizontal" : false,
+          "fixedVertical" : false
+        }
       },
-      "l10045" : {
-        "id" : "l10045",
-        "from" : "w10009",
-        "to" : "s10030",
-        "points" : [ {
-          "x" : 2920,
-          "y" : 2746,
-          "w" : 2,
-          "h" : 2
-        }, {
-          "x" : 2926,
-          "y" : 3252,
-          "w" : 2,
-          "h" : 2
-        }, {
-          "x" : 3592,
-          "y" : 3252,
-          "w" : 2,
-          "h" : 2
-        } ],
-        "event" : "click"
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : 24,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1,
+        "color" : "#333333",
+        "fontWeight" : "bold"
       }
     },
-    "lastUUID" : 10051,
-    "lastUpdate" : 1560188745500,
-    "created" : 1560018090104,
-    "startScreen" : "",
-    "grid" : {
-      "w" : 8,
-      "h" : 8,
-      "style" : "line",
-      "color" : "#cecece",
-      "visible" : false,
-      "enabled" : false
-    },
-    "domain" : "Quant-UX.com",
-    "size" : 21688,
-    "isDirty" : true,
-    "sizeBackup" : 128449,
-    "lastBackup" : 1560188859512,
-    "lastCategory" : "WireFrame",
-    "groups" : {
-      "g10007" : {
-        "id" : "g10007",
-        "children" : [ "w10002", "w10003", "w10004", "w10005", "w10006" ],
-        "name" : "Group"
+    "w10006" : {
+      "type" : "Label",
+      "name" : "SubHeadline",
+      "x" : 2546,
+      "y" : 2331,
+      "w" : 162,
+      "h" : 40,
+      "z" : 5,
+      "props" : {
+        "label" : "This is an article about sport.",
+        "resize" : {
+          "right" : true,
+          "up" : true,
+          "left" : true,
+          "down" : false,
+          "fixedHorizontal" : false,
+          "fixedVertical" : false
+        }
       },
-      "g10013" : {
-        "id" : "g10013",
-        "children" : [ "w10008", "w10009", "w10010", "w10011", "w10012" ],
-        "copyOf" : "g10007",
-        "name" : "Group"
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
       },
-      "g10026" : {
-        "id" : "g10026",
-        "children" : [ "w10016", "w10017", "w10018", "w10019", "w10020" ],
-        "name" : "Group",
-        "copyOf" : "g10007"
+      "style" : {
+        "fontSize" : 18,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1,
+        "color" : "#333333"
       },
-      "g10038" : {
-        "id" : "g10038",
-        "children" : [ "w10032", "w10036", "w10035" ],
-        "name" : "Group",
-        "copyOf" : "g10026"
-      }
+      "id" : "w10006"
     },
-    "templates" : {
-      "tw10049" : {
-        "id" : "tw10049",
-        "style" : {
-          "fontSize" : 32,
-          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
-          "textAlign" : "center",
-          "letterSpacing" : 0,
-          "lineHeight" : 1.4,
-          "color" : "#333333",
-          "borderTopRightRadius" : 57,
-          "borderTopLeftRadius" : 57,
-          "borderBottomRightRadius" : 57,
-          "borderBottomLeftRadius" : 57,
-          "borderTopWidth" : 1,
-          "borderBottomWidth" : 1,
-          "borderRightWidth" : 1,
-          "borderLeftWidth" : 1,
-          "borderTopColor" : "#333333",
-          "borderBottomColor" : "#333333",
-          "borderRightColor" : "#333333",
-          "borderLeftColor" : "#333333",
-          "background" : "#e8e8e8",
-          "paddingTop" : 8,
-          "paddingBottom" : 8,
-          "paddingLeft" : 8,
-          "paddingRight" : 8,
-          "fontWeight" : "bold"
-        },
-        "has" : {
-          "backgroundColor" : true,
-          "border" : true,
-          "label" : true,
-          "padding" : true,
-          "onclick" : true
-        },
-        "props" : {
-          "label" : "Button"
-        },
-        "w" : 252,
-        "h" : 64,
-        "z" : 12,
-        "x" : 0,
-        "y" : 0,
-        "templateType" : "Widget",
-        "type" : "Button",
-        "visible" : true,
-        "name" : "Button"
-      }
+    "w10008" : {
+      "type" : "Button",
+      "name" : "Card2",
+      "x" : 2520,
+      "y" : 2670,
+      "w" : 316,
+      "h" : 374,
+      "z" : 6,
+      "props" : {
+        "label" : ""
+      },
+      "has" : {
+        "backgroundColor" : true,
+        "border" : true,
+        "label" : true,
+        "padding" : true,
+        "onclick" : true
+      },
+      "actions" : { },
+      "style" : {
+        "fontSize" : 14,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1.4,
+        "color" : "#ffffff",
+        "borderTopRightRadius" : 10,
+        "borderTopLeftRadius" : 10,
+        "borderBottomRightRadius" : 10,
+        "borderBottomLeftRadius" : 10,
+        "borderTopWidth" : 0,
+        "borderBottomWidth" : 0,
+        "borderRightWidth" : 0,
+        "borderLeftWidth" : 0,
+        "borderTopColor" : "#333333",
+        "borderBottomColor" : "#333333",
+        "borderRightColor" : "#333333",
+        "borderLeftColor" : "#333333",
+        "background" : "#ffffff",
+        "paddingTop" : 0,
+        "paddingBottom" : 0,
+        "paddingLeft" : 0,
+        "paddingRight" : 0,
+        "boxShadow" : {
+          "v" : 0,
+          "h" : 0,
+          "b" : 10,
+          "s" : 2,
+          "c" : "rgba(0,0,0,0.25)"
+        }
+      },
+      "id" : "w10008",
+      "copyOf" : "w10002"
     },
-    "id" : "5cfbfcaae2fb53355b5e8e24"
-  }
+    "w10009" : {
+      "type" : "Image",
+      "name" : "KarateImg",
+      "x" : 2732,
+      "y" : 2694,
+      "w" : 80,
+      "h" : 80,
+      "z" : 7,
+      "props" : {
+        "resize" : {
+          "right" : true,
+          "up" : true,
+          "left" : false,
+          "down" : false,
+          "fixedHorizontal" : true,
+          "fixedVertical" : true
+        }
+      },
+      "has" : {
+        "image" : true,
+        "onclick" : true,
+        "backgroundImage" : true,
+        "border" : true
+      },
+      "actions" : { },
+      "style" : {
+        "borderTopRightRadius" : 100,
+        "borderTopLeftRadius" : 100,
+        "borderBottomRightRadius" : 100,
+        "borderBottomLeftRadius" : 100,
+        "borderTopWidth" : 0,
+        "borderBottomWidth" : 0,
+        "borderRightWidth" : 0,
+        "borderLeftWidth" : 0,
+        "borderTopColor" : "#333333",
+        "borderBottomColor" : "#333333",
+        "borderRightColor" : "#333333",
+        "borderLeftColor" : "#333333",
+        "backgroundImage" : {
+          "url" : "5cfbfcaae2fb53355b5e8e24/a2aa10au3NzhrMzBt90WyqKSbenPuhJyEzGoj9wmcxtuve0VYyhVzs816yxi.jpg",
+          "w" : 223,
+          "h" : 167
+        },
+        "backgroundSize" : 159,
+        "backgroundPosition" : {
+          "top" : 0,
+          "left" : -0.5277777777777778
+        }
+      },
+      "id" : "w10009",
+      "copyOf" : "w10003"
+    },
+    "w10010" : {
+      "id" : "w10010",
+      "type" : "Label",
+      "name" : "Paragraph2",
+      "x" : 2546,
+      "y" : 2800,
+      "w" : 266,
+      "h" : 192,
+      "z" : 8,
+      "props" : {
+        "label" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+        "resize" : {
+          "right" : true,
+          "up" : true,
+          "left" : true,
+          "down" : false,
+          "fixedHorizontal" : false,
+          "fixedVertical" : false
+        }
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : 14,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "justify",
+        "letterSpacing" : 0,
+        "lineHeight" : 1.4,
+        "color" : "#333333"
+      },
+      "copyOf" : "w10004"
+    },
+    "w10011" : {
+      "id" : "w10011",
+      "type" : "Label",
+      "name" : "Headline2",
+      "x" : 2544,
+      "y" : 2694,
+      "w" : 154,
+      "h" : 26,
+      "z" : 9,
+      "props" : {
+        "label" : "Karate",
+        "resize" : {
+          "right" : false,
+          "up" : true,
+          "left" : true,
+          "down" : false,
+          "fixedHorizontal" : false,
+          "fixedVertical" : false
+        }
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : 24,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1,
+        "color" : "#333333",
+        "fontWeight" : "bold"
+      },
+      "copyOf" : "w10005"
+    },
+    "w10012" : {
+      "type" : "Label",
+      "name" : "SubHeadline2",
+      "x" : 2546,
+      "y" : 2729,
+      "w" : 162,
+      "h" : 40,
+      "z" : 10,
+      "props" : {
+        "label" : "This is an article about sport.",
+        "resize" : {
+          "right" : true,
+          "up" : true,
+          "left" : true,
+          "down" : false,
+          "fixedHorizontal" : false,
+          "fixedVertical" : false
+        }
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : 18,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1,
+        "color" : "#333333"
+      },
+      "id" : "w10012",
+      "copyOf" : "w10006"
+    },
+    "w10015" : {
+      "type" : "Button",
+      "name" : "Box",
+      "x" : 2972,
+      "y" : 2198,
+      "w" : 376,
+      "h" : 50,
+      "z" : 0,
+      "props" : {
+        "label" : "Sport Wiki"
+      },
+      "has" : {
+        "backgroundColor" : true,
+        "border" : true,
+        "label" : true,
+        "padding" : true,
+        "onclick" : true
+      },
+      "actions" : { },
+      "style" : {
+        "fontSize" : 28,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "center",
+        "letterSpacing" : 0,
+        "lineHeight" : 1.4,
+        "color" : "#ffffff",
+        "borderTopRightRadius" : 0,
+        "borderTopLeftRadius" : 0,
+        "borderBottomRightRadius" : 0,
+        "borderBottomLeftRadius" : 0,
+        "borderTopWidth" : 0,
+        "borderBottomWidth" : 0,
+        "borderRightWidth" : 0,
+        "borderLeftWidth" : 0,
+        "borderTopColor" : "#333333",
+        "borderBottomColor" : "#333333",
+        "borderRightColor" : "#333333",
+        "borderLeftColor" : "#333333",
+        "background" : "#333c41",
+        "paddingTop" : 8,
+        "paddingBottom" : 8,
+        "paddingLeft" : 8,
+        "paddingRight" : 8
+      },
+      "id" : "w10015",
+      "copyOf" : "w10001"
+    },
+    "w10016" : {
+      "type" : "Button",
+      "name" : "Card1",
+      "x" : 3002,
+      "y" : 2272,
+      "w" : 316,
+      "h" : 754,
+      "z" : 1,
+      "props" : {
+        "label" : ""
+      },
+      "has" : {
+        "backgroundColor" : true,
+        "border" : true,
+        "label" : true,
+        "padding" : true,
+        "onclick" : true
+      },
+      "actions" : { },
+      "style" : {
+        "fontSize" : 14,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1.4,
+        "color" : "#ffffff",
+        "borderTopRightRadius" : 10,
+        "borderTopLeftRadius" : 10,
+        "borderBottomRightRadius" : 10,
+        "borderBottomLeftRadius" : 10,
+        "borderTopWidth" : 0,
+        "borderBottomWidth" : 0,
+        "borderRightWidth" : 0,
+        "borderLeftWidth" : 0,
+        "borderTopColor" : "#333333",
+        "borderBottomColor" : "#333333",
+        "borderRightColor" : "#333333",
+        "borderLeftColor" : "#333333",
+        "background" : "#ffffff",
+        "paddingTop" : 0,
+        "paddingBottom" : 0,
+        "paddingLeft" : 0,
+        "paddingRight" : 0,
+        "boxShadow" : {
+          "v" : 0,
+          "h" : 0,
+          "b" : 10,
+          "s" : 2,
+          "c" : "rgba(0,0,0,0.25)"
+        }
+      },
+      "id" : "w10016",
+      "copyOf" : "w10002"
+    },
+    "w10017" : {
+      "type" : "Image",
+      "name" : "CapoeiraImg",
+      "x" : 3214,
+      "y" : 2296,
+      "w" : 80,
+      "h" : 80,
+      "z" : 2,
+      "props" : {
+        "resize" : {
+          "right" : true,
+          "up" : true,
+          "left" : false,
+          "down" : false,
+          "fixedHorizontal" : true,
+          "fixedVertical" : true
+        }
+      },
+      "has" : {
+        "image" : true,
+        "onclick" : true,
+        "backgroundImage" : true,
+        "border" : true
+      },
+      "actions" : { },
+      "style" : {
+        "borderTopRightRadius" : 100,
+        "borderTopLeftRadius" : 100,
+        "borderBottomRightRadius" : 100,
+        "borderBottomLeftRadius" : 100,
+        "borderTopWidth" : 0,
+        "borderBottomWidth" : 0,
+        "borderRightWidth" : 0,
+        "borderLeftWidth" : 0,
+        "borderTopColor" : "#333333",
+        "borderBottomColor" : "#333333",
+        "borderRightColor" : "#333333",
+        "borderLeftColor" : "#333333",
+        "backgroundImage" : {
+          "url" : "5cfbfcaae2fb53355b5e8e24/a2aa10aC3SBc00sYp3ezMi0HVLmaufhH35GLo72bwED2FL2eVy21k02tgeVW.jpg",
+          "w" : 319,
+          "h" : 325
+        }
+      },
+      "id" : "w10017",
+      "copyOf" : "w10003"
+    },
+    "w10018" : {
+      "id" : "w10018",
+      "type" : "Label",
+      "name" : "Paragraph1",
+      "x" : 3027,
+      "y" : 2402,
+      "w" : 266,
+      "h" : 202,
+      "z" : 3,
+      "props" : {
+        "label" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+        "resize" : {
+          "right" : true,
+          "up" : true,
+          "left" : true,
+          "down" : false,
+          "fixedHorizontal" : false,
+          "fixedVertical" : false
+        }
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : 14,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "justify",
+        "letterSpacing" : 0,
+        "lineHeight" : 1.4,
+        "color" : "#333333"
+      },
+      "copyOf" : "w10004"
+    },
+    "w10019" : {
+      "id" : "w10019",
+      "type" : "Label",
+      "name" : "Headline 1",
+      "x" : 3026,
+      "y" : 2296,
+      "w" : 154,
+      "h" : 28,
+      "z" : 4,
+      "props" : {
+        "label" : "Capoeira",
+        "resize" : {
+          "right" : false,
+          "up" : true,
+          "left" : true,
+          "down" : false,
+          "fixedHorizontal" : false,
+          "fixedVertical" : false
+        }
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : 24,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1,
+        "color" : "#333333",
+        "fontWeight" : "bold"
+      },
+      "copyOf" : "w10005"
+    },
+    "w10020" : {
+      "type" : "Label",
+      "name" : "SubHeadline",
+      "x" : 3028,
+      "y" : 2332,
+      "w" : 162,
+      "h" : 46,
+      "z" : 5,
+      "props" : {
+        "label" : "This is an article about sport.",
+        "resize" : {
+          "right" : true,
+          "up" : true,
+          "left" : true,
+          "down" : false,
+          "fixedHorizontal" : false,
+          "fixedVertical" : false
+        }
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : 18,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1,
+        "color" : "#333333"
+      },
+      "id" : "w10020",
+      "copyOf" : "w10006"
+    },
+    "w10028" : {
+      "id" : "w10028",
+      "type" : "Label",
+      "name" : "Paragraph2",
+      "x" : 3027,
+      "y" : 2638,
+      "w" : 266,
+      "h" : 210,
+      "z" : 11,
+      "props" : {
+        "label" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+        "resize" : {
+          "right" : true,
+          "up" : true,
+          "left" : true,
+          "down" : false,
+          "fixedHorizontal" : false,
+          "fixedVertical" : false
+        }
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : 14,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "justify",
+        "letterSpacing" : 0,
+        "lineHeight" : 1.4,
+        "color" : "#333333"
+      },
+      "copyOf" : "w10018"
+    },
+    "w10031" : {
+      "type" : "Button",
+      "name" : "Box",
+      "x" : 3462,
+      "y" : 2198,
+      "w" : 376,
+      "h" : 50,
+      "z" : 0,
+      "props" : {
+        "label" : "Sport Wiki"
+      },
+      "has" : {
+        "backgroundColor" : true,
+        "border" : true,
+        "label" : true,
+        "padding" : true,
+        "onclick" : true
+      },
+      "actions" : { },
+      "style" : {
+        "fontSize" : 28,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "center",
+        "letterSpacing" : 0,
+        "lineHeight" : 1.4,
+        "color" : "#ffffff",
+        "borderTopRightRadius" : 0,
+        "borderTopLeftRadius" : 0,
+        "borderBottomRightRadius" : 0,
+        "borderBottomLeftRadius" : 0,
+        "borderTopWidth" : 0,
+        "borderBottomWidth" : 0,
+        "borderRightWidth" : 0,
+        "borderLeftWidth" : 0,
+        "borderTopColor" : "#333333",
+        "borderBottomColor" : "#333333",
+        "borderRightColor" : "#333333",
+        "borderLeftColor" : "#333333",
+        "background" : "#333c41",
+        "paddingTop" : 8,
+        "paddingBottom" : 8,
+        "paddingLeft" : 8,
+        "paddingRight" : 8
+      },
+      "id" : "w10031",
+      "copyOf" : "w10015"
+    },
+    "w10037" : {
+      "id" : "w10037",
+      "type" : "Label",
+      "name" : "Paragraph12",
+      "x" : 3517,
+      "y" : 2638,
+      "w" : 266,
+      "h" : 210,
+      "z" : 11,
+      "props" : {
+        "label" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+        "resize" : {
+          "right" : true,
+          "up" : true,
+          "left" : true,
+          "down" : false,
+          "fixedHorizontal" : false,
+          "fixedVertical" : false
+        }
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : 14,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "justify",
+        "letterSpacing" : 0,
+        "lineHeight" : 1.4,
+        "color" : "#333333"
+      },
+      "copyOf" : "w10028"
+    },
+    "w10032" : {
+      "type" : "Button",
+      "name" : "Card1",
+      "x" : 3492,
+      "y" : 2272,
+      "w" : 316,
+      "h" : 754,
+      "z" : 1,
+      "props" : {
+        "label" : ""
+      },
+      "has" : {
+        "backgroundColor" : true,
+        "border" : true,
+        "label" : true,
+        "padding" : true,
+        "onclick" : true
+      },
+      "actions" : { },
+      "style" : {
+        "fontSize" : 14,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1.4,
+        "color" : "#ffffff",
+        "borderTopRightRadius" : 10,
+        "borderTopLeftRadius" : 10,
+        "borderBottomRightRadius" : 10,
+        "borderBottomLeftRadius" : 10,
+        "borderTopWidth" : 0,
+        "borderBottomWidth" : 0,
+        "borderRightWidth" : 0,
+        "borderLeftWidth" : 0,
+        "borderTopColor" : "#333333",
+        "borderBottomColor" : "#333333",
+        "borderRightColor" : "#333333",
+        "borderLeftColor" : "#333333",
+        "background" : "#ffffff",
+        "paddingTop" : 0,
+        "paddingBottom" : 0,
+        "paddingLeft" : 0,
+        "paddingRight" : 0,
+        "boxShadow" : {
+          "v" : 0,
+          "h" : 0,
+          "b" : 10,
+          "s" : 2,
+          "c" : "rgba(0,0,0,0.25)"
+        }
+      },
+      "id" : "w10032",
+      "copyOf" : "w10016"
+    },
+    "w10036" : {
+      "id" : "w10036",
+      "type" : "Label",
+      "name" : "Paragraph1",
+      "x" : 3518,
+      "y" : 2402,
+      "w" : 266,
+      "h" : 208,
+      "z" : 3,
+      "props" : {
+        "label" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+        "resize" : {
+          "right" : true,
+          "up" : true,
+          "left" : true,
+          "down" : false,
+          "fixedHorizontal" : false,
+          "fixedVertical" : false
+        }
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : 14,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "justify",
+        "letterSpacing" : 0,
+        "lineHeight" : 1.4,
+        "color" : "#333333"
+      },
+      "copyOf" : "w10018"
+    },
+    "w10035" : {
+      "type" : "Label",
+      "name" : "SubHeadline",
+      "x" : 3518,
+      "y" : 2332,
+      "w" : 162,
+      "h" : 44,
+      "z" : 5,
+      "props" : {
+        "label" : "This is an article about sport.",
+        "resize" : {
+          "right" : true,
+          "up" : true,
+          "left" : true,
+          "down" : false,
+          "fixedHorizontal" : false,
+          "fixedVertical" : false
+        }
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : 18,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1,
+        "color" : "#333333"
+      },
+      "id" : "w10035",
+      "copyOf" : "w10020"
+    },
+    "w10033" : {
+      "type" : "Image",
+      "name" : "CapoeiraImg",
+      "x" : 3704,
+      "y" : 2296,
+      "w" : 80,
+      "h" : 80,
+      "z" : 2,
+      "props" : {
+        "resize" : {
+          "right" : true,
+          "up" : true,
+          "left" : false,
+          "down" : false,
+          "fixedHorizontal" : true,
+          "fixedVertical" : true
+        }
+      },
+      "has" : {
+        "image" : true,
+        "onclick" : true,
+        "backgroundImage" : true,
+        "border" : true
+      },
+      "actions" : { },
+      "style" : {
+        "borderTopRightRadius" : 100,
+        "borderTopLeftRadius" : 100,
+        "borderBottomRightRadius" : 100,
+        "borderBottomLeftRadius" : 100,
+        "borderTopWidth" : 0,
+        "borderBottomWidth" : 0,
+        "borderRightWidth" : 0,
+        "borderLeftWidth" : 0,
+        "borderTopColor" : "#333333",
+        "borderBottomColor" : "#333333",
+        "borderRightColor" : "#333333",
+        "borderLeftColor" : "#333333",
+        "backgroundImage" : {
+          "url" : "5cfbfcaae2fb53355b5e8e24/a2aa10au3NzhrMzBt90WyqKSbenPuhJyEzGoj9wmcxtuve0VYyhVzs816yxi.jpg",
+          "w" : 223,
+          "h" : 167
+        },
+        "backgroundSize" : 185,
+        "backgroundPosition" : {
+          "top" : 0,
+          "left" : -0.7777777777777777
+        }
+      },
+      "id" : "w10033",
+      "copyOf" : "w10017"
+    },
+    "w10034" : {
+      "id" : "w10034",
+      "type" : "Label",
+      "name" : "Headline 1",
+      "x" : 3516,
+      "y" : 2296,
+      "w" : 154,
+      "h" : 26,
+      "z" : 4,
+      "props" : {
+        "label" : "Karate",
+        "resize" : {
+          "right" : false,
+          "up" : true,
+          "left" : true,
+          "down" : false,
+          "fixedHorizontal" : false,
+          "fixedVertical" : false
+        }
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : 24,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1,
+        "color" : "#333333",
+        "fontWeight" : "bold"
+      },
+      "copyOf" : "w10019"
+    },
+    "w10048" : {
+      "type" : "Button",
+      "name" : "Box",
+      "x" : 4006,
+      "y" : 2290,
+      "w" : 252,
+      "h" : 64,
+      "z" : 12,
+      "props" : {
+        "label" : "Button"
+      },
+      "has" : {
+        "backgroundColor" : true,
+        "border" : true,
+        "label" : true,
+        "padding" : true,
+        "onclick" : true
+      },
+      "actions" : { },
+      "style" : { },
+      "id" : "w10048",
+      "template" : "tw10049"
+    },
+    "w10050" : {
+      "type" : "Button",
+      "name" : "Box 1",
+      "x" : 4006,
+      "y" : 2416,
+      "w" : 252,
+      "h" : 64,
+      "z" : 13,
+      "props" : {
+        "label" : "Button 2"
+      },
+      "has" : {
+        "backgroundColor" : true,
+        "border" : true,
+        "label" : true,
+        "padding" : true,
+        "onclick" : true
+      },
+      "actions" : { },
+      "style" : { },
+      "id" : "w10050",
+      "template" : "tw10049",
+      "copyOf" : "w10048"
+    }
+  },
+  "lines" : {
+    "l10029" : {
+      "id" : "l10029",
+      "from" : "w10003",
+      "to" : "s10014",
+      "points" : [ ],
+      "event" : "click"
+    },
+    "l10045" : {
+      "id" : "l10045",
+      "from" : "w10009",
+      "to" : "s10030",
+      "points" : [ {
+        "x" : 2920,
+        "y" : 2746,
+        "w" : 2,
+        "h" : 2
+      }, {
+        "x" : 2926,
+        "y" : 3252,
+        "w" : 2,
+        "h" : 2
+      }, {
+        "x" : 3592,
+        "y" : 3252,
+        "w" : 2,
+        "h" : 2
+      } ],
+      "event" : "click"
+    }
+  },
+  "lastUUID" : 10051,
+  "lastUpdate" : 1560197815093,
+  "created" : 1560018090104,
+  "startScreen" : "",
+  "grid" : {
+    "w" : 8,
+    "h" : 8,
+    "style" : "line",
+    "color" : "#cecece",
+    "visible" : false,
+    "enabled" : false
+  },
+  "domain" : "Quant-UX.com",
+  "size" : 21495,
+  "isDirty" : true,
+  "sizeBackup" : 129149,
+  "lastBackup" : 1560196539414,
+  "lastCategory" : "WireFrame",
+  "groups" : {
+    "g10007" : {
+      "id" : "g10007",
+      "children" : [ "w10002", "w10003", "w10004", "w10005", "w10006" ],
+      "name" : "Group"
+    },
+    "g10013" : {
+      "id" : "g10013",
+      "children" : [ "w10008", "w10009", "w10010", "w10011", "w10012" ],
+      "copyOf" : "g10007",
+      "name" : "Group"
+    }
+  },
+  "templates" : {
+    "tw10049" : {
+      "id" : "tw10049",
+      "style" : {
+        "fontSize" : 32,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "center",
+        "letterSpacing" : 0,
+        "lineHeight" : 1.4,
+        "color" : "#333333",
+        "borderTopRightRadius" : 57,
+        "borderTopLeftRadius" : 57,
+        "borderBottomRightRadius" : 57,
+        "borderBottomLeftRadius" : 57,
+        "borderTopWidth" : 1,
+        "borderBottomWidth" : 1,
+        "borderRightWidth" : 1,
+        "borderLeftWidth" : 1,
+        "borderTopColor" : "#333333",
+        "borderBottomColor" : "#333333",
+        "borderRightColor" : "#333333",
+        "borderLeftColor" : "#333333",
+        "background" : "#e8e8e8",
+        "paddingTop" : 8,
+        "paddingBottom" : 8,
+        "paddingLeft" : 8,
+        "paddingRight" : 8,
+        "fontWeight" : "bold"
+      },
+      "has" : {
+        "backgroundColor" : true,
+        "border" : true,
+        "label" : true,
+        "padding" : true,
+        "onclick" : true
+      },
+      "props" : {
+        "label" : "Button"
+      },
+      "w" : 252,
+      "h" : 64,
+      "z" : 12,
+      "x" : 0,
+      "y" : 0,
+      "templateType" : "Widget",
+      "type" : "Button",
+      "visible" : true,
+      "name" : "Button"
+    }
+  },
+  "id" : "5cfbfcaae2fb53355b5e8e24"
+}

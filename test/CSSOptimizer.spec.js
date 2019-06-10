@@ -68,14 +68,6 @@ test('Test compress() > All different', () => {
     expect(result.borderStyle).toBe('solid solid solid dashed')
 
 
-    expect(result.paddingTop).toBe(undefined)
-    expect(result.paddingLeft).toBe(undefined)
-    expect(result.paddingRight).toBe(undefined)
-    expect(result.paddingTop).toBe(undefined)
-    expect(result.padding).toBe('1px 2px 3px 4px')
-
-  
-
 });
 
 
@@ -257,11 +249,11 @@ test('Test compress() > Remove Padding', () => {
 
     expect(result.border).toBe(undefined)
 
-    expect(result.paddingTop).toBe(undefined)
-    expect(result.paddingLeft).toBe(undefined)
-    expect(result.paddingRight).toBe(undefined)
-    expect(result.paddingTop).toBe(undefined)
-    expect(result.padding).toBe(undefined)
+    // expect(result.paddingTop).toBe(undefined)
+    // expect(result.paddingLeft).toBe(undefined)
+    // expect(result.paddingRight).toBe(undefined)
+    // expect(result.paddingTop).toBe(undefined)
+    // expect(result.padding).toBe(undefined)
 
 });
 

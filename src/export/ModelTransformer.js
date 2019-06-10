@@ -158,7 +158,6 @@ export default class ModelTransformer {
         Object.values(model.widgets).forEach(w => {
             let lines = Util.getLines(w, model, true)
             if (lines.length > 0) {
-                console.debug('ModelTRansformer.addActions() > ', lines)
                 w.lines = lines
                 lines.forEach(l => {
                     let screen = model.screens[l.to]
@@ -409,7 +408,10 @@ export default class ModelTransformer {
             nodes.forEach(b => {
                 if (a.id !== b.id) {
                     if (this.isOverLappingY(a,b)) {
-                        
+                        /**
+                         * FIXME: We have here an issue of the elements in the row are overlapping
+                         */
+                        // console.debug('    addRows overlap', a.name, b.name, this.isTop(b, a), this.isBottom(b, a))
                         /**
                          * If we have now row, create a new id for a
                          */
@@ -544,6 +546,7 @@ export default class ModelTransformer {
 	}
 
 	isBottom(from, to) {
+      
 		return (from.y + from.h) < (to.y);
 	}
 

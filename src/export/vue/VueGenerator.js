@@ -8,7 +8,10 @@ import * as ExportUtil from '../ExportUtil'
 export default class VueGenerator {
 
   run(app, conf) {
-    let generator = new Generator(new VueFactory(conf), new CSSFactory(conf.css.responsive))
+    let generator = new Generator(
+        new VueFactory(conf), 
+        new CSSFactory(conf.css.responsive, conf.css.prefix, true)
+    )
     let result = generator.run(app)
     let writer = new VueMultiPageWriter()
     let files = writer.getFiles(result, conf)
