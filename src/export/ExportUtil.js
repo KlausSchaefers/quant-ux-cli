@@ -3,6 +3,15 @@ export function getFileName(name) {
     return name.replace(/\s/g, '_');
 }
 
+export function isFixedHorizontal(e) {
+    return e.props && e.props.resize && e.props.resize.fixedHorizontal
+}
+
+export function isFixedVertical(e) {
+    return e.props && e.props.resize && e.props.resize.fixedVertical
+}
+
+
 export function getImages (app) {
     let images = []
     let urls = {}

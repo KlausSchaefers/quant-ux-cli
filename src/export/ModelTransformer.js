@@ -136,6 +136,41 @@ export default class ModelTransformer {
 
     addGridToElements (parent) {
         let grid = this.computeGrid(parent)
+        if (grid) {
+            parent.grid = grid
+            if (parent.children && parent.children.length > 0) {
+                parent.children.forEach(e => {
+                    // e.gridColumnStart = 0
+                    // e.gridColumnEnd = grid.columns.length
+                    // e.gridRowStart = 0
+                    // e.gridRowEnd = grid.rows.length
+                    grid.columns.forEach((c, i) => {
+                        if (c.v === e.x) {
+                            e.gridColumnStart =  i
+                        }
+                        if (c.v === e.x + e.w) {
+                            eval.gridColumnEnd =  i
+                        }
+                    })
+                    grid.rows.forEach((r, i) => {
+                        if (r.v === e.y) {
+                            e.gridRowStart =  i
+                        }
+                        if (r.v === e.y + e.h) {
+                            e.gridRowEnd =  i
+                        }
+                    })
+                })
+            }
+        }
+        
+        if (parent.children && parent.children.length > 0) {
+            
+            parent.children.forEach(c => {
+                this.addGridToElements(c)
+            })
+        }
+        return parent
     }
 
     computeGrid (parent) {
@@ -156,10 +191,31 @@ export default class ModelTransformer {
                 this.addGridRow(rows, c.y + c.h, c, false)
             })
           
-           
-
+            /**
+             * Set the width and convert objects to arrays
+             */
             columns = this.setGridColumnWidth(columns, parent)
             rows = this.setGridRowHeight(rows, parent)
+
+            /**
+             * Set fixed
+             */
+            parent.children.forEach(e => {
+                if (Util.isFixedHorizontal(e)) {
+                    columns.forEach(column => {
+                        if (column.v >= e.x && column.v < e.x + e.w) {
+                            column.fixed = true
+                        }
+                    })
+                }
+                if (Util.isFixedVertical(e)) {
+                    rows.forEach(row => {
+                        if (row.v >= e.y && row.v < e.y + e.h) {
+                            row.fixed = true
+                        }
+                    })
+                }
+            })
 
             return {
                 rows: rows,
@@ -172,41 +228,36 @@ export default class ModelTransformer {
     setGridColumnWidth (columns, parent) {
         columns = Object.values(columns).sort((a,b) => a.v - b.v)
         columns.forEach((column, i) => {
-            let fixedElements = column.start.filter(element => {
-                return element.props && element.props.resize && element.props.resize.fixedHorizontal
-            })
-            column.fixed = fixedElements.length > 0
             if (columns[i + 1]) {
-                column.w = columns[i + 1].v - column.v
+                column.l = columns[i + 1].v - column.v
             } else {
-                column.w = parent.w - column.v
+                column.l = parent.w - column.v
             }
         })
-        return columns
+        return columns.filter(c => c.l > 0)
     }
 
     setGridRowHeight (rows, parent) {
         rows = Object.values(rows).sort((a,b) => a.v - b.v)
         rows.forEach((row, i) => {
-            let fixedElements = row.start.filter(element => {
-                return element.props && element.props.resize && element.props.resize.fixedVertical
-            })
-            row.fixed = fixedElements.length > 0
             if (rows[i + 1]) {
-                row.h = rows[i + 1].v - row.v
+                row.l = rows[i + 1].v - row.v
             } else {
-                row.h = parent.h - row.v
+                row.l = parent.h - row.v
             }
         })
-        return rows
+        return rows.filter(r => r.l > 0)
     }
+
+   
 
     addGridColumns (columns, x, e, start) {
         if (!columns[x]) {
             columns[x] = {
                 v: x,
                 start: [],
-                end: []
+                end: [],
+                fixed: false
             }
         }
         if (start) {
@@ -221,7 +272,8 @@ export default class ModelTransformer {
             rows[y] = {
                 v: y,
                 start: [],
-                end: []
+                end: [],
+                fixed: false
             }
         }
         if (start) {

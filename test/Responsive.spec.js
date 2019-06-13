@@ -13,7 +13,7 @@ test('Test computeGrid', () => {
         h: 200,
         children: [
             {
-                name: "Child2",
+                name: "Child2 Hor Fixed",
                 x: 100, 
                 y: 0,
                 w: 250,
@@ -22,14 +22,19 @@ test('Test computeGrid', () => {
                     resize : {
                       fixedHorizontal: true
                     }
-                  },
+                }
             },
             {
-                name: "Child1",
+                name: "Child1 Vert Fixed",
                 x: 0, 
-                y: 0,
+                y: 50,
                 w: 200,
-                h: 200
+                h: 50,
+                props : {
+                    resize : {
+                        fixedVertical: true
+                    }
+                }
             }
         ]
     }
@@ -40,16 +45,71 @@ test('Test computeGrid', () => {
     expectGrid(grid.columns, 100, 100, true)
     expectGrid(grid.columns, 200, 150, true)
     expectGrid(grid.columns, 350, 250, false)
-    //console.debug(grid)
+
+    expect(grid.rows.length).toBe(3)
+    expectGrid(grid.rows, 0, 50, false)
+    expectGrid(grid.rows, 50, 50, true)
+    expectGrid(grid.rows, 100, 100, false)
 });
 
 function expectGrid(values, v, w, isFixed) {
-    console.debug('expectGrid, ', values)
     let e = values.find(value => value.v === v)
     expect(e).not.toBe(undefined)
-    expect(e.w).toBe(w)
+    expect(e.l).toBe(w)
     expect(e.fixed).toBe(isFixed)
 }
+
+xtest('Test addGridToElements', () => {
+    let t = new ModelTransformer(app13, true)
+    
+    let e = {
+        name: "Parent",
+        w: 600,
+        h: 200,
+        children: [
+            {
+                name: "Child2 Hor Fixed",
+                x: 100, 
+                y: 0,
+                w: 250,
+                h: 200,
+                props : {
+                    resize : {
+                      fixedHorizontal: true
+                    }
+                }
+            },
+            {
+                name: "Child1 Vert Fixed",
+                x: 0, 
+                y: 50,
+                w: 200,
+                h: 50,
+                props : {
+                    resize : {
+                        fixedVertical: true
+                    }
+                }
+            }
+        ]
+    }
+    let result = t.addGridToElements(e)
+    console.debug(result.grid)
+    console.debug(result)
+
+    expect(result).not.toBe(null)
+    expect(result).not.toBe(undefined)
+    expect(result.grid).not.toBe(null)
+    expect(result.grid).not.toBe(undefined)
+
+    let child1 = e.children.find(c => c.name === 'Child2 Hor Fixed')
+    expect(child1.name).toBe('Child2 Hor Fixed')
+    expect(child1.gridColumnStart).toBe(1)
+    expect(child1.gridColumnEnd).toBe(3)
+
+  
+   
+});
 
 
 xtest('Test Template', () => {
