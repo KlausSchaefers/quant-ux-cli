@@ -7,11 +7,12 @@ import * as Util from './ExportUtil'
  */
 export default class ModelTransformer {
 
-    constructor (app) {
+    constructor (app, responsive = false) {
         this.model = app
         this.rowContainerID = 0
         this.columnContainerID = 0
         this.removeSingleLabels = true
+        this.isReponsive = responsive
 
         this.textProperties = [
 			'color', 'textDecoration', 'textAlign', 'fontFamily',
@@ -19,7 +20,7 @@ export default class ModelTransformer {
 		]
     }
 
-    transform (relative = true) {
+    transform (relative = true, ) {
         let result = {
             id: this.model.id,
             name: this.model.name,
@@ -65,30 +66,43 @@ export default class ModelTransformer {
             screen = this.transformScreenToTree(screen)
 
             /**
-             * now check for every node in the tree if
-             * we have a single row and add containers
+             * If we do not do a responsive layout we have to add rows
+             * and columns to make 'old school' layout.
              */
-            screen = this.addRows(screen)
-            screen = this.addRowContainer(screen)
+            if (!this.isReponsive) {
+                /**
+                 * now check for every node in the tree if
+                 * we have a single row and add containers
+                 */
+                screen = this.addRows(screen)
+                screen = this.addRowContainer(screen)
 
-            /**
-             * now check in every containering box (parent != null)
-             * if we have columns. If so, add also a container
-             */
-            screen = this.addColumns(screen)
-            screen = this.addColumnsContainer(screen)
+                /**
+                 * now check in every containering box (parent != null)
+                 * if we have columns. If so, add also a container
+                 */
+                screen = this.addColumns(screen)
+                screen = this.addColumnsContainer(screen)
 
-            /**
-             * cleanup single containers. It can happen
-             * that a row gets one column...
-             */
-            screen = this.cleanUpContainer(screen)
+                /**
+                 * cleanup single containers. It can happen
+                 * that a row gets one column...
+                 */
+                screen = this.cleanUpContainer(screen)
 
-            /**
-             * Order elements and set relative positions
-             */
-            screen = this.setOrderAndRelativePositons(screen, relative)
+                /**
+                 * Order elements and set relative positions
+                 */
+                screen = this.setOrderAndRelativePositons(screen, relative)
 
+            } else {
+                console.debug('ModelTransformer.transform() >  Build Grid')
+
+                screen = this.addGrid(screen)
+            }
+            
+
+          
             /**
              * set screen pos to 0,0
              */
@@ -113,6 +127,108 @@ export default class ModelTransformer {
         })
 
         return result
+    }
+
+    addGrid (screen) {
+        this.addGridToElements(screen)
+        return screen
+    }
+
+    addGridToElements (parent) {
+        let grid = this.computeGrid(parent)
+    }
+
+    computeGrid (parent) {
+        let w = parent.w
+        let h = parent.h
+        
+        if (parent.children && parent.children.length > 0) {
+            let rows = {}
+            let columns = {}
+
+            /**
+             * Collect all the relevant lines
+             */
+            parent.children.forEach(c => {
+                this.addGridColumns(columns, c.x, c, true)
+                this.addGridColumns(columns, c.x + c.w, c, false)
+                this.addGridRow(rows, c.y, c, true)
+                this.addGridRow(rows, c.y + c.h, c, false)
+            })
+          
+           
+
+            columns = this.setGridColumnWidth(columns, parent)
+            rows = this.setGridRowHeight(rows, parent)
+
+            return {
+                rows: rows,
+                columns: columns
+            }
+        }
+        return null
+    }
+
+    setGridColumnWidth (columns, parent) {
+        columns = Object.values(columns).sort((a,b) => a.v - b.v)
+        columns.forEach((column, i) => {
+            let fixedElements = column.start.filter(element => {
+                return element.props && element.props.resize && element.props.resize.fixedHorizontal
+            })
+            column.fixed = fixedElements.length > 0
+            if (columns[i + 1]) {
+                column.w = columns[i + 1].v - column.v
+            } else {
+                column.w = parent.w - column.v
+            }
+        })
+        return columns
+    }
+
+    setGridRowHeight (rows, parent) {
+        rows = Object.values(rows).sort((a,b) => a.v - b.v)
+        rows.forEach((row, i) => {
+            let fixedElements = row.start.filter(element => {
+                return element.props && element.props.resize && element.props.resize.fixedVertical
+            })
+            row.fixed = fixedElements.length > 0
+            if (rows[i + 1]) {
+                row.h = rows[i + 1].v - row.v
+            } else {
+                row.h = parent.h - row.v
+            }
+        })
+        return rows
+    }
+
+    addGridColumns (columns, x, e, start) {
+        if (!columns[x]) {
+            columns[x] = {
+                v: x,
+                start: [],
+                end: []
+            }
+        }
+        if (start) {
+            columns[x].start.push(e)
+        } else {
+            columns[x].end.push(e)
+        }
+    }
+
+    addGridRow (rows, y, e, start) {
+        if (!rows[y]) {
+            rows[y] = {
+                v: y,
+                start: [],
+                end: []
+            }
+        }
+        if (start) {
+            rows[y].start.push(e)
+        } else {
+            rows[y].end.push(e)
+        }
     }
 
     setOrderAndRelativePositons (parent, relative) {

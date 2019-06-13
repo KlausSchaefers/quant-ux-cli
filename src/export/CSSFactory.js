@@ -272,6 +272,18 @@ export default class {
 
 
 	getPosition (widget) {
+		if (!this.isResponsive) {
+			return this.getAbsolutePosition(widget)
+		} else {
+			return this.getResponsivePosition(widget)
+		}
+	}
+
+	getResponsivePosition (widget) {
+
+	}
+
+	getAbsolutePosition (widget) {
 		let result = ''
 
 		/**
@@ -315,17 +327,6 @@ export default class {
 			}
 		}
 
-		if (this.isResponsive) {
-			if (widget.parent){
-				w = (w / widget.parent.w) * 100
-				left = (left / widget.parent.w) * 100
-			} else {
-				w = 100
-				left = 0
-			}
-			unitX = '%'
-		}
-
 		/**
 		 * To deal with margin collapsing we set things to inline-block. We could
 		 * still check for borders...
@@ -333,19 +334,11 @@ export default class {
 		if (this.getSiblings(widget).length > 1) {
 			result += '  display: inline-block;\n'
 		}
-		/**
-		 * This fixes some weird
-		 */
-		// if (!widget.parent) {
-		//	result += '  display: flex;\n'
-		//	result += '  flex-direction: column;\n'
-		//}
-
+		
 		result += `  width: ${w}${unitX};\n`
 		result += `  height: ${h}${unitY};\n`
 		result += `  margin-top: ${top}${unitY};\n`
 		result += `  margin-left: ${left}${unitX};\n`
-
 		return result
 	}
 
