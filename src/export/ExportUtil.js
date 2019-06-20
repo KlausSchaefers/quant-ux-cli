@@ -11,6 +11,22 @@ export function isFixedVertical(e) {
     return e.props && e.props.resize && e.props.resize.fixedVertical
 }
 
+export function isPinnedLeft(e) {
+    return e.props && e.props.resize && e.props.resize.left
+}
+
+export function isPinnedRight(e) {
+    return e.props && e.props.resize && e.props.resize.right
+}
+
+export function isPinnedUp(e) {
+    return e.props && e.props.resize && e.props.resize.up
+}
+
+export function isPinnedDown(e) {
+    return e.props && e.props.resize && e.props.resize.down
+}
+
 
 export function getImages (app) {
     let images = []

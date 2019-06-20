@@ -280,7 +280,23 @@ export default class {
 	}
 
 	getResponsivePosition (widget) {
+		let result = ''
+	
+		if (widget.grid) {
+			result += '  display: grid;\n'
+			result += '   grid-template-columns: ' + this.getGridTracks(widget, widget.grid.columns) + ';\n'
+			result += '   grid-template-rows: ' + this.getGridTracks(widget, widget.grid.rows) + ';\n'
+			console.debug('getResponsivePosition', widget.name, widget.grid.columns)
+			console.debug('                      ', result)
+		}
 
+		return result
+	}
+
+	getGridTracks (parent, list) {
+		if (list) {
+			return list.map(i => i.l + 'px').join(' ') 
+		}
 	}
 
 	getAbsolutePosition (widget) {

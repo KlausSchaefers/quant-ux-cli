@@ -140,16 +140,16 @@ export default class ModelTransformer {
             parent.grid = grid
             if (parent.children && parent.children.length > 0) {
                 parent.children.forEach(e => {
-                    // e.gridColumnStart = 0
-                    // e.gridColumnEnd = grid.columns.length
-                    // e.gridRowStart = 0
-                    // e.gridRowEnd = grid.rows.length
+                    e.gridColumnStart = 0
+                    e.gridColumnEnd = grid.columns.length
+                    e.gridRowStart = 0
+                    e.gridRowEnd = grid.rows.length
                     grid.columns.forEach((c, i) => {
                         if (c.v === e.x) {
                             e.gridColumnStart =  i
                         }
                         if (c.v === e.x + e.w) {
-                            eval.gridColumnEnd =  i
+                            e.gridColumnEnd =  i
                         }
                     })
                     grid.rows.forEach((r, i) => {
@@ -165,7 +165,6 @@ export default class ModelTransformer {
         }
         
         if (parent.children && parent.children.length > 0) {
-            
             parent.children.forEach(c => {
                 this.addGridToElements(c)
             })
@@ -182,8 +181,14 @@ export default class ModelTransformer {
             let columns = {}
 
             /**
-             * Collect all the relevant lines
+             * Collect all the relevant lines. First the parent
+             * then all the children
              */
+            this.addGridColumns(columns, 0, parent, true)
+            this.addGridColumns(columns, parent.w, parent, false)
+            this.addGridRow(rows, 0, parent, true)
+            this.addGridRow(rows, parent.h, parent, false)
+
             parent.children.forEach(c => {
                 this.addGridColumns(columns, c.x, c, true)
                 this.addGridColumns(columns, c.x + c.w, c, false)
@@ -198,24 +203,9 @@ export default class ModelTransformer {
             rows = this.setGridRowHeight(rows, parent)
 
             /**
-             * Set fixed
+             * determine fixed columns and rows
              */
-            parent.children.forEach(e => {
-                if (Util.isFixedHorizontal(e)) {
-                    columns.forEach(column => {
-                        if (column.v >= e.x && column.v < e.x + e.w) {
-                            column.fixed = true
-                        }
-                    })
-                }
-                if (Util.isFixedVertical(e)) {
-                    rows.forEach(row => {
-                        if (row.v >= e.y && row.v < e.y + e.h) {
-                            row.fixed = true
-                        }
-                    })
-                }
-            })
+            this.setFixed(parent, columns, rows)
 
             return {
                 rows: rows,
@@ -223,6 +213,61 @@ export default class ModelTransformer {
             }
         }
         return null
+    }
+
+    setFixed (parent, columns, rows) {
+         /**
+          * Set fixed. For ech child check if the 
+          * 1) We have fixed Vertical or Horizontal
+          * 2) If pinned. e.g. if pinned right, all
+          *    columns < e.v must be fixed
+          */
+        parent.children.forEach(e => {
+            if (Util.isFixedHorizontal(e)) {
+                columns.forEach(column => {
+                    if (column.v >= e.x && column.v < e.x + e.w) {
+                        column.fixed = true
+                    }
+                })
+            }
+            if (Util.isPinnedLeft(e)) {
+                columns.forEach(column => {
+                    if (column.v < e.x) {
+                        column.fixed = true
+                    }
+                })
+            }
+            if (Util.isPinnedRight(e)) {
+                columns.forEach(column => {
+                    if (column.v >= e.x + e.w) {
+                        column.fixed = true
+                    }
+                })
+            }
+
+            if (Util.isFixedVertical(e)) {
+                rows.forEach(row => {
+                    if (row.v >= e.y && row.v < e.y + e.h) {
+                        row.fixed = true
+                    }
+                })
+            }
+
+            if (Util.isPinnedUp(e)) {
+                rows.forEach(row => {
+                    if (row.v < e.y) {
+                        row.fixed = true
+                    }
+                })
+            }
+            if (Util.isPinnedDown(e)) {
+                rows.forEach(row => {
+                    if (row.v >= e.y + e.h) {
+                        row.fixed = true
+                    }
+                })
+            }
+        })
     }
 
     setGridColumnWidth (columns, parent) {
@@ -248,8 +293,6 @@ export default class ModelTransformer {
         })
         return rows.filter(r => r.l > 0)
     }
-
-   
 
     addGridColumns (columns, x, e, start) {
         if (!columns[x]) {
