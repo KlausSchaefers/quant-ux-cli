@@ -13,7 +13,7 @@ export default class Generator {
     this.codeFactory = codeFactory
   }
 
-  run (model) {
+  run (model, responsive = false) {
     let result = {
       id: model.id,
       name: model.name,
@@ -23,7 +23,7 @@ export default class Generator {
     /**
      * First, we create a grid model
      */
-    let transformer = new ModelTranformer(model)
+    let transformer = new ModelTranformer(model, responsive)
     let gridModel = transformer.transform()
 
     /**

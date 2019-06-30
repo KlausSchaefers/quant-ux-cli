@@ -96,8 +96,6 @@ export default class ModelTransformer {
                 screen = this.setOrderAndRelativePositons(screen, relative)
 
             } else {
-                console.debug('ModelTransformer.transform() >  Build Grid')
-
                 screen = this.addGrid(screen)
             }
             
@@ -172,10 +170,7 @@ export default class ModelTransformer {
         return parent
     }
 
-    computeGrid (parent) {
-        let w = parent.w
-        let h = parent.h
-        
+    computeGrid (parent) {  
         if (parent.children && parent.children.length > 0) {
             let rows = {}
             let columns = {}

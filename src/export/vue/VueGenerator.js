@@ -12,7 +12,7 @@ export default class VueGenerator {
         new VueFactory(conf), 
         new CSSFactory(conf.css.responsive, conf.css.prefix, true)
     )
-    let result = generator.run(app)
+    let result = generator.run(app, conf.css.responsive)
     let writer = new VueMultiPageWriter()
     let files = writer.getFiles(result, conf)
     files = files.concat(ExportUtil.getImages(app))

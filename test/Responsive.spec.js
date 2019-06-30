@@ -1,8 +1,6 @@
 
 import ModelTransformer from '../src/export/ModelTransformer'
-import CSSFactory from '../src/export/CSSFactory'
 import app13 from './data/app13.json'
-import * as TestUtil from './TestUtil'
 
 test('Test computeGrid', () => {
     let t = new ModelTransformer(app13, true)
@@ -199,27 +197,7 @@ test('Test addGridToElements', () => {
 
 
 
-xtest('Test Template', () => {
-  let t = new ModelTransformer(app13, true)
-  let model = t.transform()
 
-  let f = new CSSFactory(true, '', true)
-  let styles = f.generate(model)
-
-
-  let screen = styles['s10000'][0]
-  let card = styles['w10001'][0]
-  let cricle = styles['w10002'][0]
-  let topleft = styles['w10003'][0]
-  let bottom = styles['w10004'][0]
-
-  console.debug(TestUtil.print(model.screens[0], true))
-
-  // console.debug(screen.code)
-  // expect(widgetStyle).not.toBe(null)
-  // expect(widgetStyle.length).toBe(2)
-
-});
 
 
 function xtest () {

@@ -261,15 +261,27 @@ export default class {
 	}
 
 	getCSS_row () {
-		return '  display: flex;\n  flex-wrap: nowrap;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: flex-start;\n  align-content: flex-start;\n'
+		if (!this.isResponsive) {
+			return '  display: flex;\n  flex-wrap: nowrap;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: flex-start;\n  align-content: flex-start;\n'
+		}
+		return ''
 	}
 
 	getCSS_column() {
-		return '  display: inline-block;\n'
+		if (!this.isResponsive) {
+			return '  display: inline-block;\n'
+		}
+		return ''
 	}
 
-
-
+	getCSS_Image() {
+		let result = ''
+		if (this.isResponsive) {
+			result += `  max-height:100%;\n`
+			result += `  max-width:100%;\n`
+		}
+		return result
+	}
 
 	getPosition (widget) {
 		if (!this.isResponsive) {
@@ -284,18 +296,35 @@ export default class {
 	
 		if (widget.grid) {
 			result += '  display: grid;\n'
-			result += '   grid-template-columns: ' + this.getGridTracks(widget, widget.grid.columns) + ';\n'
-			result += '   grid-template-rows: ' + this.getGridTracks(widget, widget.grid.rows) + ';\n'
-			console.debug('getResponsivePosition', widget.name, widget.grid.columns)
-			console.debug('                      ', result)
+			result += '  grid-template-columns: ' + this.getGridTracks(widget.w, widget.grid.columns) + ';\n'
+			result += '  grid-template-rows: ' + this.getGridTracks(widget.h, widget.grid.rows) + ';\n'
 		}
+
+		if (widget.parent) {
+			result += `  grid-column-start: ${widget.gridColumnStart + 1};\n`
+			result += `  grid-column-end: ${widget.gridColumnEnd + 1};\n`
+			result += `  grid-row-start: ${widget.gridRowStart + 1};\n`
+			result += `  grid-row-end: ${widget.gridRowEnd + 1};\n`
+		} else {
+			result += `  min-height: 100%;\n`
+		}
+		
 
 		return result
 	}
 
-	getGridTracks (parent, list) {
+	getGridTracks (total, list) {
 		if (list) {
-			return list.map(i => i.l + 'px').join(' ') 
+			let max = Math.max(...list.map(i => i.l))
+			return list.map(i => {
+				if (i.fixed) {
+					return i.l + 'px'
+				}
+				if (max === i.l) {
+					return 'auto'
+				}
+				return Math.round(i.l * 100 / total) + '%'
+			}).join(' ') 
 		}
 	}
 

@@ -108,12 +108,16 @@ export default class CSSOptimizer {
             delete style.borderStyle
         }
 
-        if (style.border === '0px solid transparent') {
+        if (style.border && style.border.indexOf('0px') === 0) {
             delete style.border
         }
 
         if (style.padding === '0px') {
             delete style.padding
+        }
+
+        if (style.borderRadius === '0px') {
+            delete style.borderRadius
         }
 
         return style
