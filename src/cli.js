@@ -138,7 +138,7 @@ function load(confFile = '.quant-ux.json') {
                         "server": "https://quant-ux.com",
                         "conflict": "overwrite",
                         "css": {
-                            "responsive": false,
+                            "grid": false,
                             "prefix": ""
                         },
                         "vue": {
@@ -157,7 +157,7 @@ function load(confFile = '.quant-ux.json') {
 }
 
 function main () {
-    console.debug('Quant-UX: Start generating code! V 1.6.0')
+    console.debug('Quant-UX: Start generating code! V 1.6.1')
     /**
      * Here is the main entry point
      */

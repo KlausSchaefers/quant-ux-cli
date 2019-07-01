@@ -1,5 +1,6 @@
 import ModelTransformer from '../src/export/ModelTransformer'
 import app12 from './data/app12.json'
+import app16 from './data/app16.json'
 import * as TestUtil from './TestUtil'
 import * as Util from '../src/export/ExportUtil'
 
@@ -18,4 +19,22 @@ test('Test Actions', () => {
   expect(screen).not.toBe(undefined)
 
   // console.debug(TestUtil.print(screen))
+});
+
+
+test('Test mergeInResponsive()', () => {
+
+  let t = new ModelTransformer(app16)
+  let model = t.transform()
+
+  expect(model.screens.length).toBe(1)
+
+  let screen = model.screens.find(s => s.id === 's10000')
+  expect(screen).not.toBe(undefined)
+  let row1 = screen.children[0]
+  let col1 = row1.children[0]
+  expect(row1.props.resize.left).toBe(true)
+  expect(col1.props.resize.left).toBe(true)
+ 
+  //console.debug(TestUtil.print(row1))
 });

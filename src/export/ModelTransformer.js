@@ -7,12 +7,12 @@ import * as Util from './ExportUtil'
  */
 export default class ModelTransformer {
 
-    constructor (app, responsive = false) {
+    constructor (app, grid = false) {
         this.model = app
         this.rowContainerID = 0
         this.columnContainerID = 0
         this.removeSingleLabels = true
-        this.isReponsive = responsive
+        this.isGrid = grid
 
         this.textProperties = [
 			'color', 'textDecoration', 'textAlign', 'fontFamily',
@@ -69,7 +69,7 @@ export default class ModelTransformer {
              * If we do not do a responsive layout we have to add rows
              * and columns to make 'old school' layout.
              */
-            if (!this.isReponsive) {
+            if (!this.isGrid) {
                 /**
                  * now check for every node in the tree if
                  * we have a single row and add containers
@@ -96,11 +96,15 @@ export default class ModelTransformer {
                 screen = this.setOrderAndRelativePositons(screen, relative)
 
             } else {
+                /**
+                 * FIXME: add also rows. We still need to sort it somehow
+                 */
+                screen = this.addRows(screen)
+                screen = this.addRowContainer(screen)
+
                 screen = this.addGrid(screen)
             }
             
-
-          
             /**
              * set screen pos to 0,0
              */
@@ -475,12 +479,22 @@ export default class ModelTransformer {
                     type: 'column',
                     parent: parent,
                     style: {},
-                    props: {}
+                    props: {
+                        resize: {
+                            right: false,
+                            up: false,
+                            left: false,
+                            down: false,
+                            fixedHorizontal: false,
+                            fixedVertical: false
+                        }
+                    }
                 }
                 children.forEach(c => {
                     c.x = c.x - container.x,
                     c.y = c.y - container.y,
                     c.parent = container
+                    this.mergeInResponsive(container, c)
                 })
                 newChildren.push(container)
             } else {
@@ -498,6 +512,12 @@ export default class ModelTransformer {
             }
         })
         return parent
+    }
+
+    mergeInResponsive (container, c) {
+        container.props.resize.right = container.props.resize.right || Util.isPinnedRight(c)
+        container.props.resize.left = container.props.resize.left || Util.isPinnedLeft(c)
+        container.props.fixedHorizontal = container.props.fixedHorizontal || Util.isFixedHorizontal(c)
     }
 
     addColumns (parent) {
@@ -579,13 +599,24 @@ export default class ModelTransformer {
                 h: boundingBox.h,
                 w: boundingBox.w,
                 type: 'row',
+                parent: parent,
                 style: {},
-                props: {}
+                props: {
+                    resize: {
+                        right: false,
+                        up: false,
+                        left: false,
+                        down: false,
+                        fixedHorizontal: false,
+                        fixedVertical: false
+                    }
+                }
             }
             children.forEach(c => {
                 c.x = c.x - container.x,
                 c.y = c.y - container.y,
                 c.parent = container
+                this.mergeInResponsive(container, c)
             })
             newChildren.push(container)
         }

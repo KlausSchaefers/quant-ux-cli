@@ -3,11 +3,12 @@ import * as Util from './ExportUtil'
 
 export default class {
 
-	constructor (isResponsive = false, prefix = '', useScreenNameInSelector = false) {
-		this.isResponsive = isResponsive
+	constructor (isGrid = false, prefix = '', useScreenNameInSelector = false) {
+		this.isGrid = isGrid
 		this.prefix = prefix ? prefix : ''
 		this.useScreenNameInSelector = useScreenNameInSelector
 		this.marginWhiteSpaceCorrect = 0;
+		this.isResponsive = true
 
 		this.mapping = {
 			"background" : "background-color",
@@ -261,14 +262,14 @@ export default class {
 	}
 
 	getCSS_row () {
-		if (!this.isResponsive) {
+		if (!this.isGrid) {
 			return '  display: flex;\n  flex-wrap: nowrap;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: flex-start;\n  align-content: flex-start;\n'
 		}
 		return ''
 	}
 
 	getCSS_column() {
-		if (!this.isResponsive) {
+		if (!this.isGrid) {
 			return '  display: inline-block;\n'
 		}
 		return ''
@@ -276,22 +277,22 @@ export default class {
 
 	getCSS_Image() {
 		let result = ''
-		if (this.isResponsive) {
-			result += `  max-height:100%;\n`
-			result += `  max-width:100%;\n`
+		if (this.isGrid) {
+			result += `  height:100%;\n`
+			result += `  width:100%;\n`
 		}
 		return result
 	}
 
 	getPosition (widget) {
-		if (!this.isResponsive) {
+		if (!this.isGrid) {
 			return this.getAbsolutePosition(widget)
 		} else {
-			return this.getResponsivePosition(widget)
+			return this.getGridPosition(widget)
 		}
 	}
 
-	getResponsivePosition (widget) {
+	getGridPosition (widget) {
 		let result = ''
 	
 		if (widget.grid) {
@@ -329,6 +330,7 @@ export default class {
 	}
 
 	getAbsolutePosition (widget) {
+		// console.debug('-', widget.name, widget.x, widget.props.resize)
 		let result = ''
 
 		/**
@@ -372,6 +374,7 @@ export default class {
 			}
 		}
 
+	
 		/**
 		 * To deal with margin collapsing we set things to inline-block. We could
 		 * still check for borders...
@@ -380,11 +383,36 @@ export default class {
 			result += '  display: inline-block;\n'
 		}
 		
-		result += `  width: ${w}${unitX};\n`
+		result += `  width: ${w}px;\n`
 		result += `  height: ${h}${unitY};\n`
 		result += `  margin-top: ${top}${unitY};\n`
 		result += `  margin-left: ${left}${unitX};\n`
+
 		return result
+	}
+
+	getRelativePosition (){
+		let result = ''
+
+		if (!Util.isFixedHorizontal(widget)) {
+			if (widget.parent) {
+				if (Util.isPinnedLeft(widget) && Util.isPinnedRight(widget)) {
+					console.debug(' pinned', widget.name, w, widget.parent.w)
+					// result += `  width: 100%;\n`
+					result += `  margin-left: ${left}px;\n`
+					result += `  margin-right: ${widget.parent.w - (w + widget.x)}px;\n`
+				} else {
+					console.debug(' w', widget.name, w, widget.parent.w)
+					w = widget.w * 100 / widget.parent.w
+					result += `  width: ${w}%;\n`
+					result += `  margin-left: ${left}${unitX};\n`
+				}
+			}
+		} else {
+			console.debug(' normal', widget.name, w, widget.props.resize)
+			result += `  width: ${w}px;\n`
+			result += `  margin-left: ${left}${unitX};\n`
+		}
 	}
 
 	getSiblings (widget){

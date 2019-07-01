@@ -11,8 +11,8 @@ test('Test Click', () => {
 
   let screen1Vue = files.find(f => f.name === 'Screen.vue')
   console.debug(screen1Vue.content)
-  expect(screen1Vue.content.indexOf(`click="navigateTo('Karate')"`)).toBeGreaterThanOrEqual(0)
-  expect(screen1Vue.content.indexOf(`click="navigateTo('Capoeira')"`)).toBeGreaterThanOrEqual(0)
+  expect(screen1Vue.content.indexOf(`click="navigateTo('KarateScreen')"`)).toBeGreaterThanOrEqual(0)
+  expect(screen1Vue.content.indexOf(`click="navigateTo('CapoeiraScreen')"`)).toBeGreaterThanOrEqual(0)
  
   // console.debug(screen1Vue.content)
 });
