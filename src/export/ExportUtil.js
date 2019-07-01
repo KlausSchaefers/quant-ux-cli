@@ -3,6 +3,56 @@ export function getFileName(name) {
     return name.replace(/\s/g, '_');
 }
 
+export function isRowGrid(widget){
+    let hasOverlaps = false
+    if (widget){
+        let nodes = widget.children
+        nodes.forEach(a => {
+            nodes.forEach(b => {
+                if (a.id !== b.id) {
+                    if (isOverLappingY(a,b)) {
+                        // console.debug('hasOverLap', widget.name, a.name, b.name)
+                        hasOverlaps = true
+                    }
+                }
+            })
+        })
+    }
+    return !hasOverlaps
+}
+
+export function isOverLappingX(pos, box) {
+    return !isLeft(pos, box) && !isRight(pos, box);
+}
+
+export function isOverLappingY(pos, box) {
+    return !isTop(pos, box) && !isBottom(pos, box);
+}
+
+export function  isTop(from, to) {
+    return (from.y) > (to.y + to.h);
+}
+
+export function  isStartingTop(from, to) {
+    return (from.y) >= (to.y); // && (from.y + from.h) <= (to.y + to.h);
+}
+
+export function  isBottom(from, to) {
+    return (from.y + from.h) < (to.y);
+}
+
+export function  isLeft(from, to) {
+    return (from.x) > (to.x + to.w);
+}
+
+export function isStartingLeft(from, to) {
+    return (from.x) >= (to.x);
+}
+
+export function isRight(from, to) {
+    return (from.x + from.w) < (to.x);
+}
+
 export function isFixedHorizontal(e) {
     return e.props && e.props.resize && e.props.resize.fixedHorizontal
 }

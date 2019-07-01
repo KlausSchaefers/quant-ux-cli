@@ -28,7 +28,7 @@
       "props" : {
         "start" : true
       },
-      "children" : [ "w10001", "w10002", "w10003", "w10005", "w10006", "w10008", "w10009", "w10010", "w10012", "w10011", "w10004" ],
+      "children" : [ "w10001", "w10002", "w10005", "w10006", "w10004", "w10009", "w10010", "w10011", "w10012", "w10055", "w10003", "w10008" ],
       "id" : "s10000"
     },
     "s10014" : {
@@ -78,10 +78,10 @@
       "y" : 2198,
       "h" : 668,
       "w" : 376,
-      "name" : "Templates",
+      "name" : "Simple",
       "type" : "Screen",
       "style" : {
-        "background" : "#ffffff"
+        "background" : "#c6dde3"
       },
       "min" : {
         "w" : 375,
@@ -93,21 +93,29 @@
       "props" : {
         "start" : false
       },
-      "children" : [ "w10048", "w10050" ],
+      "children" : [ "w10051", "w10052", "w10053", "w10054" ],
       "id" : "s10047"
     }
   },
   "widgets" : {
     "w10001" : {
       "type" : "Button",
-      "name" : "Box",
+      "name" : "Header",
       "x" : 2490,
       "y" : 2198,
       "w" : 376,
       "h" : 50,
       "z" : 0,
       "props" : {
-        "label" : "Sport Wiki"
+        "label" : "Sport Wiki",
+        "resize" : {
+          "right" : false,
+          "up" : false,
+          "left" : false,
+          "down" : false,
+          "fixedHorizontal" : false,
+          "fixedVertical" : true
+        }
       },
       "has" : {
         "backgroundColor" : true,
@@ -153,7 +161,15 @@
       "h" : 374,
       "z" : 1,
       "props" : {
-        "label" : ""
+        "label" : "",
+        "resize" : {
+          "right" : true,
+          "up" : false,
+          "left" : true,
+          "down" : false,
+          "fixedHorizontal" : false,
+          "fixedVertical" : false
+        }
       },
       "has" : {
         "backgroundColor" : true,
@@ -247,9 +263,9 @@
       "id" : "w10004",
       "type" : "Label",
       "name" : "Paragraph1",
-      "x" : 2546,
+      "x" : 2544,
       "y" : 2402,
-      "w" : 266,
+      "w" : 268,
       "h" : 192,
       "z" : 3,
       "props" : {
@@ -283,8 +299,8 @@
       "name" : "Headline 1",
       "x" : 2544,
       "y" : 2296,
-      "w" : 153,
-      "h" : 25,
+      "w" : 156,
+      "h" : 26,
       "z" : 4,
       "props" : {
         "label" : "Capoeira",
@@ -315,9 +331,9 @@
     "w10006" : {
       "type" : "Label",
       "name" : "SubHeadline",
-      "x" : 2546,
+      "x" : 2544,
       "y" : 2331,
-      "w" : 162,
+      "w" : 156,
       "h" : 40,
       "z" : 5,
       "props" : {
@@ -352,7 +368,7 @@
       "x" : 2520,
       "y" : 2670,
       "w" : 316,
-      "h" : 374,
+      "h" : 354,
       "z" : 6,
       "props" : {
         "label" : ""
@@ -557,6 +573,61 @@
       },
       "id" : "w10012",
       "copyOf" : "w10006"
+    },
+    "w10055" : {
+      "type" : "Button",
+      "name" : "Box 1",
+      "x" : 2520,
+      "y" : 3074,
+      "w" : 316,
+      "h" : 42,
+      "z" : 16,
+      "props" : {
+        "label" : "More",
+        "resize" : {
+          "right" : false,
+          "up" : false,
+          "left" : false,
+          "down" : false,
+          "fixedHorizontal" : false,
+          "fixedVertical" : true
+        }
+      },
+      "has" : {
+        "backgroundColor" : true,
+        "border" : true,
+        "label" : true,
+        "padding" : true,
+        "onclick" : true
+      },
+      "actions" : { },
+      "style" : {
+        "fontSize" : 18,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "center",
+        "letterSpacing" : 0,
+        "lineHeight" : 1.4,
+        "color" : "#ffffff",
+        "borderTopRightRadius" : 0,
+        "borderTopLeftRadius" : 0,
+        "borderBottomRightRadius" : 0,
+        "borderBottomLeftRadius" : 0,
+        "borderTopWidth" : 0,
+        "borderBottomWidth" : 0,
+        "borderRightWidth" : 0,
+        "borderLeftWidth" : 0,
+        "borderTopColor" : "#333333",
+        "borderBottomColor" : "#333333",
+        "borderRightColor" : "#333333",
+        "borderLeftColor" : "#333333",
+        "background" : "#333333",
+        "paddingTop" : 8,
+        "paddingBottom" : 8,
+        "paddingLeft" : 8,
+        "paddingRight" : 8,
+        "verticalAlign" : "top"
+      },
+      "id" : "w10055"
     },
     "w10015" : {
       "type" : "Button",
@@ -1141,16 +1212,24 @@
       },
       "copyOf" : "w10019"
     },
-    "w10048" : {
+    "w10051" : {
       "type" : "Button",
-      "name" : "Box",
-      "x" : 4006,
-      "y" : 2290,
-      "w" : 252,
-      "h" : 64,
+      "name" : "SimpleCard",
+      "x" : 3994,
+      "y" : 2240,
+      "w" : 276,
+      "h" : 304,
       "z" : 12,
       "props" : {
-        "label" : "Button"
+        "label" : "",
+        "resize" : {
+          "right" : true,
+          "up" : false,
+          "left" : true,
+          "down" : false,
+          "fixedHorizontal" : false,
+          "fixedVertical" : false
+        }
       },
       "has" : {
         "backgroundColor" : true,
@@ -1160,20 +1239,50 @@
         "onclick" : true
       },
       "actions" : { },
-      "style" : { },
-      "id" : "w10048",
-      "template" : "tw10049"
+      "style" : {
+        "fontSize" : 14,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1.4,
+        "color" : "#ffffff",
+        "borderTopRightRadius" : 11,
+        "borderTopLeftRadius" : 11,
+        "borderBottomRightRadius" : 11,
+        "borderBottomLeftRadius" : 11,
+        "borderTopWidth" : 0,
+        "borderBottomWidth" : 0,
+        "borderRightWidth" : 0,
+        "borderLeftWidth" : 0,
+        "borderTopColor" : "#333333",
+        "borderBottomColor" : "#333333",
+        "borderRightColor" : "#333333",
+        "borderLeftColor" : "#333333",
+        "background" : "#ffffff",
+        "paddingTop" : 0,
+        "paddingBottom" : 0,
+        "paddingLeft" : 0,
+        "paddingRight" : 0,
+        "boxShadow" : {
+          "v" : 0,
+          "h" : 0,
+          "b" : 10,
+          "s" : 2,
+          "c" : "rgba(0,0,0,0.25)"
+        }
+      },
+      "id" : "w10051"
     },
-    "w10050" : {
+    "w10052" : {
       "type" : "Button",
-      "name" : "Box 1",
-      "x" : 4006,
-      "y" : 2416,
-      "w" : 252,
-      "h" : 64,
+      "name" : "SimpleBox1",
+      "x" : 4024,
+      "y" : 2268,
+      "w" : 116,
+      "h" : 56,
       "z" : 13,
       "props" : {
-        "label" : "Button 2"
+        "label" : ""
       },
       "has" : {
         "backgroundColor" : true,
@@ -1183,10 +1292,125 @@
         "onclick" : true
       },
       "actions" : { },
-      "style" : { },
-      "id" : "w10050",
-      "template" : "tw10049",
-      "copyOf" : "w10048"
+      "style" : {
+        "fontSize" : 14,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1.4,
+        "color" : "#ffffff",
+        "borderTopRightRadius" : 0,
+        "borderTopLeftRadius" : 0,
+        "borderBottomRightRadius" : 0,
+        "borderBottomLeftRadius" : 0,
+        "borderTopWidth" : 0,
+        "borderBottomWidth" : 0,
+        "borderRightWidth" : 0,
+        "borderLeftWidth" : 0,
+        "borderTopColor" : "#333333",
+        "borderBottomColor" : "#333333",
+        "borderRightColor" : "#333333",
+        "borderLeftColor" : "#333333",
+        "background" : "#333333",
+        "paddingTop" : 0,
+        "paddingBottom" : 0,
+        "paddingLeft" : 0,
+        "paddingRight" : 0
+      },
+      "id" : "w10052"
+    },
+    "w10053" : {
+      "type" : "Button",
+      "name" : "SimpleBox3",
+      "x" : 4024,
+      "y" : 2352,
+      "w" : 216,
+      "h" : 154,
+      "z" : 14,
+      "props" : {
+        "label" : ""
+      },
+      "has" : {
+        "backgroundColor" : true,
+        "border" : true,
+        "label" : true,
+        "padding" : true,
+        "onclick" : true
+      },
+      "actions" : { },
+      "style" : {
+        "fontSize" : 14,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1.4,
+        "color" : "#ffffff",
+        "borderTopRightRadius" : 0,
+        "borderTopLeftRadius" : 0,
+        "borderBottomRightRadius" : 0,
+        "borderBottomLeftRadius" : 0,
+        "borderTopWidth" : 0,
+        "borderBottomWidth" : 0,
+        "borderRightWidth" : 0,
+        "borderLeftWidth" : 0,
+        "borderTopColor" : "#333333",
+        "borderBottomColor" : "#333333",
+        "borderRightColor" : "#333333",
+        "borderLeftColor" : "#333333",
+        "background" : "#333333",
+        "paddingTop" : 0,
+        "paddingBottom" : 0,
+        "paddingLeft" : 0,
+        "paddingRight" : 0
+      },
+      "id" : "w10053",
+      "copyOf" : "w10052"
+    },
+    "w10054" : {
+      "type" : "Button",
+      "name" : "SimpleBox2",
+      "x" : 4170,
+      "y" : 2270,
+      "w" : 70,
+      "h" : 52,
+      "z" : 15,
+      "props" : {
+        "label" : ""
+      },
+      "has" : {
+        "backgroundColor" : true,
+        "border" : true,
+        "label" : true,
+        "padding" : true,
+        "onclick" : true
+      },
+      "actions" : { },
+      "style" : {
+        "fontSize" : 14,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1.4,
+        "color" : "#ffffff",
+        "borderTopRightRadius" : 0,
+        "borderTopLeftRadius" : 0,
+        "borderBottomRightRadius" : 0,
+        "borderBottomLeftRadius" : 0,
+        "borderTopWidth" : 0,
+        "borderBottomWidth" : 0,
+        "borderRightWidth" : 0,
+        "borderLeftWidth" : 0,
+        "borderTopColor" : "#333333",
+        "borderBottomColor" : "#333333",
+        "borderRightColor" : "#333333",
+        "borderLeftColor" : "#333333",
+        "background" : "#333333",
+        "paddingTop" : 0,
+        "paddingBottom" : 0,
+        "paddingLeft" : 0,
+        "paddingRight" : 0
+      },
+      "id" : "w10054"
     }
   },
   "lines" : {
@@ -1218,10 +1442,27 @@
         "h" : 2
       } ],
       "event" : "click"
+    },
+    "l10056" : {
+      "id" : "l10056",
+      "from" : "w10055",
+      "to" : "s10047",
+      "points" : [ {
+        "x" : 2714,
+        "y" : 3220,
+        "w" : 2,
+        "h" : 2
+      }, {
+        "x" : 4106,
+        "y" : 3218,
+        "w" : 2,
+        "h" : 2
+      } ],
+      "event" : "click"
     }
   },
-  "lastUUID" : 10051,
-  "lastUpdate" : 1560197815093,
+  "lastUUID" : 10057,
+  "lastUpdate" : 1562007320595,
   "created" : 1560018090104,
   "startScreen" : "",
   "grid" : {
@@ -1233,24 +1474,12 @@
     "enabled" : false
   },
   "domain" : "Quant-UX.com",
-  "size" : 21495,
-  "isDirty" : true,
-  "sizeBackup" : 129149,
-  "lastBackup" : 1560196539414,
+  "size" : 25282,
+  "isDirty" : false,
+  "sizeBackup" : 133007,
+  "lastBackup" : 1562007508541,
   "lastCategory" : "WireFrame",
-  "groups" : {
-    "g10007" : {
-      "id" : "g10007",
-      "children" : [ "w10002", "w10003", "w10004", "w10005", "w10006" ],
-      "name" : "Group"
-    },
-    "g10013" : {
-      "id" : "g10013",
-      "children" : [ "w10008", "w10009", "w10010", "w10011", "w10012" ],
-      "copyOf" : "g10007",
-      "name" : "Group"
-    }
-  },
+  "groups" : { },
   "templates" : {
     "tw10049" : {
       "id" : "tw10049",

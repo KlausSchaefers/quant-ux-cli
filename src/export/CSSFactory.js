@@ -294,25 +294,58 @@ export default class {
 
 	getGridPosition (widget) {
 		let result = ''
+		//console.debug('getGridPosition', widget.name, ' = ', Util.isRowGrid(widget))
 	
 		if (widget.grid) {
-			result += '  display: grid;\n'
-			result += '  grid-template-columns: ' + this.getGridTracks(widget.w, widget.grid.columns) + ';\n'
-			result += '  grid-template-rows: ' + this.getGridTracks(widget.h, widget.grid.rows) + ';\n'
+			// FIXME: Remove the false!
+			if (false && Util.isRowGrid(widget)) {
+				widget.grid.isRow = true
+				result += `  display: inline-block;\n`
+			} else {
+				result += '  display: grid;\n'
+				result += '  grid-template-columns: ' + this.getGridTracks(widget.w, widget.grid.columns) + ';\n'
+				result += '  grid-template-rows: ' + this.getGridTracks(widget.h, widget.grid.rows) + ';\n'
+			}
 		}
 
 		if (widget.parent) {
-			result += `  grid-column-start: ${widget.gridColumnStart + 1};\n`
-			result += `  grid-column-end: ${widget.gridColumnEnd + 1};\n`
-			result += `  grid-row-start: ${widget.gridRowStart + 1};\n`
-			result += `  grid-row-end: ${widget.gridRowEnd + 1};\n`
+			// console.debug(widget.name, widget.parent.name, widget.parent.grid !== undefined)
+			if (widget.parent.grid && widget.parent.grid.isRow) {	
+				//FIXME: Here we should have some where fancz logic to take pins and fix into account
+				result += `  width: ${this.getResponsiveWidth(widget)};\n`
+				result += `  height: ${this.getResponsiveHeight(widget)};\n`
+				result += `  margin-top: ${this.getResponsiveTop(widget)};\n`
+				result += `  margin-left: ${this.getResponsiveLeft(widget)};\n`
+			} else {
+				result += `  grid-column-start: ${widget.gridColumnStart + 1};\n`
+				result += `  grid-column-end: ${widget.gridColumnEnd + 1};\n`
+				result += `  grid-row-start: ${widget.gridRowStart + 1};\n`
+				result += `  grid-row-end: ${widget.gridRowEnd + 1};\n`
+			}
 		} else {
 			result += `  min-height: 100%;\n`
 		}
-		
-
 		return result
 	}
+
+	getResponsiveTop (widget) {
+		// console.debug('getResponsiveTop', widget.name, widget.top)
+		return widget.top + 'px'
+	}
+
+	getResponsiveLeft (widget) {
+		// console.debug('getResponsiveLeft', widget.name, widget)
+		return widget.x + 'px'
+	}
+
+	getResponsiveWidth( widget) {
+		return widget.w + 'px'
+	}
+
+	getResponsiveHeight (widget) {
+		return widget.h + 'px'
+	}
+
 
 	getGridTracks (total, list) {
 		if (list) {

@@ -13,6 +13,7 @@ export default class ModelTransformer {
         this.columnContainerID = 0
         this.removeSingleLabels = true
         this.isGrid = grid
+        this._cloneId = 0
 
         this.textProperties = [
 			'color', 'textDecoration', 'textAlign', 'fontFamily',
@@ -102,6 +103,14 @@ export default class ModelTransformer {
                 screen = this.addRows(screen)
                 screen = this.addRowContainer(screen)
 
+                screen = this.setOrderAndRelativePositons(screen, false)
+
+                /**
+                 * FIXME: For some reaosn we clone somewhere the
+                 * parents and get weird result.
+                 */
+                this.fixParents(screen)
+
                 screen = this.addGrid(screen)
             }
             
@@ -129,6 +138,15 @@ export default class ModelTransformer {
         })
 
         return result
+    }
+
+    fixParents (parent) {
+        if (parent.children){
+            parent.children.forEach(c => {
+                c.parent = parent
+                this.fixParents(c)
+            })
+        }
     }
 
     addGrid (screen) {
@@ -325,34 +343,42 @@ export default class ModelTransformer {
         }
     }
 
+
     setOrderAndRelativePositons (parent, relative) {
         let nodes = parent.children
         if (parent.type === 'row'){
             nodes.sort((a,b) => {
                 return a.x - b.x
             })
-            if (relative) {
-                let last = 0
-                nodes.forEach((n,i) => {
-                    let x = n.x - last
-                    last = n.x + n.w
+           
+            let last = 0
+            nodes.forEach((n,i) => {
+                let x = n.x - last
+                last = n.x + n.w
+                if (relative) {
                     n.x = x
                     n.c = i
-                })
-            }
+                } else {
+                    n.left = x
+                    n.c = i
+                }
+            })
+            
         } else {
             nodes.sort((a,b) => {
                 return a.y - b.y
             })
-            if (relative) {
-                let last = 0
-                nodes.forEach((n,i) => {
-                    let y = n.y - last
-                    last = n.y + n.h
+            let last = 0
+            nodes.forEach((n,i) => {
+                let y = n.y - last
+                last = n.y + n.h
+                if (relative) {
                     n.y = y
                     n.r = i
-                })
-            }
+                } else {
+                    n.top = y
+                }
+            })
         }
 
         nodes.forEach(n => {
@@ -528,7 +554,7 @@ export default class ModelTransformer {
             // console.debug(' addColumns()', a.name, ' @', parent.name)
             nodes.forEach(b => {
                 if (a.id !== b.id) {
-                    if (this.isOverLappingX(a,b) && a.parent) {
+                    if (Util.isOverLappingX(a,b) && a.parent) {
                         // console.debug('  same row', a.name, b.name)
                         /**
                          * If we have now row, create a new id for a
@@ -644,7 +670,7 @@ export default class ModelTransformer {
             // console.debug(' addRows()', a.name)
             nodes.forEach(b => {
                 if (a.id !== b.id) {
-                    if (this.isOverLappingY(a,b)) {
+                    if (Util.isOverLappingY(a,b)) {
                         /**
                          * FIXME: We have here an issue of the elements in the row are overlapping
                          */
@@ -711,6 +737,9 @@ export default class ModelTransformer {
         let parentWidgets = []
         let elementsById = {}
         widgets.forEach(widget => {
+            /**
+             * FIXME: we should not clone here!
+             */
             let element = this.clone(widget);
             element.children = []
             delete element.has
@@ -762,17 +791,10 @@ export default class ModelTransformer {
     }
 
     clone (obj) {
-        return JSON.parse(JSON.stringify(obj))
+        let clone = JSON.parse(JSON.stringify(obj))
+        clone._id = this._cloneId++
+        return clone
     }
-
-
-	isOverLappingX(pos, box) {
-		return !this.isLeft(pos, box) && !this.isRight(pos, box);
-	}
-
-	isOverLappingY(pos, box) {
-		return !this.isTop(pos, box) && !this.isBottom(pos, box);
-	}
 
     isTop(from, to) {
 		return (from.y) > (to.y + to.h);
@@ -783,7 +805,6 @@ export default class ModelTransformer {
 	}
 
 	isBottom(from, to) {
-      
 		return (from.y + from.h) < (to.y);
 	}
 
