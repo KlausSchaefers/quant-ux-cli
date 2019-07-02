@@ -298,9 +298,10 @@ export default class {
 	
 		if (widget.grid) {
 			// FIXME: Remove the false!
-			if (false && Util.isRowGrid(widget)) {
+			if (Util.isRowGrid(widget)) {
 				widget.grid.isRow = true
-				result += `  display: inline-block;\n`
+				result += `  display: flex;\n`
+				result += `  flex-direction: column;\n`
 			} else {
 				result += '  display: grid;\n'
 				result += '  grid-template-columns: ' + this.getGridTracks(widget.w, widget.grid.columns) + ';\n'
@@ -312,10 +313,38 @@ export default class {
 			// console.debug(widget.name, widget.parent.name, widget.parent.grid !== undefined)
 			if (widget.parent.grid && widget.parent.grid.isRow) {	
 				//FIXME: Here we should have some where fancz logic to take pins and fix into account
-				result += `  width: ${this.getResponsiveWidth(widget)};\n`
-				result += `  height: ${this.getResponsiveHeight(widget)};\n`
-				result += `  margin-top: ${this.getResponsiveTop(widget)};\n`
-				result += `  margin-left: ${this.getResponsiveLeft(widget)};\n`
+				if (Util.isPinnedLeft(widget) && Util.isPinnedRight(widget)) {
+					result += `  margin-left: ${this.getPinnedLeft(widget)};\n`
+					result += `  margin-right: ${this.getPinnedRight(widget)};\n`
+				} else if (Util.isPinnedLeft(widget)){
+					if (Util.isFixedHorizontal(widget)){
+						result += `  width: ${this.getFixedWidth(widget)};\n`
+						result += `  margin-left: ${this.getPinnedLeft(widget)};\n`
+					} else {
+						result += `  margin-right: ${this.getResponsiveRight(widget)};\n`
+						result += `  margin-left: ${this.getPinnedLeft(widget)};\n`
+					}
+					
+				} else if (Util.isPinnedRight(widget)){
+					if (Util.isFixedHorizontal(widget)){
+						result += `  width: ${this.getFixedWidth(widget)};\n`
+						result += `  margin-left: ${this.getCalcLeft(widget)};\n`
+					} else {
+						result += `  margin-left: ${this.getResponsiveLeft(widget)};\n`
+						result += `  margin-right: ${this.getPinnedRight(widget)};\n`
+					}
+				} else {
+					if (Util.isFixedHorizontal(widget)){
+						result += `  width: ${this.getFixedWidth(widget)};\n`
+						result += `  margin-left: ${this.getResponsiveLeft(widget)};\n`
+					} else {
+						result += `  margin-right: ${this.getResponsiveRight(widget)};\n`
+						result += `  margin-left: ${this.getResponsiveLeft(widget)};\n`
+					}
+				}
+				result += `  min-height: ${this.getFixedHeight(widget)};\n`
+				result += `  margin-top: ${this.getPinnedTop(widget)};\n`
+				// FIXME: If the last element, also add some margin down...
 			} else {
 				result += `  grid-column-start: ${widget.gridColumnStart + 1};\n`
 				result += `  grid-column-end: ${widget.gridColumnEnd + 1};\n`
@@ -328,21 +357,56 @@ export default class {
 		return result
 	}
 
-	getResponsiveTop (widget) {
-		// console.debug('getResponsiveTop', widget.name, widget.top)
-		return widget.top + 'px'
-	}
-
-	getResponsiveLeft (widget) {
-		// console.debug('getResponsiveLeft', widget.name, widget)
-		return widget.x + 'px'
-	}
-
-	getResponsiveWidth( widget) {
+	getFixedWidth (widget) {
 		return widget.w + 'px'
 	}
 
-	getResponsiveHeight (widget) {
+	getPinnedTop (widget) {
+		return widget.top + 'px'
+	}
+
+	getCalcLeft (widget) {
+		if (widget.parent) {
+			let right = (widget.parent.w - (widget.x + widget.w))
+			return `calc(100% - ${widget.w + right}px)`
+		}
+		return '0px';
+	}
+
+	getResponsiveLeft (widget) {
+		if (widget.parent) {
+			return Math.round(widget.x * 100 / widget.parent.w) + '%'
+		}
+		return widget.x + 'px'
+	}
+
+	getResponsiveRight (widget) {
+		if (widget.parent) {
+			let right = (widget.parent.w - (widget.x + widget.w)) 
+			return Math.round(right * 100 / widget.parent.w) + '%'
+		}
+		return widget.x + 'px'
+	}
+
+	getPinnedLeft (widget) {
+		return widget.x + 'px'
+	}
+
+	getPinnedRight (widget) {
+		if (widget.parent) {
+			return (widget.parent.w - (widget.x + widget.w)) + 'px'
+		}
+		return '0px'; 
+	}
+
+	getResponsiveWidth( widget) {
+		if (widget.parent) {
+			return Math.round(widget.w * 100 / widget.parent.w) + '%'
+		}
+		return  '100%'
+	}
+
+	getFixedHeight (widget) {
 		return widget.h + 'px'
 	}
 
