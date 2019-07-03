@@ -3,6 +3,15 @@ export function getFileName(name) {
     return name.replace(/\s/g, '_');
 }
 
+export function isLastChild(widget) {
+    if(widget.parent){
+        let parent = widget.parent
+        let last = parent.children[parent.children.length-1]
+        return last.id === widget.id
+    }
+    return false
+}
+
 export function isRowGrid(widget){
     let hasOverlaps = false
     if (widget){
@@ -11,7 +20,6 @@ export function isRowGrid(widget){
             nodes.forEach(b => {
                 if (a.id !== b.id) {
                     if (isOverLappingY(a,b)) {
-                        // console.debug('hasOverLap', widget.name, a.name, b.name)
                         hasOverlaps = true
                     }
                 }

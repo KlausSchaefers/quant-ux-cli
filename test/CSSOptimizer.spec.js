@@ -212,11 +212,16 @@ test('Test compress() > Collapse Padding', () => {
 
     expect(result.border).toBe(undefined)
 
-    //expect(result.paddingTop).toBe(undefined)
-    //expect(result.paddingLeft).toBe(undefined)
-    //expect(result.paddingRight).toBe(undefined)
-    //expect(result.paddingTop).toBe(undefined)
-    //expect(result.padding).toBe('100px')
+    expect(result.paddingTop).toBe(undefined)
+    expect(result.paddingLeft).toBe(undefined)
+    expect(result.paddingRight).toBe(undefined)
+    expect(result.paddingTop).toBe(undefined)
+    // ensure that the values are saved as backups
+    expect(result._paddingTop).toBe(100)
+    expect(result._paddingLeft).toBe(100)
+    expect(result._paddingRight).toBe(100)
+    expect(result._paddingTop).toBe(100)
+    expect(result.padding).toBe('100px')
 
 });
 

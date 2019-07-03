@@ -82,25 +82,18 @@ test('Test getGridTracks', () => {
     { v: 234, start: [], end: [Array], fixed: false, l: 200 } 
   ])
   expect(track).toBe('25% 100px auto')
-
-  console.debug('getGridTracks', track)
 });
 
-test('Test Grid', () => {
+test('Test fontFomaliy', () => {
   let t = new ModelTransformer(app13, true)
   let model = t.transform()
 
   let f = new CSSFactory(true, '', true)
   let styles = f.generate(model)
 
-
-  let screen = styles['s10000'][0]
   let card = styles['w10001'][0]
-  let cricle = styles['w10002'][0]
-  let topleft = styles['w10003'][0]
-  let bottom = styles['w10004'][0]
 
-  // console.debug(TestUtil.print(model.screens[0], true))
-  // console.debug(screen)
-  // console.debug(card)
+  expect(card.code.indexOf('font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;')).toBeGreaterThanOrEqual(0)
+
+  
 });

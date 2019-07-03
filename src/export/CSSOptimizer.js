@@ -71,14 +71,8 @@ export default class CSSOptimizer {
 
     compress (style) {
 
-        /**
-         * TODOD: We have to convert the padding in here alreadz to box model. For now
-         * we need the correct box model in the css factory...
-         */
-        // this.resizeToBoxModel(element)
-        // this.compressAttribes(style, this.padding, 'padding', 'px', 0)
+        this.compressAttribes(style, this.padding, 'padding', 'px', 0)
         
-
         /**
          * Compress and collapse border
          */
@@ -169,6 +163,10 @@ export default class CSSOptimizer {
                 firstValue += unit
             } 
             keys.forEach(key => {
+                /**
+                 * Remove but store a backup for CSSFactory to fix box height
+                 */
+                style['_' + key] = style[key]
                 delete style[key]
             })
 

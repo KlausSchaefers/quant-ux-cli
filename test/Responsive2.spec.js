@@ -16,20 +16,22 @@ test('Test checkCSSRow', () => {
 
     let screen = styles['s10000'][0]
     let r0 = styles['r0'][0]
+    let header = styles['w10001'][0]
     let card = styles['w10002'][0]
     let p = styles['w10004'][0]
     let circleRight = styles['w10058'][0]
     let cricleCenter = styles['w10059'][0]
     let circleLeft = styles['w10057'][0]
  
-    //console.debug(p.code)
-
+    console.debug(header.code)
+  
     expectContains(screen.code, 'display: flex;')
     // card one is pinned left and right
     expectContains(card.code, 'display: flex;')
     expectContains(card.code, 'margin-left: 30px;')
     expectContains(card.code, 'margin-right: 30px;')
     expectNotContains(card.code, ' width:')
+    expectNotContains(card.code, 'margin-bottom:')
 
     // right pinned with fixed with
     expectContains(circleRight.code, ' width: 80px;')
@@ -48,12 +50,13 @@ test('Test checkCSSRow', () => {
     // left right pinned with reponsive width
     expectContains(p.code, 'margin-left: 24px;')
     expectContains(p.code, 'margin-right: 24px;')
+    expectContains(p.code, 'margin-bottom: 50px')
     expectNotContains(card.code, ' width:')
 
     // ro is a grid
     expectContains(r0.code, 'display: grid;')
     
-   
+    expectContains(header.code, 'height: 32px;')
     
     // console.debug(TestUtil.print(s10000))
 });

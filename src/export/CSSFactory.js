@@ -75,10 +75,6 @@ export default class {
 			'fontSize', 'fontStyle', 'fontWeight', 'letterSpacing', 'lineHeight'
 		]
 
-		this.isString = {
-			"fontFamily": true
-		},
-
 		this.isPixel = {
 			"borderBottomLeftRadius": true,
 			"borderBottomRightRadius": true,
@@ -97,6 +93,17 @@ export default class {
 
 			"fontSize": true
 		}
+
+		this.heightProperties = [
+			'paddingTop', 
+			'_paddingTop', 
+			'paddingBottom', 
+			'_paddingBottom', 
+			'borderTopWidth', 
+			'_borderTopWidth',
+			'borderBottomWidth',
+			'_borderBottomWidth'
+		]
 	}
 
 	generate(model) {
@@ -342,9 +349,15 @@ export default class {
 						result += `  margin-left: ${this.getResponsiveLeft(widget)};\n`
 					}
 				}
-				result += `  min-height: ${this.getFixedHeight(widget)};\n`
+				if (Util.isFixedVertical(widget)){
+					result += `  height: ${this.getCorrectedHeight(widget)};\n`
+				} else {
+					result += `  min-height: ${this.getCorrectedHeight(widget)};\n`
+				}				
 				result += `  margin-top: ${this.getPinnedTop(widget)};\n`
-				// FIXME: If the last element, also add some margin down...
+				if (Util.isLastChild(widget)){
+					result += `  margin-bottom: ${this.getPinnedBottom(widget)};\n`
+				}
 			} else {
 				result += `  grid-column-start: ${widget.gridColumnStart + 1};\n`
 				result += `  grid-column-end: ${widget.gridColumnEnd + 1};\n`
@@ -355,6 +368,17 @@ export default class {
 			result += `  min-height: 100%;\n`
 		}
 		return result
+	}
+
+	getPinnedBottom (widget) {
+		if(widget.parent){
+			let parent = widget.parent
+			let innerHeight = parent.children.map(c => {
+				return c.h + c.top
+			}).reduce((a, b) => a + b, 0)
+			return parent.h - innerHeight + 'px'
+		}
+		return 'auto'
 	}
 
 	getFixedWidth (widget) {
@@ -408,6 +432,16 @@ export default class {
 
 	getFixedHeight (widget) {
 		return widget.h + 'px'
+	}
+
+	getCorrectedHeight (widget) {
+		let h = widget.h
+		this.heightProperties.forEach(key => {
+			if (widget.style[key]) {
+				h -= widget.style[key]
+			}
+		})
+		return h + 'px'
 	}
 
 
@@ -494,12 +528,10 @@ export default class {
 		if (!Util.isFixedHorizontal(widget)) {
 			if (widget.parent) {
 				if (Util.isPinnedLeft(widget) && Util.isPinnedRight(widget)) {
-					console.debug(' pinned', widget.name, w, widget.parent.w)
 					// result += `  width: 100%;\n`
 					result += `  margin-left: ${left}px;\n`
 					result += `  margin-right: ${widget.parent.w - (w + widget.x)}px;\n`
 				} else {
-					console.debug(' w', widget.name, w, widget.parent.w)
 					w = widget.w * 100 / widget.parent.w
 					result += `  width: ${w}%;\n`
 					result += `  margin-left: ${left}${unitX};\n`
@@ -520,7 +552,7 @@ export default class {
 	}
 
 	getRawStyle (style) {
-		var result = '  border:0px solid;\n'
+		var result = ''
 		for (var key in this.mapping) {
 			if (style[key] !== undefined && style[key] !== null) {
 				var value = style[key];
@@ -536,8 +568,8 @@ export default class {
 
 	getValue (key, value) {
 		var result = ''
-		if (this.isString[key]) {
-			result += '"' + value + '"';
+		if (key === 'fontFamily'){
+			result += this.escapeFontFamily(value)
 		} else if (this.isPixel[key]) {
 			result += value + 'px';
 		} else if (key === "boxShadow") {
@@ -547,11 +579,19 @@ export default class {
 			}
 		} else if (key === 'textShadow') {
 			result = value.h+"px "+ value.v+"px "+ value.b+"px "+ value.c;
-		}
-		else {
+		} else {
 			result += value
 		}
 		return result;
+	}
+
+	escapeFontFamily (value) {
+		return value.split(',').map(f => {
+			if (f.indexOf(' ') >= 0) {
+				return '"' + f + '"';
+			}
+			return f
+		}).join(', ')
 	}
 
 	clone (obj) {
