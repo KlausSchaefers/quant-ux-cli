@@ -1,5 +1,6 @@
 import ModelTransformer from '../src/export/ModelTransformer'
 import app17 from './data/app17.json'
+import app18 from './data/app18.json'
 import * as TestUtil from './TestUtil'
 import CSSFactory from '../src/export/CSSFactory'
 
@@ -23,7 +24,7 @@ test('Test checkCSSRow', () => {
     let cricleCenter = styles['w10059'][0]
     let circleLeft = styles['w10057'][0]
  
-    console.debug(header.code)
+    // console.debug(header.code)
   
     expectContains(screen.code, 'display: flex;')
     // card one is pinned left and right
@@ -59,6 +60,24 @@ test('Test checkCSSRow', () => {
     expectContains(header.code, 'height: 32px;')
     
     // console.debug(TestUtil.print(s10000))
+});
+
+
+test('Test fixed()', () => {
+
+    let t = new ModelTransformer(app18, true)
+    let model = t.transform()
+
+    let f = new CSSFactory(true, '', true)
+    let styles = f.generate(model)
+
+    let fixed = styles['w10004'][0]
+
+    expectContains(fixed.code, 'position: fixed')
+    expectContains(fixed.code, ' top: 32px')
+    expectContains(fixed.code, ' right: 19px')
+    
+
 });
 
 function expectContains(str, needle) {

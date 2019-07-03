@@ -137,6 +137,10 @@ export default class {
 			screen.children.forEach(child => {
 				this.generateElement(child, result, screen)
 			})
+			
+			screen.fixedChildren.forEach(child => {
+				this.generateElement(child, result, screen)
+			})
 		})
 
 		/**
@@ -292,11 +296,32 @@ export default class {
 	}
 
 	getPosition (widget) {
-		if (!this.isGrid) {
+		if (widget.style.fixed) {
+			return this.getFixedPosition(widget)
+		} else if (!this.isGrid) {
 			return this.getAbsolutePosition(widget)
 		} else {
 			return this.getGridPosition(widget)
 		}
+	}
+
+	getFixedPosition (widget) {
+		let result = '  position: fixed;\n';
+		if (Util.isFixedHorizontal(widget)){
+			result += `  width: ${this.getFixedWidth(widget)};\n`
+		} else {
+			result += `  width: ${this.getResponsiveWidth(widget)};\n`
+		}
+		if (Util.isPinnedLeft(widget)) {
+			result += `  left: ${this.getPinnedLeft(widget)};\n`
+		} else if (Util.isPinnedRight(widget)) {
+			result += `  right: ${this.getPinnedRight(widget)};\n`
+		} else {
+			result += `  left: ${this.getResponsiveLeft(widget)};\n`
+		}
+		result += `  top: ${widget.y}px;\n`
+		result += `  height: ${this.getCorrectedHeight(widget)};\n`
+		return result
 	}
 
 	getGridPosition (widget) {

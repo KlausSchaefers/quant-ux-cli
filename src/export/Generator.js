@@ -14,7 +14,6 @@ export default class Generator {
   }
 
   run (model, grid = false) {
-    console.debug('Generator', grid)
     let result = {
       id: model.id,
       name: model.name,
@@ -62,6 +61,9 @@ export default class Generator {
     screen.children.forEach(child => {
       body.push(this.generateElement(child, styles, gridModel))
     })
+    screen.fixedChildren.forEach(child => {
+      body.push(this.generateElement(child, styles, gridModel))
+    })
     result.template = this.elementFactory.screen(screen, styles[screen.id], body).trim()
     return result
   }
@@ -69,6 +71,8 @@ export default class Generator {
 
 
   generateElement (element, styles, gridModel) {
+    if (element.style.fixed)
+      console.debug('Generator.egenerateElement', element.name, styles[element.id])
     if (element.children && element.children.length > 0) {
       let templates = []
       element.children.forEach(child => {

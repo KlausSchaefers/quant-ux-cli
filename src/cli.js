@@ -18,7 +18,8 @@ function generate (app, conf) {
         'html': conf.targets.html,
         'css': conf.targets.css,
         'images': conf.targets.images,
-        'router': conf.targets.vueRouter
+        'router': conf.targets.vueRouter,
+        'vueApp': conf.targets.vueApp
     }
     Object.values(folders).forEach(f => {
         if (!fs.existsSync(f)) {
@@ -132,7 +133,8 @@ function load(confFile = '.quant-ux.json') {
                             "css": answers.cssFolder,
                             "html": answers.htmlFolder,
                             "images": answers.imageFolder,
-                            "vueRouter": "src"
+                            "vueRouter": "src",
+                            "vueApp": "src"
                         },
                         "type": answers.type,
                         "server": "https://quant-ux.com",
@@ -143,6 +145,7 @@ function load(confFile = '.quant-ux.json') {
                         },
                         "vue": {
                             "generateRouter": true,
+                            "generateApp": true,
                             "routerName": "router.js"
                         }
                 }

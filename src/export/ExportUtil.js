@@ -187,6 +187,11 @@ export function getAllChildrenForScreen(screen) {
             getAllChildren(child, result)
         });
     }
+    if (screen.model.fixedChildren){
+        screen.model.fixedChildren.forEach(child => {
+            result.push(child)
+        })
+    }
     return result
 }
 

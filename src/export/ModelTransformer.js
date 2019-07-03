@@ -61,6 +61,7 @@ export default class ModelTransformer {
 
         for (let screenID in this.model.screens){
             let screen = this.model.screens[screenID]
+
             /**
              * First we build a hirachical parent child relation.
              */
@@ -724,6 +725,7 @@ export default class ModelTransformer {
         delete result.children;
         delete result.has;
         result.children = []
+        result.fixedChildren = []
 
         /**
          * Get widget in render order. This is important to derive the
@@ -737,6 +739,7 @@ export default class ModelTransformer {
         let parentWidgets = []
         let elementsById = {}
         widgets.forEach(widget => {
+            
             /**
              * FIXME: we should not clone here!
              */
@@ -744,29 +747,36 @@ export default class ModelTransformer {
             element.children = []
             delete element.has
 
-            /**
-             * Check if the widget has a parent (= is contained) widget.
-             * If so, calculate the relative position to the parent,
-             * otherwise but the element under the screen.
-             */
-            let parentWidget = this.getParentWidget(parentWidgets, element)
-            if (parentWidget) {
-                element.x = widget.x - parentWidget.x
-                element.y = widget.y - parentWidget.y
-                element.parent = parentWidget
-                elementsById[parentWidget.id].children.push(element)
-            } else {
+            if (widget.style.fixed) {
                 element.x = widget.x - screen.x
                 element.y = widget.y - screen.y
-                element.parent = null;
-                result.children.push(element)
+                element.parent = screen
+                result.fixedChildren.push(element)
+            } else {
+                /**
+                 * Check if the widget has a parent (= is contained) widget.
+                 * If so, calculate the relative position to the parent,
+                 * otherwise but the element under the screen.
+                 */
+                let parentWidget = this.getParentWidget(parentWidgets, element)
+                if (parentWidget) {
+                    element.x = widget.x - parentWidget.x
+                    element.y = widget.y - parentWidget.y
+                    element.parent = parentWidget
+                    elementsById[parentWidget.id].children.push(element)
+                } else {
+                    element.x = widget.x - screen.x
+                    element.y = widget.y - screen.y
+                    element.parent = null;
+                    result.children.push(element)
+                }
+                /**
+                 * Save the widget, so we can check in the next
+                 * iteation if this is a parent or not!
+                 */
+                parentWidgets.unshift(widget)
+                elementsById[element.id] = element
             }
-            /**
-             * Save the widget, so we can check in the next
-             * iteation if this is a parent or not!
-             */
-            parentWidgets.unshift(widget)
-            elementsById[element.id] = element
         })
         return result;
     }
