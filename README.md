@@ -29,7 +29,8 @@ will look like:
         "css": "test/src/css",
         "html": "test/src/html",
         "images": "src/images",
-        "vueRouter": "src"
+        "vueRouter": "src",
+        "vueApp": "src"
     },
     "type": "html",
     "server": "https://quant-ux.com",
@@ -39,6 +40,7 @@ will look like:
     },
     "vue": {
         "generateRouter": true,
+        "generateApp": true,
         "routerName": "router.js"
     }
 }
