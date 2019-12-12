@@ -32,6 +32,7 @@ export default class CSSOptimizer {
     }
 
     runTree (model) {
+        console.debug('CSSOptimizer.runTree()')
 
       	/**
 		 * Generate the template styles

@@ -17,14 +17,17 @@ function generate (app, conf) {
         'vue': conf.targets.vue,
         'html': conf.targets.html,
         'css': conf.targets.css,
+        'app': conf.targets.app,
         'images': conf.targets.images,
         'router': conf.targets.vueRouter,
         'vueApp': conf.targets.vueApp
     }
     Object.values(folders).forEach(f => {
-        if (!fs.existsSync(f)) {
-            fs.mkdirSync(f, { recursive: true })
-            console.debug(chalk.blue('- Create folder ', f))
+        if (f) {
+            if (!fs.existsSync(f)) {
+                fs.mkdirSync(f, { recursive: true })
+                console.debug(chalk.blue('- Create folder ', f))
+            }
         }
     })
 
@@ -90,52 +93,15 @@ function load(confFile = '.quant-ux.json') {
                     message : 'Code generation token. (You can optain it from the "Share" dialog in the web ui)'
                 },
                 {
-                    type : 'input',
-                    name : 'cssFolder',
-                    default: "src/css",
-                    message : 'CSS output folder'
-                },
-                {
-                    type : 'input',
-                    name : 'vueFolder',
-                    default: "src/pages",
-                    message : 'Vue output folder'
-                },
-                {
-                    type : 'input',
-                    name : 'htmlFolder',
-                    default: "src/html",
-                    message : 'HTML putput folder'
-                },
-                {
-                    type : 'input',
-                    name : 'imageFolder',
-                    default: "src/images",
-                    message : 'Image folder'
-                },
-                {
                     type : 'list',
                     name : 'type',
-                    choices: ["Vue", "HTML"],
+                    choices: ["Download", "Vue", "HTML"],
                     message : 'Output format'
-                },
-                {
-                    type : 'confirm',
-                    name : 'save',
-                    message : 'Save config to .quant-ux.json'
-                },
+                }
             ];
             prompt(questions).then(answers => {
                 let conf = {
                         "token": answers.token,
-                        "targets": {
-                            "vue": answers.vueFolder,
-                            "css": answers.cssFolder,
-                            "html": answers.htmlFolder,
-                            "images": answers.imageFolder,
-                            "vueRouter": "src",
-                            "vueApp": "src"
-                        },
                         "type": answers.type,
                         "server": "https://quant-ux.com",
                         "conflict": "overwrite",
@@ -149,18 +115,107 @@ function load(confFile = '.quant-ux.json') {
                             "routerName": "router.js"
                         }
                 }
-                if (answers.save) {
-                    fs.writeFileSync(confFile, JSON.stringify(conf, null, 2))
-                    console.debug(' - Write config file...')
+                if (answers.type === 'Download') {
+                    propmpDownlaod(conf, confFile, resolve)
+                } else {
+                    propmpGenerate(conf, confFile, resolve)
                 }
-                resolve(conf)
             })
         }
     })
 }
 
+function propmpDownlaod(conf, confFile, resolve) {
+    let questions = [
+        {
+            type : 'input',
+            name : 'jsonFolder',
+            default: "src/qux",
+            message : 'Design file folder'
+        },
+        {
+            type : 'input',
+            name : 'imageFolder',
+            default: "public/img",
+            message : 'Image folder'
+        },
+        {
+            type : 'confirm',
+            name : 'save',
+            message : 'Save config to .quant-ux.json'
+        }
+    ]
+
+    prompt(questions).then(answers => {
+        conf.targets = {
+            "images": answers.imageFolder,
+            "app": answers.jsonFolder
+        }
+    
+        if (answers.save) {
+            fs.writeFileSync(confFile, JSON.stringify(conf, null, 2))
+            console.debug(' - Write config file...')
+        }
+        resolve(conf)
+    })
+}
+
+function propmpGenerate (conf, confFile, resolve) {
+
+    let questions = [
+        {
+            type : 'input',
+            name : 'cssFolder',
+            default: "src/css",
+            message : 'CSS output folder'
+        },
+        {
+            type : 'input',
+            name : 'vueFolder',
+            default: "src/pages",
+            message : 'Vue output folder'
+        },
+        {
+            type : 'input',
+            name : 'htmlFolder',
+            default: "src/html",
+            message : 'HTML putput folder'
+        },
+        {
+            type : 'input',
+            name : 'imageFolder',
+            default: "src/images",
+            message : 'Image folder'
+        },
+        {
+            type : 'confirm',
+            name : 'save',
+            message : 'Save config to .quant-ux.json'
+        }
+    ]
+
+    prompt(questions).then(answers => {
+        conf.targets = {
+            "vue": answers.vueFolder,
+            "css": answers.cssFolder,
+            "html": answers.htmlFolder,
+            "images": answers.imageFolder,
+            "vueRouter": "src",
+            "vueApp": "src"
+        }
+
+        if (answers.save) {
+            fs.writeFileSync(confFile, JSON.stringify(conf, null, 2))
+            console.debug(' - Write config file...')
+        }
+        resolve(conf)
+    })
+
+
+}
+
 function main () {
-    console.debug('Quant-UX: Start generating code! V 1.6.1')
+    console.debug('Quant-UX: Start generating code! V 2.0.0')
     /**
      * Here is the main entry point
      */

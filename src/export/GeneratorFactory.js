@@ -1,5 +1,7 @@
 import VueGenerator from './vue/VueGenerator'
 import HTMLGenerator from './html/HTMLGenerator'
+import DownloadGenerator from './download/DownloadGenerator'
+import chalk from 'chalk';
 
 class GeneratorFactory {
 
@@ -10,6 +12,10 @@ class GeneratorFactory {
         if (conf.type.toLowerCase() === 'html') {
             return new HTMLGenerator()
         }
+        if (conf.type.toLowerCase() === 'download') {
+            return new DownloadGenerator()
+        }
+        console.error(chalk.red('Not supported type : ' + conf.type.toLowerCase()))
     }
 
 }

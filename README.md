@@ -52,7 +52,7 @@ you can configure. The _conflict_ parameter defines, how conflicts are handled. 
 (obviously) overwrite your local changes, while "keep" will keep them. This is important if you
 want to generate code into an existing project.
 
-## How to contribbute
+## How to contribute
 
 The code generator is a standalone NPM package. Before you start developing, you need to clone (or fork) the repositiory.
 
@@ -168,3 +168,17 @@ export default class HTMLFactory {
 The page writer finaly assembles the HTML page, in this case a page iwth inline CSS. 
 Please note that this class my return multiple files, 
 for instance seperate files for the CSS and the HTML.
+
+## dev setup
+
+To test:
+
+```
+npm run start
+```
+
+to build
+
+```
+npm run build
+```
