@@ -3,12 +3,86 @@ export function getFileName(name) {
     return name.replace(/\s/g, '_');
 }
 
+export function isLastChild(widget) {
+    if(widget.parent){
+        let parent = widget.parent
+        let last = parent.children[parent.children.length-1]
+        return last.id === widget.id
+    }
+    return false
+}
+
+export function isRowGrid(widget){
+    let hasOverlaps = false
+    if (widget){
+        let nodes = widget.children
+        nodes.forEach(a => {
+            nodes.forEach(b => {
+                if (a.id !== b.id) {
+                    if (isOverLappingY(a,b)) {
+                        hasOverlaps = true
+                    }
+                }
+            })
+        })
+    }
+    return !hasOverlaps
+}
+
+export function isOverLappingX(pos, box) {
+    return !isLeft(pos, box) && !isRight(pos, box);
+}
+
+export function isOverLappingY(pos, box) {
+    return !isTop(pos, box) && !isBottom(pos, box);
+}
+
+export function  isTop(from, to) {
+    return (from.y) > (to.y + to.h);
+}
+
+export function  isStartingTop(from, to) {
+    return (from.y) >= (to.y); // && (from.y + from.h) <= (to.y + to.h);
+}
+
+export function  isBottom(from, to) {
+    return (from.y + from.h) < (to.y);
+}
+
+export function  isLeft(from, to) {
+    return (from.x) > (to.x + to.w);
+}
+
+export function isStartingLeft(from, to) {
+    return (from.x) >= (to.x);
+}
+
+export function isRight(from, to) {
+    return (from.x + from.w) < (to.x);
+}
+
 export function isFixedHorizontal(e) {
     return e.props && e.props.resize && e.props.resize.fixedHorizontal
 }
 
 export function isFixedVertical(e) {
     return e.props && e.props.resize && e.props.resize.fixedVertical
+}
+
+export function isPinnedLeft(e) {
+    return e.props && e.props.resize && e.props.resize.left
+}
+
+export function isPinnedRight(e) {
+    return e.props && e.props.resize && e.props.resize.right
+}
+
+export function isPinnedUp(e) {
+    return e.props && e.props.resize && e.props.resize.up
+}
+
+export function isPinnedDown(e) {
+    return e.props && e.props.resize && e.props.resize.down
 }
 
 
@@ -112,6 +186,11 @@ export function getAllChildrenForScreen(screen) {
             result.push(child)
             getAllChildren(child, result)
         });
+    }
+    if (screen.model.fixedChildren){
+        screen.model.fixedChildren.forEach(child => {
+            result.push(child)
+        })
     }
     return result
 }

@@ -1,8 +1,6 @@
 
 import ModelTransformer from '../src/export/ModelTransformer'
-import CSSFactory from '../src/export/CSSFactory'
 import app13 from './data/app13.json'
-import * as TestUtil from './TestUtil'
 
 xtest('Test computeGrid', () => {
     let t = new ModelTransformer(app13, true)
@@ -52,6 +50,86 @@ xtest('Test computeGrid', () => {
     expectGrid(grid.rows, 100, 100, false)
 });
 
+
+test('Test computeGrid 2', () => {
+    let t = new ModelTransformer(app13, true)
+
+    let e = {
+        name: "Parent",
+        w: 400,
+        h: 600,
+        children: [
+            {
+                name: "Centered Child",
+                x: 50,
+                y: 50,
+                w: 300,
+                h: 200,
+                props : {
+                    resize : {
+                        right : true,
+                        left : true,
+                        up: true,
+                        down:true
+                      }
+                }
+            }
+        ]
+    }
+    let grid = t.computeGrid(e)
+    expect(grid).not.toBe(null)
+    expect(grid.columns.length).toBe(3)
+    expectGrid(grid.columns, 0, 50, true)
+    expectGrid(grid.columns, 50, 300, false)
+    expectGrid(grid.columns, 350, 50, true)
+
+    expect(grid.rows.length).toBe(3)
+    expectGrid(grid.rows, 0, 50, true)
+    expectGrid(grid.rows, 50, 200, false)
+    expectGrid(grid.rows, 250, 350, true)
+});
+
+
+test('Test computeGrid 3', () => {
+    let t = new ModelTransformer(app13, true)
+
+    let e = {
+        name: "Parent",
+        w: 400,
+        h: 600,
+        children: [
+            {
+                name: "Centered Child",
+                x: 50,
+                y: 50,
+                w: 300,
+                h: 200,
+                props : {
+                    resize : {
+                        fixedHorizontal: true,
+                        left : true,
+                        down:true,
+                        fixedVertical: true
+                      }
+                }
+            }
+        ]
+    }
+    let grid = t.computeGrid(e)
+
+    expect(grid).not.toBe(null)
+    expect(grid.columns.length).toBe(3)
+    expectGrid(grid.columns, 0, 50, true)
+    expectGrid(grid.columns, 50, 300, true)
+    expectGrid(grid.columns, 350, 50, false)
+
+
+    expect(grid.rows.length).toBe(3)
+    expectGrid(grid.rows, 0, 50, false)
+    expectGrid(grid.rows, 50, 200, true)
+    expectGrid(grid.rows, 250, 350, true)
+});
+
 function expectGrid(values, v, w, isFixed) {
     let e = values.find(value => value.v === v)
     expect(e).not.toBe(undefined)
@@ -94,46 +172,26 @@ test('Test addGridToElements', () => {
         ]
     }
     let result = t.addGridToElements(e)
-    console.debug(result.grid)
-    console.debug(result)
 
     expect(result).not.toBe(null)
     expect(result).not.toBe(undefined)
     expect(result.grid).not.toBe(null)
     expect(result.grid).not.toBe(undefined)
 
-    let child1 = e.children.find(c => c.name === 'Child2 Hor Fixed')
-    expect(child1.name).toBe('Child2 Hor Fixed')
-    expect(child1.gridColumnStart).toBe(1)
-    expect(child1.gridColumnEnd).toBe(3)
+    let child1 = e.children.find(c => c.name === 'Child1 Vert Fixed')
+    expect(child1.name).toBe('Child1 Vert Fixed')
+    expect(child1.gridColumnStart).toBe(0)
+    expect(child1.gridColumnEnd).toBe(2)
+    expect(child1.gridRowStart).toBe(1)
+    expect(child1.gridRowEnd).toBe(2)
 
-
-
+    let child2 = e.children.find(c => c.name === 'Child2 Hor Fixed')
+    expect(child2.name).toBe('Child2 Hor Fixed')
+    expect(child2.gridColumnStart).toBe(1)
+    expect(child2.gridColumnEnd).toBe(3)
+    expect(child2.gridRowStart).toBe(0)
+    expect(child2.gridRowEnd).toBe(3)
 });
-
-
-xtest('Test Template', () => {
-  let t = new ModelTransformer(app13, true)
-  let model = t.transform()
-
-  let f = new CSSFactory(true, '', true)
-  let styles = f.generate(model)
-
-
-  let screen = styles['s10000'][0]
-  let card = styles['w10001'][0]
-  let cricle = styles['w10002'][0]
-  let topleft = styles['w10003'][0]
-  let bottom = styles['w10004'][0]
-
-  console.debug(TestUtil.print(model.screens[0], true))
-
-  // console.debug(screen.code)
-  // expect(widgetStyle).not.toBe(null)
-  // expect(widgetStyle.length).toBe(2)
-
-});
-
 
 function xtest () {
 

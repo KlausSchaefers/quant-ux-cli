@@ -3,11 +3,12 @@ import * as Util from './ExportUtil'
 
 export default class {
 
-	constructor (isResponsive = false, prefix = '', useScreenNameInSelector = false) {
-		this.isResponsive = isResponsive
+	constructor (isGrid = false, prefix = '', useScreenNameInSelector = false) {
+		this.isGrid = isGrid
 		this.prefix = prefix ? prefix : ''
 		this.useScreenNameInSelector = useScreenNameInSelector
 		this.marginWhiteSpaceCorrect = 0;
+		this.isResponsive = true
 
 		this.mapping = {
 			"background" : "background-color",
@@ -74,10 +75,6 @@ export default class {
 			'fontSize', 'fontStyle', 'fontWeight', 'letterSpacing', 'lineHeight'
 		]
 
-		this.isString = {
-			"fontFamily": true
-		},
-
 		this.isPixel = {
 			"borderBottomLeftRadius": true,
 			"borderBottomRightRadius": true,
@@ -96,6 +93,17 @@ export default class {
 
 			"fontSize": true
 		}
+
+		this.heightProperties = [
+			'paddingTop', 
+			'_paddingTop', 
+			'paddingBottom', 
+			'_paddingBottom', 
+			'borderTopWidth', 
+			'_borderTopWidth',
+			'borderBottomWidth',
+			'_borderBottomWidth'
+		]
 	}
 
 	generate(model) {
@@ -127,6 +135,10 @@ export default class {
 				code: this.getCSS(screen)
 			})
 			screen.children.forEach(child => {
+				this.generateElement(child, result, screen)
+			})
+			
+			screen.fixedChildren.forEach(child => {
 				this.generateElement(child, result, screen)
 			})
 		})
@@ -261,29 +273,220 @@ export default class {
 	}
 
 	getCSS_row () {
-		return '  display: flex;\n  flex-wrap: nowrap;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: flex-start;\n  align-content: flex-start;\n'
+		if (!this.isGrid) {
+			return '  display: flex;\n  flex-wrap: nowrap;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: flex-start;\n  align-content: flex-start;\n'
+		}
+		return ''
 	}
 
 	getCSS_column() {
-		return '  display: inline-block;\n'
+		if (!this.isGrid) {
+			return '  display: inline-block;\n'
+		}
+		return ''
 	}
 
-
-
+	getCSS_Image() {
+		let result = ''
+		if (this.isGrid) {
+			result += `  height:100%;\n`
+			result += `  width:100%;\n`
+		}
+		return result
+	}
 
 	getPosition (widget) {
-		if (!this.isResponsive) {
+		if (widget.style.fixed) {
+			return this.getFixedPosition(widget)
+		} else if (!this.isGrid) {
 			return this.getAbsolutePosition(widget)
 		} else {
-			return this.getResponsivePosition(widget)
+			return this.getGridPosition(widget)
 		}
 	}
 
-	getResponsivePosition (widget) {
+	getFixedPosition (widget) {
+		let result = '  position: fixed;\n';
+		if (Util.isFixedHorizontal(widget)){
+			result += `  width: ${this.getFixedWidth(widget)};\n`
+		} else {
+			result += `  width: ${this.getResponsiveWidth(widget)};\n`
+		}
+		if (Util.isPinnedLeft(widget)) {
+			result += `  left: ${this.getPinnedLeft(widget)};\n`
+		} else if (Util.isPinnedRight(widget)) {
+			result += `  right: ${this.getPinnedRight(widget)};\n`
+		} else {
+			result += `  left: ${this.getResponsiveLeft(widget)};\n`
+		}
+		result += `  top: ${widget.y}px;\n`
+		result += `  height: ${this.getCorrectedHeight(widget)};\n`
+		return result
+	}
 
+	getGridPosition (widget) {
+		let result = ''
+		//console.debug('getGridPosition', widget.name, ' = ', Util.isRowGrid(widget))
+	
+		if (widget.grid) {
+			// FIXME: Remove the false!
+			if (Util.isRowGrid(widget)) {
+				widget.grid.isRow = true
+				result += `  display: flex;\n`
+				result += `  flex-direction: column;\n`
+			} else {
+				result += '  display: grid;\n'
+				result += '  grid-template-columns: ' + this.getGridTracks(widget.w, widget.grid.columns) + ';\n'
+				result += '  grid-template-rows: ' + this.getGridTracks(widget.h, widget.grid.rows) + ';\n'
+			}
+		}
+
+		if (widget.parent) {
+			// console.debug(widget.name, widget.parent.name, widget.parent.grid !== undefined)
+			if (widget.parent.grid && widget.parent.grid.isRow) {	
+				//FIXME: Here we should have some where fancz logic to take pins and fix into account
+				if (Util.isPinnedLeft(widget) && Util.isPinnedRight(widget)) {
+					result += `  margin-left: ${this.getPinnedLeft(widget)};\n`
+					result += `  margin-right: ${this.getPinnedRight(widget)};\n`
+				} else if (Util.isPinnedLeft(widget)){
+					if (Util.isFixedHorizontal(widget)){
+						result += `  width: ${this.getFixedWidth(widget)};\n`
+						result += `  margin-left: ${this.getPinnedLeft(widget)};\n`
+					} else {
+						result += `  margin-right: ${this.getResponsiveRight(widget)};\n`
+						result += `  margin-left: ${this.getPinnedLeft(widget)};\n`
+					}
+					
+				} else if (Util.isPinnedRight(widget)){
+					if (Util.isFixedHorizontal(widget)){
+						result += `  width: ${this.getFixedWidth(widget)};\n`
+						result += `  margin-left: ${this.getCalcLeft(widget)};\n`
+					} else {
+						result += `  margin-left: ${this.getResponsiveLeft(widget)};\n`
+						result += `  margin-right: ${this.getPinnedRight(widget)};\n`
+					}
+				} else {
+					if (Util.isFixedHorizontal(widget)){
+						result += `  width: ${this.getFixedWidth(widget)};\n`
+						result += `  margin-left: ${this.getResponsiveLeft(widget)};\n`
+					} else {
+						result += `  margin-right: ${this.getResponsiveRight(widget)};\n`
+						result += `  margin-left: ${this.getResponsiveLeft(widget)};\n`
+					}
+				}
+				if (Util.isFixedVertical(widget)){
+					result += `  height: ${this.getCorrectedHeight(widget)};\n`
+				} else {
+					result += `  min-height: ${this.getCorrectedHeight(widget)};\n`
+				}				
+				result += `  margin-top: ${this.getPinnedTop(widget)};\n`
+				if (Util.isLastChild(widget)){
+					result += `  margin-bottom: ${this.getPinnedBottom(widget)};\n`
+				}
+			} else {
+				result += `  grid-column-start: ${widget.gridColumnStart + 1};\n`
+				result += `  grid-column-end: ${widget.gridColumnEnd + 1};\n`
+				result += `  grid-row-start: ${widget.gridRowStart + 1};\n`
+				result += `  grid-row-end: ${widget.gridRowEnd + 1};\n`
+			}
+		} else {
+			result += `  min-height: 100%;\n`
+		}
+		return result
+	}
+
+	getPinnedBottom (widget) {
+		if(widget.parent){
+			let parent = widget.parent
+			let innerHeight = parent.children.map(c => {
+				return c.h + c.top
+			}).reduce((a, b) => a + b, 0)
+			return parent.h - innerHeight + 'px'
+		}
+		return 'auto'
+	}
+
+	getFixedWidth (widget) {
+		return widget.w + 'px'
+	}
+
+	getPinnedTop (widget) {
+		return widget.top + 'px'
+	}
+
+	getCalcLeft (widget) {
+		if (widget.parent) {
+			let right = (widget.parent.w - (widget.x + widget.w))
+			return `calc(100% - ${widget.w + right}px)`
+		}
+		return '0px';
+	}
+
+	getResponsiveLeft (widget) {
+		if (widget.parent) {
+			return Math.round(widget.x * 100 / widget.parent.w) + '%'
+		}
+		return widget.x + 'px'
+	}
+
+	getResponsiveRight (widget) {
+		if (widget.parent) {
+			let right = (widget.parent.w - (widget.x + widget.w)) 
+			return Math.round(right * 100 / widget.parent.w) + '%'
+		}
+		return widget.x + 'px'
+	}
+
+	getPinnedLeft (widget) {
+		return widget.x + 'px'
+	}
+
+	getPinnedRight (widget) {
+		if (widget.parent) {
+			return (widget.parent.w - (widget.x + widget.w)) + 'px'
+		}
+		return '0px'; 
+	}
+
+	getResponsiveWidth( widget) {
+		if (widget.parent) {
+			return Math.round(widget.w * 100 / widget.parent.w) + '%'
+		}
+		return  '100%'
+	}
+
+	getFixedHeight (widget) {
+		return widget.h + 'px'
+	}
+
+	getCorrectedHeight (widget) {
+		let h = widget.h
+		this.heightProperties.forEach(key => {
+			if (widget.style[key]) {
+				h -= widget.style[key]
+			}
+		})
+		return h + 'px'
+	}
+
+
+	getGridTracks (total, list) {
+		if (list) {
+			let max = Math.max(...list.map(i => i.l))
+			return list.map(i => {
+				if (i.fixed) {
+					return i.l + 'px'
+				}
+				if (max === i.l) {
+					return 'auto'
+				}
+				return Math.round(i.l * 100 / total) + '%'
+			}).join(' ') 
+		}
 	}
 
 	getAbsolutePosition (widget) {
+		// console.debug('-', widget.name, widget.x, widget.props.resize)
 		let result = ''
 
 		/**
@@ -327,6 +530,7 @@ export default class {
 			}
 		}
 
+	
 		/**
 		 * To deal with margin collapsing we set things to inline-block. We could
 		 * still check for borders...
@@ -335,11 +539,34 @@ export default class {
 			result += '  display: inline-block;\n'
 		}
 		
-		result += `  width: ${w}${unitX};\n`
+		result += `  width: ${w}px;\n`
 		result += `  height: ${h}${unitY};\n`
 		result += `  margin-top: ${top}${unitY};\n`
 		result += `  margin-left: ${left}${unitX};\n`
+
 		return result
+	}
+
+	getRelativePosition (){
+		let result = ''
+
+		if (!Util.isFixedHorizontal(widget)) {
+			if (widget.parent) {
+				if (Util.isPinnedLeft(widget) && Util.isPinnedRight(widget)) {
+					// result += `  width: 100%;\n`
+					result += `  margin-left: ${left}px;\n`
+					result += `  margin-right: ${widget.parent.w - (w + widget.x)}px;\n`
+				} else {
+					w = widget.w * 100 / widget.parent.w
+					result += `  width: ${w}%;\n`
+					result += `  margin-left: ${left}${unitX};\n`
+				}
+			}
+		} else {
+			console.debug(' normal', widget.name, w, widget.props.resize)
+			result += `  width: ${w}px;\n`
+			result += `  margin-left: ${left}${unitX};\n`
+		}
 	}
 
 	getSiblings (widget){
@@ -350,7 +577,7 @@ export default class {
 	}
 
 	getRawStyle (style) {
-		var result = '  border:0px solid;\n'
+		var result = ''
 		for (var key in this.mapping) {
 			if (style[key] !== undefined && style[key] !== null) {
 				var value = style[key];
@@ -366,8 +593,8 @@ export default class {
 
 	getValue (key, value) {
 		var result = ''
-		if (this.isString[key]) {
-			result += '"' + value + '"';
+		if (key === 'fontFamily'){
+			result += this.escapeFontFamily(value)
 		} else if (this.isPixel[key]) {
 			result += value + 'px';
 		} else if (key === "boxShadow") {
@@ -377,11 +604,19 @@ export default class {
 			}
 		} else if (key === 'textShadow') {
 			result = value.h+"px "+ value.v+"px "+ value.b+"px "+ value.c;
-		}
-		else {
+		} else {
 			result += value
 		}
 		return result;
+	}
+
+	escapeFontFamily (value) {
+		return value.split(',').map(f => {
+			if (f.indexOf(' ') >= 0) {
+				return '"' + f + '"';
+			}
+			return f
+		}).join(', ')
 	}
 
 	clone (obj) {

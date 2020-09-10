@@ -7,12 +7,13 @@ import * as Util from './ExportUtil'
  */
 export default class ModelTransformer {
 
-    constructor (app, responsive = false) {
+    constructor (app, grid = false) {
         this.model = app
         this.rowContainerID = 0
         this.columnContainerID = 0
         this.removeSingleLabels = true
-        this.isReponsive = responsive
+        this.isGrid = grid
+        this._cloneId = 0
 
         this.textProperties = [
 			'color', 'textDecoration', 'textAlign', 'fontFamily',
@@ -60,6 +61,7 @@ export default class ModelTransformer {
 
         for (let screenID in this.model.screens){
             let screen = this.model.screens[screenID]
+
             /**
              * First we build a hirachical parent child relation.
              */
@@ -69,7 +71,7 @@ export default class ModelTransformer {
              * If we do not do a responsive layout we have to add rows
              * and columns to make 'old school' layout.
              */
-            if (!this.isReponsive) {
+            if (!this.isGrid) {
                 /**
                  * now check for every node in the tree if
                  * we have a single row and add containers
@@ -96,13 +98,23 @@ export default class ModelTransformer {
                 screen = this.setOrderAndRelativePositons(screen, relative)
 
             } else {
-                console.debug('ModelTransformer.transform() >  Build Grid')
+                /**
+                 * FIXME: add also rows. We still need to sort it somehow
+                 */
+                screen = this.addRows(screen)
+                screen = this.addRowContainer(screen)
+
+                screen = this.setOrderAndRelativePositons(screen, false)
+
+                /**
+                 * FIXME: For some reaosn we clone somewhere the
+                 * parents and get weird result.
+                 */
+                this.fixParents(screen)
 
                 screen = this.addGrid(screen)
             }
             
-
-          
             /**
              * set screen pos to 0,0
              */
@@ -129,6 +141,15 @@ export default class ModelTransformer {
         return result
     }
 
+    fixParents (parent) {
+        if (parent.children){
+            parent.children.forEach(c => {
+                c.parent = parent
+                this.fixParents(c)
+            })
+        }
+    }
+
     addGrid (screen) {
         this.addGridToElements(screen)
         return screen
@@ -140,16 +161,16 @@ export default class ModelTransformer {
             parent.grid = grid
             if (parent.children && parent.children.length > 0) {
                 parent.children.forEach(e => {
-                    // e.gridColumnStart = 0
-                    // e.gridColumnEnd = grid.columns.length
-                    // e.gridRowStart = 0
-                    // e.gridRowEnd = grid.rows.length
+                    e.gridColumnStart = 0
+                    e.gridColumnEnd = grid.columns.length
+                    e.gridRowStart = 0
+                    e.gridRowEnd = grid.rows.length
                     grid.columns.forEach((c, i) => {
                         if (c.v === e.x) {
                             e.gridColumnStart =  i
                         }
                         if (c.v === e.x + e.w) {
-                            eval.gridColumnEnd =  i
+                            e.gridColumnEnd =  i
                         }
                     })
                     grid.rows.forEach((r, i) => {
@@ -165,7 +186,6 @@ export default class ModelTransformer {
         }
         
         if (parent.children && parent.children.length > 0) {
-            
             parent.children.forEach(c => {
                 this.addGridToElements(c)
             })
@@ -173,17 +193,20 @@ export default class ModelTransformer {
         return parent
     }
 
-    computeGrid (parent) {
-        let w = parent.w
-        let h = parent.h
-        
+    computeGrid (parent) {  
         if (parent.children && parent.children.length > 0) {
             let rows = {}
             let columns = {}
 
             /**
-             * Collect all the relevant lines
+             * Collect all the relevant lines. First the parent
+             * then all the children
              */
+            this.addGridColumns(columns, 0, parent, true)
+            this.addGridColumns(columns, parent.w, parent, false)
+            this.addGridRow(rows, 0, parent, true)
+            this.addGridRow(rows, parent.h, parent, false)
+
             parent.children.forEach(c => {
                 this.addGridColumns(columns, c.x, c, true)
                 this.addGridColumns(columns, c.x + c.w, c, false)
@@ -198,24 +221,9 @@ export default class ModelTransformer {
             rows = this.setGridRowHeight(rows, parent)
 
             /**
-             * Set fixed
+             * determine fixed columns and rows
              */
-            parent.children.forEach(e => {
-                if (Util.isFixedHorizontal(e)) {
-                    columns.forEach(column => {
-                        if (column.v >= e.x && column.v < e.x + e.w) {
-                            column.fixed = true
-                        }
-                    })
-                }
-                if (Util.isFixedVertical(e)) {
-                    rows.forEach(row => {
-                        if (row.v >= e.y && row.v < e.y + e.h) {
-                            row.fixed = true
-                        }
-                    })
-                }
-            })
+            this.setFixed(parent, columns, rows)
 
             return {
                 rows: rows,
@@ -223,6 +231,61 @@ export default class ModelTransformer {
             }
         }
         return null
+    }
+
+    setFixed (parent, columns, rows) {
+         /**
+          * Set fixed. For ech child check if the 
+          * 1) We have fixed Vertical or Horizontal
+          * 2) If pinned. e.g. if pinned right, all
+          *    columns < e.v must be fixed
+          */
+        parent.children.forEach(e => {
+            if (Util.isFixedHorizontal(e)) {
+                columns.forEach(column => {
+                    if (column.v >= e.x && column.v < e.x + e.w) {
+                        column.fixed = true
+                    }
+                })
+            }
+            if (Util.isPinnedLeft(e)) {
+                columns.forEach(column => {
+                    if (column.v < e.x) {
+                        column.fixed = true
+                    }
+                })
+            }
+            if (Util.isPinnedRight(e)) {
+                columns.forEach(column => {
+                    if (column.v >= e.x + e.w) {
+                        column.fixed = true
+                    }
+                })
+            }
+
+            if (Util.isFixedVertical(e)) {
+                rows.forEach(row => {
+                    if (row.v >= e.y && row.v < e.y + e.h) {
+                        row.fixed = true
+                    }
+                })
+            }
+
+            if (Util.isPinnedUp(e)) {
+                rows.forEach(row => {
+                    if (row.v < e.y) {
+                        row.fixed = true
+                    }
+                })
+            }
+            if (Util.isPinnedDown(e)) {
+                rows.forEach(row => {
+                    if (row.v >= e.y + e.h) {
+                        row.fixed = true
+                    }
+                })
+            }
+        })
     }
 
     setGridColumnWidth (columns, parent) {
@@ -248,8 +311,6 @@ export default class ModelTransformer {
         })
         return rows.filter(r => r.l > 0)
     }
-
-   
 
     addGridColumns (columns, x, e, start) {
         if (!columns[x]) {
@@ -283,34 +344,42 @@ export default class ModelTransformer {
         }
     }
 
+
     setOrderAndRelativePositons (parent, relative) {
         let nodes = parent.children
         if (parent.type === 'row'){
             nodes.sort((a,b) => {
                 return a.x - b.x
             })
-            if (relative) {
-                let last = 0
-                nodes.forEach((n,i) => {
-                    let x = n.x - last
-                    last = n.x + n.w
+           
+            let last = 0
+            nodes.forEach((n,i) => {
+                let x = n.x - last
+                last = n.x + n.w
+                if (relative) {
                     n.x = x
                     n.c = i
-                })
-            }
+                } else {
+                    n.left = x
+                    n.c = i
+                }
+            })
+            
         } else {
             nodes.sort((a,b) => {
                 return a.y - b.y
             })
-            if (relative) {
-                let last = 0
-                nodes.forEach((n,i) => {
-                    let y = n.y - last
-                    last = n.y + n.h
+            let last = 0
+            nodes.forEach((n,i) => {
+                let y = n.y - last
+                last = n.y + n.h
+                if (relative) {
                     n.y = y
                     n.r = i
-                })
-            }
+                } else {
+                    n.top = y
+                }
+            })
         }
 
         nodes.forEach(n => {
@@ -437,12 +506,22 @@ export default class ModelTransformer {
                     type: 'column',
                     parent: parent,
                     style: {},
-                    props: {}
+                    props: {
+                        resize: {
+                            right: false,
+                            up: false,
+                            left: false,
+                            down: false,
+                            fixedHorizontal: false,
+                            fixedVertical: false
+                        }
+                    }
                 }
                 children.forEach(c => {
                     c.x = c.x - container.x,
                     c.y = c.y - container.y,
                     c.parent = container
+                    this.mergeInResponsive(container, c)
                 })
                 newChildren.push(container)
             } else {
@@ -462,6 +541,12 @@ export default class ModelTransformer {
         return parent
     }
 
+    mergeInResponsive (container, c) {
+        container.props.resize.right = container.props.resize.right || Util.isPinnedRight(c)
+        container.props.resize.left = container.props.resize.left || Util.isPinnedLeft(c)
+        container.props.fixedHorizontal = container.props.fixedHorizontal || Util.isFixedHorizontal(c)
+    }
+
     addColumns (parent) {
         let nodes = parent.children
         // let rows = []
@@ -470,7 +555,7 @@ export default class ModelTransformer {
             // console.debug(' addColumns()', a.name, ' @', parent.name)
             nodes.forEach(b => {
                 if (a.id !== b.id) {
-                    if (this.isOverLappingX(a,b) && a.parent) {
+                    if (Util.isOverLappingX(a,b) && a.parent) {
                         // console.debug('  same row', a.name, b.name)
                         /**
                          * If we have now row, create a new id for a
@@ -541,13 +626,24 @@ export default class ModelTransformer {
                 h: boundingBox.h,
                 w: boundingBox.w,
                 type: 'row',
+                parent: parent,
                 style: {},
-                props: {}
+                props: {
+                    resize: {
+                        right: false,
+                        up: false,
+                        left: false,
+                        down: false,
+                        fixedHorizontal: false,
+                        fixedVertical: false
+                    }
+                }
             }
             children.forEach(c => {
                 c.x = c.x - container.x,
                 c.y = c.y - container.y,
                 c.parent = container
+                this.mergeInResponsive(container, c)
             })
             newChildren.push(container)
         }
@@ -575,7 +671,7 @@ export default class ModelTransformer {
             // console.debug(' addRows()', a.name)
             nodes.forEach(b => {
                 if (a.id !== b.id) {
-                    if (this.isOverLappingY(a,b)) {
+                    if (Util.isOverLappingY(a,b)) {
                         /**
                          * FIXME: We have here an issue of the elements in the row are overlapping
                          */
@@ -629,6 +725,7 @@ export default class ModelTransformer {
         delete result.children;
         delete result.has;
         result.children = []
+        result.fixedChildren = []
 
         /**
          * Get widget in render order. This is important to derive the
@@ -642,33 +739,44 @@ export default class ModelTransformer {
         let parentWidgets = []
         let elementsById = {}
         widgets.forEach(widget => {
+            
+            /**
+             * FIXME: we should not clone here!
+             */
             let element = this.clone(widget);
             element.children = []
             delete element.has
 
-            /**
-             * Check if the widget has a parent (= is contained) widget.
-             * If so, calculate the relative position to the parent,
-             * otherwise but the element under the screen.
-             */
-            let parentWidget = this.getParentWidget(parentWidgets, element)
-            if (parentWidget) {
-                element.x = widget.x - parentWidget.x
-                element.y = widget.y - parentWidget.y
-                element.parent = parentWidget
-                elementsById[parentWidget.id].children.push(element)
-            } else {
+            if (widget.style.fixed) {
                 element.x = widget.x - screen.x
                 element.y = widget.y - screen.y
-                element.parent = null;
-                result.children.push(element)
+                element.parent = screen
+                result.fixedChildren.push(element)
+            } else {
+                /**
+                 * Check if the widget has a parent (= is contained) widget.
+                 * If so, calculate the relative position to the parent,
+                 * otherwise but the element under the screen.
+                 */
+                let parentWidget = this.getParentWidget(parentWidgets, element)
+                if (parentWidget) {
+                    element.x = widget.x - parentWidget.x
+                    element.y = widget.y - parentWidget.y
+                    element.parent = parentWidget
+                    elementsById[parentWidget.id].children.push(element)
+                } else {
+                    element.x = widget.x - screen.x
+                    element.y = widget.y - screen.y
+                    element.parent = null;
+                    result.children.push(element)
+                }
+                /**
+                 * Save the widget, so we can check in the next
+                 * iteation if this is a parent or not!
+                 */
+                parentWidgets.unshift(widget)
+                elementsById[element.id] = element
             }
-            /**
-             * Save the widget, so we can check in the next
-             * iteation if this is a parent or not!
-             */
-            parentWidgets.unshift(widget)
-            elementsById[element.id] = element
         })
         return result;
     }
@@ -693,17 +801,10 @@ export default class ModelTransformer {
     }
 
     clone (obj) {
-        return JSON.parse(JSON.stringify(obj))
+        let clone = JSON.parse(JSON.stringify(obj))
+        clone._id = this._cloneId++
+        return clone
     }
-
-
-	isOverLappingX(pos, box) {
-		return !this.isLeft(pos, box) && !this.isRight(pos, box);
-	}
-
-	isOverLappingY(pos, box) {
-		return !this.isTop(pos, box) && !this.isBottom(pos, box);
-	}
 
     isTop(from, to) {
 		return (from.y) > (to.y + to.h);
@@ -714,7 +815,6 @@ export default class ModelTransformer {
 	}
 
 	isBottom(from, to) {
-      
 		return (from.y + from.h) < (to.y);
 	}
 

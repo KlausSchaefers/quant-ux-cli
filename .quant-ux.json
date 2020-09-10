@@ -1,20 +1,19 @@
 {
-    "token": "a2aa10azyyjaG658KWPs7GXyZinYy72N3VfwFobBG1cdgmbYpJK7zTfNKTVe",
-    "targets": {
-        "vue": "generated/src/components",
-        "css": "generated/src/css",
-        "html": "generated/src/html",
-        "images": "generated/src/images"
-    },
-    "type": "vue",
-    "server": "https://quant-ux.com",
-    "conflict": "overwrite",
-    "css": {
-        "responsive": true
-    },
-    "vue": {
-        "generateRouter": true,
-        "routerName": "router.js",
-        "routerTarget": "generated/src"
-    }
+  "token": "a2aa10abLy4aCZ3lp0jErH3tKddxyzgUGUSggDRPzLI0XC5DV6z0kVa9frfu",
+  "type": "Download",
+  "server": "https://quant-ux.com",
+  "conflict": "overwrite",
+  "css": {
+    "grid": false,
+    "prefix": ""
+  },
+  "vue": {
+    "generateRouter": true,
+    "generateApp": true,
+    "routerName": "router.js"
+  },
+  "targets": {
+    "images": "generated/images",
+    "app": "generated/app"
+  }
 }
