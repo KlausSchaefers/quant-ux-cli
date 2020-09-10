@@ -4,9 +4,9 @@ import CSSFactory from '../src/export/CSSFactory'
 import app13 from './data/app13.json'
 import * as TestUtil from './TestUtil'
 
-test('Test computeGrid', () => {
+xtest('Test computeGrid', () => {
     let t = new ModelTransformer(app13, true)
-    
+
     let e = {
         name: "Parent",
         w: 600,
@@ -14,7 +14,7 @@ test('Test computeGrid', () => {
         children: [
             {
                 name: "Child2 Hor Fixed",
-                x: 100, 
+                x: 100,
                 y: 0,
                 w: 250,
                 h: 200,
@@ -26,7 +26,7 @@ test('Test computeGrid', () => {
             },
             {
                 name: "Child1 Vert Fixed",
-                x: 0, 
+                x: 0,
                 y: 50,
                 w: 200,
                 h: 50,
@@ -59,9 +59,9 @@ function expectGrid(values, v, w, isFixed) {
     expect(e.fixed).toBe(isFixed)
 }
 
-xtest('Test addGridToElements', () => {
+test('Test addGridToElements', () => {
     let t = new ModelTransformer(app13, true)
-    
+
     let e = {
         name: "Parent",
         w: 600,
@@ -69,7 +69,7 @@ xtest('Test addGridToElements', () => {
         children: [
             {
                 name: "Child2 Hor Fixed",
-                x: 100, 
+                x: 100,
                 y: 0,
                 w: 250,
                 h: 200,
@@ -81,7 +81,7 @@ xtest('Test addGridToElements', () => {
             },
             {
                 name: "Child1 Vert Fixed",
-                x: 0, 
+                x: 0,
                 y: 50,
                 w: 200,
                 h: 50,
@@ -107,8 +107,8 @@ xtest('Test addGridToElements', () => {
     expect(child1.gridColumnStart).toBe(1)
     expect(child1.gridColumnEnd).toBe(3)
 
-  
-   
+
+
 });
 
 
